@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMApplication", "PMApplication.csproj", "{ED135CC5-277F-4DC5-AF41-DFB7A6CCD9DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMInfrastructure", "..\DploServiceCore\PMInfrastructure.csproj", "{8393E721-4584-4E2D-BAF3-8B97B8E46CBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED135CC5-277F-4DC5-AF41-DFB7A6CCD9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED135CC5-277F-4DC5-AF41-DFB7A6CCD9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED135CC5-277F-4DC5-AF41-DFB7A6CCD9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED135CC5-277F-4DC5-AF41-DFB7A6CCD9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8393E721-4584-4E2D-BAF3-8B97B8E46CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8393E721-4584-4E2D-BAF3-8B97B8E46CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8393E721-4584-4E2D-BAF3-8B97B8E46CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8393E721-4584-4E2D-BAF3-8B97B8E46CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A391D0B-CC42-4465-B253-69C2BDFC91A0}
+	EndGlobalSection
+EndGlobal
