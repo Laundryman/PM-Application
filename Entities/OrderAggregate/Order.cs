@@ -31,4 +31,7 @@ public partial class Order : BaseEntity<long>, IAggregateRoot
     public string? OrderCreatedBy { get; set; }
 
     public string? OrderUpdatedBy { get; set; }
+
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderPlanogram> OrderPlanograms { get; set; } = new List<OrderPlanogram>();
 }

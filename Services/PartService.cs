@@ -150,7 +150,7 @@ namespace PMApplication.Services
 
         public Task CreatePart(Part part)
         {
-            throw new NotImplementedException();
+            _partRepository.AddAsync(part);
         }
 
         public Task DeletePart(int id)

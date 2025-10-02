@@ -32,7 +32,7 @@ public partial class Planogram : BaseEntity<long>, IAggregateRoot
 
     public bool Template { get; set; }
 
-    public int? ScratchPadId { get; set; }
+    public long? ScratchPadId { get; set; }
 
     public int? LegacyLastUpdatedBy { get; set; }
 

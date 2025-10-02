@@ -11,7 +11,7 @@ public partial class OrderItem : BaseEntity<long>, IAggregateRoot
 
     public DateTime DateAdded { get; set; }
 
-    public int PartId { get; set; }
+    public long PartId { get; set; }
 
     public int? PlanogramId { get; set; }
 

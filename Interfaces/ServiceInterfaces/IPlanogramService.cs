@@ -55,41 +55,43 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
 
-        IEnumerable<PlanogramNote> GetPlanogramNotes(string userId, int brandId, int countryId, int regionId, int planogramID);
 
-
-        //IEnumerable<SkuList> GetSkuList(int id, string userId, bool hasColumns);
+        Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns);
         //IEnumerable<CassetteList> GetCassetteList(int id, string userId);
 
 
-        //int CreatePlanogramFromCluster(int clusterId, string name, UserViewModel userInfo);
-        //Task<int> ClonePlanogram(int planogramId, string name, UserViewModel userProfile);
-        //Task<int> ClonePlanogram(int planogramId, string name, UserViewModel userProfile, bool isUpdate);
+        Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo);
+        Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile);
+        Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile, bool isUpdate);
 
 
 
-        //XmlDocument GetPlanogramXML(int id, string userId, string rootPath);
-        //    XmlDocument GetPlanogramSectionXML(int planogramId, Guid virtualPlanoId, string userId, string rootPath, int leftPosition, int rightPosition);
         //  int GetPlanogramSectionOffSetWidth(int planogramId, int sectionStartPoint, int sectionEndPoint);
 
-        void CreatePlanogram(Planogram planogram);
+        Task CreatePlanogram(Planogram planogram);
         void DeletePlanogram(int id);
         //void LockPlanogram(int id, UserViewModel user);
         //void UnLockPlanogram(int id, UserViewModel user);
         //void UnLockPlanogram(int id);
 
-        bool IsLocked(int id, CurrentUser user);
-        void SavePlanogram();
+        bool IsLocked(long PlanogramId, CurrentUser user);
+        void SavePlanogram(Planogram planogram);
 
         PlanogramNote GetNote(long noteId);
+        Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(string userId, int brandId, int countryId, int regionId,
+            long planogramId);
+
+        Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId,
+            int regionId, int planogramId, long newPlanogramId);
         void CreatePlanogramNote(PlanogramNote planogramNote);
         void DeletePlanogramNote(int id);
         void SavePlanogramNote();
 
-        ScratchPad GetScratchPad(int scratchPadId);
+        Task<long> CloneScratchPad(long planogramId, long newPlanogramId);
+        Task<ScratchPad> GetScratchPad(long scratchPadId);
         void CreateScratchPad(ScratchPad scratchPad);
-        void DeleteScratchPad(int id);
-        void SaveScratchPad();
+        void DeleteScratchPad(long id);
+        //void SaveScratchPad();
 
         PlanogramShelf GetPlanogramShelf(int id);
         IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId);

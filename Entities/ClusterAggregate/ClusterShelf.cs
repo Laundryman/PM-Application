@@ -1,4 +1,5 @@
-﻿using PMApplication.Interfaces;
+﻿using PMApplication.Entities.PartAggregate;
+using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.ClusterAggregate;
 
@@ -25,6 +26,7 @@ public partial class ClusterShelf : BaseEntity<long>, IAggregateRoot
     public int ShelfTypeId { get; set; }
 
     public virtual Cluster Cluster { get; set; } = null!;
+    public virtual Part Part { get; set; } = null!;
 
     public virtual ICollection<ClusterPart> ClusterParts { get; set; } = new List<ClusterPart>();
 }

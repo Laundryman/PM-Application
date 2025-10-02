@@ -6,7 +6,7 @@ using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.CountriesAggregate;
 
-public partial class Country : BaseEntity<long>, IAggregateRoot
+public partial class Country : BaseEntity<int>, IAggregateRoot
 {
     public string Name { get; set; } = null!;
 
