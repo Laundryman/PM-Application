@@ -21,6 +21,6 @@ namespace PMApplication.Entities.OrderAggregate
         public bool Shoppable { get; set; }
         public bool HidePrices { get; set; }
         public bool? IsFullPlano { get; set; }
-        public int? OrderPlanogramId { get; set; }
+        public long? OrderPlanogramId { get; set; }
     }
 }

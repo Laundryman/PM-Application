@@ -18,7 +18,7 @@ public partial class Email : BaseEntity<int>, IAggregateRoot
 
     public bool? EmailSendSuccess { get; set; }
 
-    public string? EmailTrigger { get; set; }
+    public int? EmailTrigger { get; set; }
 
     public string? BrandName { get; set; }
 

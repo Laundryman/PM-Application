@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMApplication.Dtos.PlanModels
+namespace PMApplication.Entities.PlanogramAggregate
 {
-    public partial class MenuPartDto
+    public partial class PlanmMenuPart
     {
         public long Id { get; set; }
         public string PartNumber { get; set; }

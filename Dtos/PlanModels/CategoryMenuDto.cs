@@ -1,4 +1,5 @@
 ﻿using PMApplication.Entities;
+using PMApplication.Entities.PlanogramAggregate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,7 @@ namespace PMApplication.Dtos.PlanModels
 
         public int? HeroProductId { get; set; }
         public string HeroImageUrl { get; set; }
-        public List<MenuPartDto> Parts { get; set; }
+        public List<PlanmMenuPart> Parts { get; set; }
 
     }
 }

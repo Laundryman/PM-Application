@@ -6,5 +6,6 @@
         public int ParentCatId { get; set; } = 0;
         public bool GetParents { get; set; }
         public int? BrandId { get; set; }
+        public int? CountryId { get; set; }
     }
 }

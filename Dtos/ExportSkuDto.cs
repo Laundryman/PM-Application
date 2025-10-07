@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMApplication.Dtos.PlanModels
+namespace PMApplication.Dtos
 {
     public class ExportSkuDto
     {

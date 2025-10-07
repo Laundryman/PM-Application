@@ -20,7 +20,7 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
     public string? FlagFileName { get; set; }
 
-    public virtual Region? Region { get; set; }
+    //public virtual Region? Region { get; set; }
 
     public virtual List<RegionCountry> RegionCountries { get; set; } = new List<RegionCountry>();
 
@@ -37,5 +37,6 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
 
     public virtual List<Shade> Shades { get; set; } = new List<Shade>();
+    public virtual List<Region> Regions { get; set; } = new List<Region>();
     //public virtual ICollection<CountryPart> CountryParts { get; } = new List<CountryPart>();
 }

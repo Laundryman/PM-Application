@@ -32,14 +32,14 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
         Task<StandType> GetStandType(int id);
-        IEnumerable<StandType> GetStandTypes();
-        IEnumerable<StandType> GetStandTypes(int brandId);
-        IEnumerable<StandType> GetStandTypesWithStands(int brandId);
-        IEnumerable<StandType> GetStandTypesWithStands(int brandId, int countryId);
-        IEnumerable<StandType> GetChildStandTypes(int parentStandTypeId);
-        IEnumerable<StandType> GetChildStandTypesByBrand(int brandId, int parentStandTypeId);
+        Task<IReadOnlyList<StandType>> GetStandTypes(StandTypeFilter filter);
+        //IEnumerable<StandType> GetStandTypes(int brandId);
+        //IEnumerable<StandType> GetStandTypesWithStands(int brandId);
+        //IEnumerable<StandType> GetStandTypesWithStands(int brandId, int countryId);
+        //IEnumerable<StandType> GetChildStandTypes(int parentStandTypeId);
+        //IEnumerable<StandType> GetChildStandTypesByBrand(int brandId, int parentStandTypeId);
 
-        IEnumerable<StandType> GetFilteredStandTypes(int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId, int? partId, bool shoppable);
+        Task<IReadOnlyList<StandType>> GetFilteredStandTypes(int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId, int? partId, bool shoppable);
 
 
         void CreateStandType(StandType standType);

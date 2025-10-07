@@ -7,11 +7,15 @@
         public int DisplayOrder { get; set; }
         public int? ParentCategoryId { get; set; }
 
+        public int? HeroProductId { get; set; }
+        public string HeroImageUrl { get; set; }
         public CategoryDto ParentCategory { get; set;}
 
-        public CategoryDto(string name)
-        {
-            Name = name;
-        }
+        //public CategoryDto(string name)
+        //{
+        //    Name = name;
+        //}
+
+
     }
 }

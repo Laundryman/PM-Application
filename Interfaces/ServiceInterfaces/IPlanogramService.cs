@@ -61,25 +61,24 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
         Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo);
-        Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile);
-        Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile, bool isUpdate);
+        Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile);
+        Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate);
 
 
 
         //  int GetPlanogramSectionOffSetWidth(int planogramId, int sectionStartPoint, int sectionEndPoint);
 
         Task CreatePlanogram(Planogram planogram);
-        void DeletePlanogram(int id);
-        //void LockPlanogram(int id, UserViewModel user);
-        //void UnLockPlanogram(int id, UserViewModel user);
-        //void UnLockPlanogram(int id);
+        void DeletePlanogram(long id);
+        void LockPlanogram(long id, CurrentUser user);
+        void UnLockPlanogram(long id, CurrentUser user);
+        void UnLockPlanogram(long id);
 
         bool IsLocked(long PlanogramId, CurrentUser user);
         void SavePlanogram(Planogram planogram);
 
         PlanogramNote GetNote(long noteId);
-        Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(string userId, int brandId, int countryId, int regionId,
-            long planogramId);
+        Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(NoteFilter filter);
 
         Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId,
             int regionId, int planogramId, long newPlanogramId);

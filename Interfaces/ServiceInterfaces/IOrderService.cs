@@ -33,19 +33,19 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //Task<IReadOnlyList<Order>> GetOpenOrdersByCountry(int countryId);
         Task<IReadOnlyList<SelectListItem>> GetOrderStatuses(int selected);
         void CreateOrder(Order order);
-        void DeleteOrder(int id);
+        Task DeleteOrder(int id);
         void SaveOrder();
 
 
         Task<OrderItem> GetOrderItem(int id);
         //Task<IReadOnlyList<OrderItem>> GetOrderItems();
-        Task<IReadOnlyList<OrderItemInfo>> GetOrderItems(long orderId);
+        Task<IReadOnlyList<OrderItemInfo>> GetOrderItemInfos(long orderId);
         void CreateOrderItem(OrderItem OrderItem);
         void DeleteOrderItem(int id);
         void SaveOrderItem();
 
-        void DeletePlanogram(int orderId, int planogramId);
-        void DeleteFullPlanogram(int orderId, int orderPlanogramId);
+        Task DeletePlanogram(int orderId, int planogramId);
+        Task DeleteFullPlanogram(int orderId, int orderPlanogramId);
 
         void AddPartsToOrder(int orderId, int planogramId, int quantity, string userId, string userName, bool isFullPlano);
 

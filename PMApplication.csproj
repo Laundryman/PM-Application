@@ -37,4 +37,8 @@
     <PackageReference Include="Microsoft.Graph" Version="5.83.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>

@@ -12,9 +12,9 @@ namespace PMApplication.Specifications
             //if (filter.BrandId != null)
             //    Query.Where(x => x.BrandId == filter.BrandId);
             if (filter.PlanogramId != null)
-                Query.Where(x => x.PlanogramId = filter.PlanogramId);
+                Query.Where(x => x.PlanogramId == filter.PlanogramId);
 
-            Query.OrderBy(x => x.Name);
+            Query.OrderBy(x => x.NoteDate);
         }
 
     }

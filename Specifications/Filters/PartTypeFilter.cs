@@ -1,4 +1,6 @@
-﻿namespace PMApplication.Specifications.Filters
+﻿using PMApplication.Dtos;
+
+namespace PMApplication.Specifications.Filters
 {
     public class PartTypeFilter : BaseFilter
     {
@@ -19,5 +21,6 @@
         public string? sortBy { get; set; }
         public string? sortOrder { get; set; }
         public string? SearchString { get; set; }
+
     }
 }

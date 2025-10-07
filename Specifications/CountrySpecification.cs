@@ -23,8 +23,6 @@ namespace PMApplication.Specifications
 
             }
 
-
-
             if (filter.IsPagingEnabled)
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
                     .Take(PaginationHelper.CalculateTake(filter));

@@ -16,17 +16,16 @@ using PMApplication.Interfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
-using PMApplication.Dtos.PlanModels;
 
 namespace PMApplication.Services
 {
     public class PartService : IPartService
     {
         private readonly IAsyncRepositoryLong<Part> _partRepository;
+        private readonly IPartRepository _partRepositorySync;
         private readonly IAsyncRepository<PartType> _partTypeRepository;
         private readonly IAsyncRepository<StandType> _standTypeRepository;
         private readonly IAsyncRepository<Category> _categoryRepository;
-        private readonly IPartRepository _partRepositorySync;
         private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
@@ -78,21 +77,19 @@ namespace PMApplication.Services
             }
         }
 
-        public async Task<IReadOnlyList<PartInfo>> GetFilteredParts(PartFilter partFilter)
+        public async Task<IReadOnlyList<PartInfo>> GetFilteredParts(int brandId, int? page, int? pageSize, string sortBy, string sortOrder, string searchString,
+            int? partTypeId, int? parentCategoryId, int? categoryId, int? countryId, int? regionId, int? standTypeId)
         {
-            try
-            {
-                var spec = new PartSpecification(partFilter);
-                var parts = await _partRepository.ListAsync(spec);
-                var partList = _mapper.Map<IReadOnlyList<PartInfo>>(parts);
-                return partList;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as needed
-                throw new NotImplementedException("Method not implemented yet.", ex);
-            }
+            return await _partRepositorySync.GetFilteredParts(brandId,partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, false);
         }
+
+        public async Task<IReadOnlyList<PartInfo>> GetFilteredShopParts(int brandId, int? page, int? pageSize, string sortBy, string sortOrder,
+            string searchString, int? partTypeId, int? parentCategoryId, int? categoryId, int? countryId, int? regionId,
+            int? standTypeId)
+        {
+            return await _partRepositorySync.GetFilteredParts(brandId, partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, true);
+        }
+
 
         public async Task<IReadOnlyList<PartType>> GetPartTypes()
         {
@@ -128,7 +125,7 @@ namespace PMApplication.Services
         //    throw new NotImplementedException();
         //}
 
-        public async Task<IReadOnlyList<MenuPartDto>?> GetPlanxMenu(int brandId, int countryId, int standTypeId)
+        public async Task<IReadOnlyList<PlanmMenuPart>?> GetPlanxMenu(int brandId, int countryId, int standTypeId)
         {
             try
             {
@@ -148,9 +145,10 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public Task CreatePart(Part part)
+        public async Task<Part> CreatePart(Part part)
         {
-            _partRepository.AddAsync(part);
+            var savedPart = await _partRepository.AddAsync(part);
+            return savedPart;
         }
 
         public Task DeletePart(int id)

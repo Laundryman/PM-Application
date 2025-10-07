@@ -23,14 +23,14 @@ namespace PMApplication.Services
     {
         private readonly IAsyncRepository<Stand> _standRepository;
         private readonly IAsyncRepository<PartType> _partTypeRepository;
-        private readonly IAsyncRepository<StandType> _standTypeRepository;
+        private readonly IStandTypeRepository _standTypeRepository;
         private readonly IAsyncRepository<Category> _categoryRepository;
         //private readonly IPartRepository _partRepositorySync;
         //private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public StandService(IAsyncRepository<Stand> standRepository, IAsyncRepository<PartType> partTypeRepository, IAsyncRepository<StandType> standTypeRepository, IAsyncRepository<Category> categoryRepository)
+        public StandService(IAsyncRepository<Stand> standRepository, IAsyncRepository<PartType> partTypeRepository, IStandTypeRepository standTypeRepository, IAsyncRepository<Category> categoryRepository)
         {
             _standRepository = standRepository;
             _partTypeRepository = partTypeRepository;
@@ -117,41 +117,19 @@ namespace PMApplication.Services
         {
             throw new NotImplementedException();
         }
-        
-        public IEnumerable<StandType> GetStandTypes()
+
+        public Task<IReadOnlyList<StandType>> GetStandTypes(StandTypeFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<StandType> GetStandTypes(int brandId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<StandType> GetStandTypesWithStands(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<StandType> GetStandTypesWithStands(int brandId, int countryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<StandType> GetChildStandTypes(int parentStandTypeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<StandType> GetChildStandTypesByBrand(int brandId, int parentStandTypeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<StandType> GetFilteredStandTypes(int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId,
+        public async Task<IReadOnlyList<StandType>> GetFilteredStandTypes(int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId,
             int? partId, bool shoppable)
         {
-            throw new NotImplementedException();
+            var standTypes = _standTypeRepository.GetFilteredStandTypes(brandId, regionId, countryId, categoryId, parentCategoryId,
+                partId, shoppable);
+            return await standTypes;
         }
 
         public void CreateStandType(StandType standType)

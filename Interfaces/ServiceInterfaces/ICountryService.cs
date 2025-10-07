@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Interfaces.ServiceInterfaces
 {
     public interface ICountryService
     {
-        Task<IReadOnlyList<Country>> GetCountries();
+        Task<IReadOnlyList<Country>> GetCountries(CountryFilter filter);
         //Enumerable<Country> GetActiveCountries();
         //IEnumerable<Country> GetAllActiveCountries();
         //IEnumerable<Country> GetCountriesByRegion(int regionId);

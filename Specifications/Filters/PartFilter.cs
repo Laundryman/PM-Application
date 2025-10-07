@@ -1,4 +1,6 @@
-﻿namespace PMApplication.Specifications.Filters
+﻿using PMApplication.Dtos;
+
+namespace PMApplication.Specifications.Filters
 {
     public class PartFilter : BaseFilter
     {
@@ -19,5 +21,8 @@
         public string? sortBy { get; set; }
         public string? sortOrder { get; set; }
         public string? SearchString { get; set; }
+        public bool excludeSpareParts { get; set; }
+        public ICollection<CountryDto> Countries { get; set; }
+
     }
 }

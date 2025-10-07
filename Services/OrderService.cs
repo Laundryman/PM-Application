@@ -87,7 +87,7 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void DeleteOrder(int id)
+        public async Task DeleteOrder(int id)
         {
             throw new NotImplementedException();
         }
@@ -111,7 +111,7 @@ namespace PMApplication.Services
         }
 
 
-        public async Task<IReadOnlyList<OrderItemInfo>> GetOrderItems(long orderId)
+        public async Task<IReadOnlyList<OrderItemInfo>> GetOrderItemInfos(long orderId)
         {
             try
             {
@@ -142,12 +142,12 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void DeletePlanogram(int orderId, int planogramId)
+        public Task DeletePlanogram(int orderId, int planogramId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteFullPlanogram(int orderId, int orderPlanogramId)
+        public Task DeleteFullPlanogram(int orderId, int orderPlanogramId)
         {
             throw new NotImplementedException();
         }

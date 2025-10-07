@@ -5,18 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PMApplication.Dtos;
+using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Interfaces.ServiceInterfaces
 {
     public interface ICategoryService
     {
-        IEnumerable<Category> GetCategories();
-        IEnumerable<Category> GetParentCategories();
-        IEnumerable<Category> GetSubCategories(int ParentCategoryId);
-        IEnumerable<ShopCategory> GetShopCategories(int brandId, int countryId);
-        Category GetCategory(int id);
-        void CreateCategory(Category category);
-        void DeleteCategory(int id);
+        Task<IReadOnlyList<Category>> GetCategories(CategoryFilter filter);
+        Task<IReadOnlyList<ShopCategory>> GetShopCategories(int BrandId, int CountryId);
+        Task<Category> GetCategory(int id);
+        Task CreateCategory(Category category);
+        Task DeleteCategory(int id);
         void SaveCategory();
     }
 }

@@ -88,6 +88,7 @@ namespace PMApplication.Services
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
         {
             var skus = await _planogramRepositorySync.GetSkuList(id, userId, hasColumns);
+            return skus;
         }
 
 
@@ -156,13 +157,13 @@ namespace PMApplication.Services
             return planogram.Id;
         }
 
-        public async Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile)
+        public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile)
         {
             var newPlanoId = await ClonePlanogram(planogramId, name, userProfile, false);
             return newPlanoId;
         }
 
-        public async Task<long> ClonePlanogram(int planogramId, string name, CurrentUser userProfile, bool isUpdate)
+        public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate)
         {
             Planogram originalPlanogram = await _planogramRepository.GetByIdAsync(planogramId);
 
@@ -380,7 +381,22 @@ namespace PMApplication.Services
             }
         }
 
-        public void DeletePlanogram(int id)
+        public void DeletePlanogram(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LockPlanogram(long id, CurrentUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnLockPlanogram(long id, CurrentUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnLockPlanogram(long id)
         {
             throw new NotImplementedException();
         }
@@ -400,9 +416,11 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        Task<IReadOnlyList<PlanogramNote>> IPlanogramService.GetPlanogramNotes(string userId, int brandId, int countryId, int regionId, long planogramId)
+        Task<IReadOnlyList<PlanogramNote>> IPlanogramService.GetPlanogramNotes(NoteFilter filter)
         {
-            throw new NotImplementedException();
+            var spec = new NoteSpecification(filter);
+            var planogramNotes = _noteRepository.ListAsync(spec);
+            return planogramNotes;
         }
 
         public Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId, int regionId, int planogramId,

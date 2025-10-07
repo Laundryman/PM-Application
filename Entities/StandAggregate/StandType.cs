@@ -1,4 +1,5 @@
 ﻿using PMApplication.Entities.JobsAggregate;
+using PMApplication.Entities.PartAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.StandAggregate;
@@ -24,7 +25,10 @@ public partial class StandType : BaseEntity<int>, IAggregateRoot
     public bool HidePrices { get; set; }
 
     public virtual StandType ParentStandType { get; set; } = null!;
+    public virtual Brand? Brand { get; set; }
     public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
+    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
+    public virtual ICollection<Stand> Stands { get; set; } = new List<Stand>();
 }
 
 
