@@ -574,13 +574,8 @@ namespace PMApplication.Services
             return newScratchPad.Id;
         }
 
-        public Task<ScratchPad> GetScratchPad(long scratchPadId)
-        {
-            throw new NotImplementedException();
-        }
 
-
-        public async Task<ScratchPad> GetScratchPad(int scratchPadId)
+        public async Task<ScratchPad> GetScratchPad(long scratchPadId)
         {
             var scratchPad = await _scratchPadRepository.GetByIdAsync(scratchPadId);
             return scratchPad;

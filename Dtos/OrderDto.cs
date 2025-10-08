@@ -9,7 +9,7 @@ namespace PMApplication.Dtos
 {
     public class OrderDto
     {
-        public int OrderId { get; set; }
+        public long OrderId { get; set; }
         public string OrderTitle { get; set; }
         public int OrderStatus { get; set; }
         public DateTime OrderCreated { get; set; }
