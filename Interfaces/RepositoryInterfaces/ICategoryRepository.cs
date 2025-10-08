@@ -1,7 +1,7 @@
 ﻿using PMApplication.Dtos;
 using PMApplication.Entities;
 
-namespace PMApplication.Interfaces
+namespace PMApplication.Interfaces.RepositoryInterfaces
 {
     public interface ICategoryRepository : IAsyncRepository<Category>
     {

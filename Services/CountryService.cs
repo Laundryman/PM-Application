@@ -13,16 +13,17 @@ using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
 using AutoMapper;
 using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Interfaces.RepositoryInterfaces;
 
 namespace PMApplication.Services
 {
     public class CountryService: ICountryService
     {
-        private readonly IAsyncRepository<Country> _countryRepository;
+        private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<CountryService> _logger;
 
-        public CountryService(IAsyncRepository<Country> countryRepository)
+        public CountryService(ICountryRepository countryRepository)
         {
             _countryRepository = countryRepository;
         }
@@ -50,7 +51,10 @@ namespace PMApplication.Services
 
         public async Task<Country> GetCountry(int id)
         {
-            return _countryRepository.GetByIdAsync(id).Result;
+            //var country = await _countryRepository.GetByIdAsync(id);
+            var getCountrySpec = new GetCountrySpec(id);
+            var country = await _countryRepository.ListAsync(getCountrySpec);
+            return country.FirstOrDefault();
         }
 
         /// <summary>

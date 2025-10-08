@@ -7,7 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PMApplication.Dtos;
 using PMApplication.Entities;
-using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications.Filters;
 
@@ -15,15 +15,15 @@ namespace PMApplication.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IAsyncRepository<Category> _categoryRepositorySync;
+        //private readonly IAsyncRepository<Category> _categoryRepositorySync;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public CategoryService(IAsyncRepository<Category> categoryRepositorySync, ICategoryRepository categoryRepository, IMapper mapper, ILogger<PartService> logger)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, ILogger<PartService> logger)
         {
             _categoryRepository = categoryRepository;
-            _categoryRepositorySync = categoryRepositorySync;
+            //_categoryRepositorySync = categoryRepositorySync;
             _mapper = mapper;
             _logger = logger;
         }
@@ -31,7 +31,7 @@ namespace PMApplication.Services
         public async Task<IReadOnlyList<Category>> GetCategories(CategoryFilter filter)
         {
             var spec = new Specifications.CategorySpecification(filter);
-            return await _categoryRepositorySync.ListAsync(spec);
+            return await _categoryRepository.ListAsync(spec);
         }
 
         public async Task<IReadOnlyList<ShopCategory>> GetShopCategories(int BrandId, int CountryId)

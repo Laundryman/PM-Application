@@ -13,6 +13,7 @@ using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
@@ -21,16 +22,16 @@ namespace PMApplication.Services
 {
     public class ClusterService : IClusterService
     {
-        private readonly IAsyncRepository<Stand> _standRepository;
-        private readonly IAsyncRepository<PartType> _partTypeRepository;
-        private readonly IAsyncRepository<StandType> _standTypeRepository;
-        private readonly IAsyncRepository<Category> _categoryRepository;
+        private readonly IStandRepository _standRepository;
+        private readonly IPartTypeRepository _partTypeRepository;
+        private readonly IStandTypeRepository _standTypeRepository;
+        private readonly ICategoryRepository _categoryRepository;
         //private readonly IPartRepository _partRepositorySync;
         //private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public ClusterService(IAsyncRepository<Stand> standRepository, IAsyncRepository<PartType> partTypeRepository, IAsyncRepository<StandType> standTypeRepository, IAsyncRepository<Category> categoryRepository)
+        public ClusterService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository)
         {
             _standRepository = standRepository;
             _partTypeRepository = partTypeRepository;

@@ -2,11 +2,11 @@
 
 namespace PMApplication.Entities.CountriesAggregate;
 
-public partial class RegionCountry : BaseEntity<int>, IAggregateRoot
+public partial class CountryRegion : BaseEntity<int>, IAggregateRoot
 {
-    public int RegionId { get; set; }
+    public int RegionsId { get; set; }
 
-    public long CountryId { get; set; }
+    public int CountriesId { get; set; }
 
     public virtual Country Country { get; set; } = null!;
 

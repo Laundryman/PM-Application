@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PMApplication.Entities.StandAggregate;
 
-namespace PMApplication.Interfaces
+namespace PMApplication.Interfaces.RepositoryInterfaces
 {
     public interface IStandTypeRepository : IAsyncRepository<StandType>
     {

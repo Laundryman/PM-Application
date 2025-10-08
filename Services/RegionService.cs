@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PMApplication.Entities.CountriesAggregate;
-using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
@@ -16,9 +16,17 @@ namespace PMApplication.Services
 {
     public class RegionService : IRegionService
     {
-        private readonly IAsyncRepository<Region> _regionRepository;
+        private readonly IRegionRepository _regionRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CountryService> _logger;
+        private readonly ILogger<RegionService> _logger;
+
+        public RegionService(IRegionRepository regionRepository, IMapper mapper, ILogger<RegionService> logger)
+        {
+            _regionRepository = regionRepository;
+            _mapper = mapper;
+            _logger = logger;
+        }
+
         public Task<IReadOnlyList<Region>> GetRegions(RegionFilter filter)
         {
             var spec = new RegionSpecification(filter);
@@ -34,6 +42,13 @@ namespace PMApplication.Services
         public Task<IReadOnlyList<Region>> GetRegionsForCountryList(int brandId, List<Country> countryList)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Region> GetCountriesForRegion(int regionId)
+        {
+            var spec = new GetRegionSpec(regionId);
+            var regions = await _regionRepository.ListAsync(spec);
+            return regions.FirstOrDefault();
         }
 
         public async Task<Region> GetRegion(int id)

@@ -16,21 +16,21 @@ using PMApplication.Interfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
+using PMApplication.Interfaces.RepositoryInterfaces;
 
 namespace PMApplication.Services
 {
     public class PartService : IPartService
     {
-        private readonly IAsyncRepositoryLong<Part> _partRepository;
-        private readonly IPartRepository _partRepositorySync;
-        private readonly IAsyncRepository<PartType> _partTypeRepository;
-        private readonly IAsyncRepository<StandType> _standTypeRepository;
-        private readonly IAsyncRepository<Category> _categoryRepository;
-        private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
+        private readonly IPartRepository _partRepository;
+        private readonly IPartTypeRepository _partTypeRepository;
+        private readonly IStandTypeRepository _standTypeRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IPlanogramPartRepository _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public PartService(IAsyncRepositoryLong<Part> partRepository, IMapper mapper, IAsyncRepository<PartType> partTypeRepository, IAsyncRepository<StandType> standTypeRepository, IAsyncRepository<Category> categoryRepository, ILogger<PartService> logger, IPartRepository partRepositorySync, IAsyncRepositoryLong<PlanogramPart> planogramPartRepository)
+        public PartService(IPartRepository partRepository, IMapper mapper, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository, ILogger<PartService> logger, IPlanogramPartRepository planogramPartRepository)
         {
             _partRepository = partRepository;
             _mapper = mapper;
@@ -38,7 +38,6 @@ namespace PMApplication.Services
             _standTypeRepository = standTypeRepository;
             _categoryRepository = categoryRepository;
             _logger = logger;
-            _partRepositorySync = partRepositorySync;
             _planogramPartRepository = planogramPartRepository;
         }
 
@@ -80,14 +79,14 @@ namespace PMApplication.Services
         public async Task<IReadOnlyList<PartInfo>> GetFilteredParts(int brandId, int? page, int? pageSize, string sortBy, string sortOrder, string searchString,
             int? partTypeId, int? parentCategoryId, int? categoryId, int? countryId, int? regionId, int? standTypeId)
         {
-            return await _partRepositorySync.GetFilteredParts(brandId,partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, false);
+            return await _partRepository.GetFilteredParts(brandId,partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, false);
         }
 
         public async Task<IReadOnlyList<PartInfo>> GetFilteredShopParts(int brandId, int? page, int? pageSize, string sortBy, string sortOrder,
             string searchString, int? partTypeId, int? parentCategoryId, int? categoryId, int? countryId, int? regionId,
             int? standTypeId)
         {
-            return await _partRepositorySync.GetFilteredParts(brandId, partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, true);
+            return await _partRepository.GetFilteredParts(brandId, partTypeId, parentCategoryId, categoryId, countryId, regionId, standTypeId, page, pageSize, sortBy, sortOrder, searchString, true);
         }
 
 
@@ -130,7 +129,7 @@ namespace PMApplication.Services
             try
             {
 
-                return await _partRepositorySync.GetPlanxMenu(brandId, countryId, standTypeId);
+                return await _partRepository.GetPlanxMenu(brandId, countryId, standTypeId);
             }
             catch (Exception ex)
             {

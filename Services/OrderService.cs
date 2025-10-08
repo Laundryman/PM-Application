@@ -15,22 +15,23 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PMApplication.Entities.OrderAggregate;
 using PMApplication.Enums;
+using PMApplication.Interfaces.RepositoryInterfaces;
 
 namespace PMApplication.Services
 {
     public class OrderService: IOrderService
     {
-        private readonly IAsyncRepositoryLong<Order> _orderRepository;
+        private readonly IOrderRepository _orderRepository;
         //private readonly IAsyncRepositoryLong<OrderItem> _orderItemRepository;
         private readonly IOrderItemRepository _orderItemRepository;
-        private readonly IAsyncRepository<OrderPlanogram> _orderPlanogramRepository;
+        private readonly IOrderPlanogramRepository _orderPlanogramRepository;
         private readonly IPlanogramService _planogramService;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
 
-        public OrderService(IAsyncRepositoryLong<Order> orderRepository, IAsyncRepositoryLong<Order> orderRepository1, IMapper mapper, ILogger<OrderService> logger, IPlanogramService planogramService, IAsyncRepository<OrderPlanogram> orderPlanogramRepository, IOrderItemRepository orderItemRepository)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper, ILogger<OrderService> logger, IPlanogramService planogramService, IOrderPlanogramRepository orderPlanogramRepository, IOrderItemRepository orderItemRepository)
         {
-            _orderRepository = orderRepository1;
+            _orderRepository = orderRepository;
             _mapper = mapper;
             _logger = logger;
             _planogramService = planogramService;

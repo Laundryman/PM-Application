@@ -26,8 +26,7 @@ namespace PMApplication.Specifications
             if ((filter.ParentStandTypeId != null))
                 Query.Include(x => x.ParentStandTypeId == filter.ParentStandTypeId);
 
-            if (filter.BrandId != null)
-                Query.Include(x => x.BrandId == filter.BrandId);
+
             if (filter.CountryId != null)
             {
 
