@@ -13,17 +13,18 @@ using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
 using AutoMapper;
 using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Interfaces.RepositoryInterfaces;
 
 namespace PMApplication.Services
 {
     public class ProductService: IProductService
     {
-        private readonly IAsyncRepositoryLong<Product> _productRepository;
-        private readonly IAsyncRepositoryLong<Shade> _shadeRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IShadeRepository _shadeRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IAsyncRepositoryLong<Product> productRepository, IAsyncRepositoryLong<Shade> shadeRepository)
+        public ProductService(IProductRepository productRepository, IShadeRepository shadeRepository)
         {
             _productRepository = productRepository;
             _shadeRepository = shadeRepository;

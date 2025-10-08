@@ -13,11 +13,12 @@ public partial class Region : BaseEntity<int>, IAggregateRoot
 
     public string? CountryList { get; set; }
 
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public List<CountryRegion> RegionCountries { get; } = [];    
+    public List<Country> Countries { get; } = [];
 
-    public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
+    public virtual List<JobFolder> JobFolders { get;} = [];
 
-    public virtual ICollection<RegionCountry> RegionCountries { get; set; } = new List<RegionCountry>();
+
 
     //public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
 }

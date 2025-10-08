@@ -2,7 +2,7 @@
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.StandAggregate;
 
-namespace PMApplication.Interfaces
+namespace PMApplication.Interfaces.RepositoryInterfaces
 {
     public interface IStandRepository : IAsyncRepository<Stand>
     {

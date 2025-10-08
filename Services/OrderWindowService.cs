@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Privacy;
 using PMApplication.Entities.OrderAggregate;
 using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
@@ -16,16 +17,16 @@ namespace PMApplication.Services
 {
     public class OrderWindowService : IOrderWindowService
     {
-        private readonly IAsyncRepositoryLong<Order> _orderRepository;
+        private readonly IOrderRepository _orderRepository;
         //private readonly IAsyncRepositoryLong<OrderItem> _orderItemRepository;
         private readonly IOrderItemRepository _orderItemRepository;
-        private readonly IAsyncRepository<OrderWindow> _orderWindowRepository;
-        private readonly IAsyncRepository<OrderPlanogram> _orderPlanogramRepository;
+        private readonly IOrderWindowRepository _orderWindowRepository;
+        private readonly IOrderPlanogramRepository _orderPlanogramRepository;
         private readonly IPlanogramService _planogramService;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
 
-        public OrderWindowService(IAsyncRepositoryLong<Order> orderRepository, IOrderItemRepository orderItemRepository, IAsyncRepository<OrderPlanogram> orderPlanogramRepository, IPlanogramService planogramService, IMapper mapper, ILogger<OrderService> logger)
+        public OrderWindowService(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderPlanogramRepository orderPlanogramRepository, IPlanogramService planogramService, IMapper mapper, ILogger<OrderService> logger, IOrderWindowRepository orderWindowRepository)
         {
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
@@ -33,6 +34,7 @@ namespace PMApplication.Services
             _planogramService = planogramService;
             _mapper = mapper;
             _logger = logger;
+            _orderWindowRepository = orderWindowRepository;
         }
 
 

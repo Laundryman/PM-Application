@@ -14,6 +14,7 @@ using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Enums;
 using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
@@ -22,22 +23,19 @@ namespace PMApplication.Services
 {
     public class PlanogramService : IPlanogramService
     {
-        private readonly IAsyncRepositoryLong<Part> _partRepository;
-        private readonly IAsyncRepositoryLong<Planogram> _planogramRepository;
-        private readonly IPlanogramRepository _planogramRepositorySync;
-        private readonly IAsyncRepositoryLong<Cluster> _clusterRepository;
-        private readonly IAsyncRepositoryLong<ScratchPad> _scratchPadRepository;
-        private readonly IPartRepository _partRepositorySync;
-        private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
-        private readonly IAsyncRepositoryLong<PlanogramShelf> _planogramShelfRepository;
-        private readonly IAsyncRepositoryLong<PlanogramNote> _noteRepository;
+        private readonly IPartRepository _partRepository;
+        private readonly IPlanogramRepository _planogramRepository;
+        private readonly IClusterRepository _clusterRepository;
+        private readonly IScratchPadRepository _scratchPadRepository;
+        private readonly IPlanogramPartRepository _planogramPartRepository;
+        private readonly IPlanogramShelfRepository _planogramShelfRepository;
+        private readonly IPlanogramNoteRepository _noteRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public PlanogramService(IAsyncRepositoryLong<Part> partRepository, IPartRepository partRepositorySync, IAsyncRepositoryLong<Planogram> planogramRepository, IAsyncRepositoryLong<PlanogramPart> planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IAsyncRepositoryLong<PlanogramShelf> planogramShelfRepository, IAsyncRepositoryLong<Cluster> clusterRepository, IAsyncRepositoryLong<PlanogramNote> planogramNoteRepository, IAsyncRepositoryLong<ScratchPad> scratchPadRepository)
+        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository)
         {
             _partRepository = partRepository;
-            _partRepositorySync = partRepositorySync;
             _planogramRepository = planogramRepository;
             _planogramPartRepository = planogramPartRepository;
             _mapper = mapper;
@@ -87,7 +85,7 @@ namespace PMApplication.Services
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
         {
-            var skus = await _planogramRepositorySync.GetSkuList(id, userId, hasColumns);
+            var skus = await _planogramRepository.GetSkuList(id, userId, hasColumns);
             return skus;
         }
 

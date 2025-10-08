@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using PMApplication.Entities;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
@@ -17,11 +18,11 @@ namespace PMApplication.Services
 {
     public class BrandService: IBrandService
     {
-        private readonly IAsyncRepository<Brand> _brandRepository;
+        private readonly IBrandRepository _brandRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<BrandService> _logger;
 
-        public BrandService(IAsyncRepository<Brand> brandRepository)
+        public BrandService(IBrandRepository brandRepository)
         {
             _brandRepository = brandRepository;
         }

@@ -2,7 +2,7 @@
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 
-namespace PMApplication.Interfaces
+namespace PMApplication.Interfaces.RepositoryInterfaces
 {
     public interface IPlanogramNoteRepository : IAsyncRepositoryLong<PlanogramNote>
     {
