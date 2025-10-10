@@ -18,6 +18,7 @@ using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
+using static PMApplication.Enums.StatusEnums;
 
 namespace PMApplication.Services
 {
@@ -81,6 +82,23 @@ namespace PMApplication.Services
         public Task<IEnumerable<PlanogramLock>> GetLockedPlanograms()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId, int brandId)
+        {
+            var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId, countryId, standTypeId);
+            IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
+            if (status == (int)PlanogramStatusEnum.Approved)
+            {
+                //we also need to get validated planograms
+                validatedPlanograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
+            }
+
+            var fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
+
+
+            return fullList;
+
         }
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)

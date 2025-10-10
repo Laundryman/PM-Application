@@ -10,14 +10,31 @@ namespace PMApplication.Helpers
         Approver = 4
 
     }
-    public static class RolesHelper
+    public class RolesHelper
     {
-        public static void Initialize(IConfiguration config)
-        {
-            Config = config;
-        }
+        //public static void Initialize(IConfiguration config)
+        //{
+        //    Config = config;
+        //}
         private static IConfiguration Config { get; set; }
 
+        public RolesHelper()
+        {
+            Config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+        }
+
+        public static IConfiguration GetConfig()
+        {
+            var env = System.Environment.GetEnvironmentVariable("ASPNETFRAMEWORK_ENVIRONMENT");
+            //var settingsFile = "appsettings." + env + ".json";
+            var settingsFile = "appsettings.json";
+            Config = new ConfigurationBuilder()
+                .AddJsonFile(settingsFile)
+                .Build();
+            return Config;
+        }
         //public static bool IsAdminUser()
         //{
         //    string str_adminRole = diamConfiguration["DiamRoles:AdminRole;
@@ -37,7 +54,7 @@ namespace PMApplication.Helpers
 
         public static bool IsAdminUser(string Roles)
         {
-            string adminRole = Config["DiamRoles:AdminRole"];
+            string adminRole = GetConfig()["DiamRoles:AdminRole"];
             string[] str_adminRoles = adminRole.Split(new char[] { ',' });
             int[] adminRoles = Array.ConvertAll(str_adminRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
@@ -53,9 +70,9 @@ namespace PMApplication.Helpers
             return false;
         }
 
-        public static bool IsRegionalUser(string Roles)
+        public static bool IsDiamUser(string Roles)
         {
-            string[] str_diamRoles = Config["DiamRoles:regionalRoles"].Split(new char[] { ',' });
+            string[] str_diamRoles = GetConfig()["DiamRoles:AdminRole"].Split(new char[] { ',' });
             int[] diamRoles = Array.ConvertAll(str_diamRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -72,7 +89,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsClientEditor(string Roles)
         {
-            string[] str_clientEditorRoles = Config["DiamRoles:clientEditorRoles"].Split(new char[] { ',' });
+            string[] str_clientEditorRoles = GetConfig()["DiamRoles:clientEditorRoles"].Split(new char[] { ',' });
             int[] clientEditorRoles = Array.ConvertAll(str_clientEditorRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -89,7 +106,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsClientValidator(string Roles)
         {
-            string[] str_clientValidatorRoles = Config["DiamRoles:clientValidatorRoles"].Split(new char[] { ',' });
+            string[] str_clientValidatorRoles = GetConfig()["DiamRoles:clientValidatorRoles"].Split(new char[] { ',' });
             int[] clientValidatorRoles = Array.ConvertAll(str_clientValidatorRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -105,7 +122,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsEditor(string Roles)
         {
-            string[] str_editorRoles = Config["DiamRoles:Editor"].Split(new char[] { ',' });
+            string[] str_editorRoles = GetConfig()["DiamRoles:Editor"].Split(new char[] { ',' });
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] editorRoles = Array.ConvertAll(str_editorRoles, s => int.Parse(s));
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -121,7 +138,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsApprover(string Roles)
         {
-            string[] str_approverRoles = Config["DiamRoles:Approver"].Split(new char[] { ',' });
+            string[] str_approverRoles = GetConfig()["DiamRoles:Approver"].Split(new char[] { ',' });
             int[] approverRoles = Array.ConvertAll(str_approverRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -138,7 +155,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsValidator(string Roles)
         {
-            string[] str_validatorRoles = Config["DiamRoles:Validator"].Split(new char[] { ',' });
+            string[] str_validatorRoles = GetConfig()["DiamRoles:Validator"].Split(new char[] { ',' });
             int[] validatorRoles = Array.ConvertAll(str_validatorRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
@@ -154,15 +171,15 @@ namespace PMApplication.Helpers
         }
         public static bool IsAdministrator(string Roles)
         {
-            string str_adminRoles = Config["DiamRoles:adminRole"];
-            string[] arr_adminRoles = str_adminRoles.Split(new char[] { ',' });
-            int[] adminRoles = Array.ConvertAll(arr_adminRoles, s => int.Parse(s));
+            string adminRole = GetConfig()["DiamRoles:AdminRole"];
+            string[] str_adminRoles = adminRole.Split(new char[] { ',' });
+            int[] adminRoles = Array.ConvertAll(str_adminRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
             int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
             // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
+            foreach (int arole in adminRoles)
             {
-                if (adminRoles.Contains(role))
+                if (roles.Contains(arole))
                 {
                     return true;
                 }
@@ -172,7 +189,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsSuperUser(string Roles)
         {
-            string superUserRole = Config["DiamRoles:DiamSuperUser"];
+            string superUserRole = GetConfig()["DiamRoles:DiamSuperUser"];
             string[] str_userRoles = superUserRole.Split(new char[] { ',' });
             int[] userRoles = Array.ConvertAll(str_userRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
@@ -190,7 +207,7 @@ namespace PMApplication.Helpers
         }
         public static bool IsShopper(string Roles)
         {
-            string shopperRole = Config["DiamRoles:Shopper"];
+            string shopperRole = GetConfig()["DiamRoles:Shopper"];
             string[] str_shopperRoles = shopperRole.Split(new char[] { ',' });
             int[] shopperRoles = Array.ConvertAll(str_shopperRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
@@ -208,7 +225,7 @@ namespace PMApplication.Helpers
 
         public static bool IsAdminShopper(string Roles)
         {
-            string adminShopperRole = Config["DiamRoles:AdminShopper"];
+            string adminShopperRole = GetConfig()["DiamRoles:AdminShopper"];
             string[] str_adminShopperRoles = adminShopperRole.Split(new char[] { ',' });
             int[] adminShopperRoles = Array.ConvertAll(str_adminShopperRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
@@ -226,7 +243,7 @@ namespace PMApplication.Helpers
 
         public static bool IsArchiver(string Roles)
         {
-            string archiveConfig = Config["DiamRoles:ArchiverRoles"];
+            string archiveConfig = Config["DiamRoles:ArchiveRoles"];
             string[] str_archiveRoles = archiveConfig.Split(new char[] { ',' });
             int[] archiveRoles = Array.ConvertAll(str_archiveRoles, s => int.Parse(s));
             string[] str_roles = Roles.Split(new char[] { ',' });
@@ -260,25 +277,24 @@ namespace PMApplication.Helpers
             return false;
         }
 
+        //public static bool IsPlanxUser(string Roles)
+        //{
+        //    string plan_X = GetConfig()["DiamRoles:AdminRole"];
+        //    string[] str_planxroles = plan_X.Split(new char[] { ',' });
+        //    int[] planxroles = Array.ConvertAll(str_planxroles, s => int.Parse(s));
+        //    string[] str_roles = Roles.Split(new char[] { ',' });
+        //    int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
+        //    // Execute the following logic for Items and Alternating Items.
+        //    foreach (var pxrole in planxroles)
+        //    {
+        //        if (roles.Contains(pxrole))
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
 
-        public static bool IsPlanxUser(string Roles)
-        {
-            string plan_X = Config["DiamRoles:AdminRole"];
-            string[] str_planxroles = plan_X.Split(new char[] { ',' });
-            int[] planxroles = Array.ConvertAll(str_planxroles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var pxrole in planxroles)
-            {
-                if (roles.Contains(pxrole))
-                {
-                    return true;
-                }
-            }
-            return false;
-
-        }
+        //}
 
         public static Role GetUserRole(string Roles, IConfiguration config)
         {

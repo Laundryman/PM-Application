@@ -19,7 +19,7 @@ public enum LogActionEnum : int
 
 }
 
-public partial class LMAuditLog : BaseEntity<long>, IAggregateRoot
+public partial class AuditLog : BaseEntity<long>, IAggregateRoot
 {
 
     public DateTime Date { get; set; }

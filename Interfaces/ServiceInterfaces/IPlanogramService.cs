@@ -18,6 +18,8 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IEnumerable<Planogram>> GetPlanograms(PlanogramFilter filter);
         Task<IEnumerable<PlanogramLock>> GetLockedPlanograms();
 
+        Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId,
+            int brandId);
 
         /// <summary>
         /// Get All Planograms for a specific country
