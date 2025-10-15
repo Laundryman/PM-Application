@@ -8,18 +8,17 @@ namespace PMApplication.Entities.JobsAggregate
     {
 
 
-        [Key]
-        public int Id { get; set; }
-        public int ParentFolderId { get; set; }
-        public int BrandId { get; set; }
-        public string BrandName { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int? Id { get; set; }
+        public int? ParentFolderId { get; set; }
+        public int? BrandId { get; set; }
+        public string? BrandName { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public int RegionId { get; set; }
         //public int? CountryId { get; set; }
-        public int JobCount { get; set; }
-        public int TotalResults { get; set; }
-        public int RowNum { get; set; }
+        public int? JobCount { get; set; }
+        public int? RowNum { get; set; }
+        public int? TotalResults { get; set; }
 
 
 

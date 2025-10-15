@@ -25,4 +25,6 @@ public partial class JobFolder : BaseEntity<int>, IAggregateRoot
     public virtual StandType? StandType { get; set; }
 
     public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public virtual ICollection<Job> Jobs { get; set; }
+
 }
