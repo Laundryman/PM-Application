@@ -40,7 +40,7 @@ namespace PMApplication.Services
             var brandFilter = new BrandFilter();
             brandFilter.Id = id;
 
-            var spec = new BrandSpecification(_mapper.Map<BrandFilter>(brandFilter));
+            var spec = new BrandSpecification(brandFilter);
             var brand = await _brandRepository.ListAsync(spec);
             return brand.FirstOrDefault();
         }

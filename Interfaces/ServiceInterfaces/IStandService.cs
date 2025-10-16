@@ -32,6 +32,8 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
         Task<StandType> GetStandType(int id);
+        Task<StandType?> GetStandType(StandTypeFilter filter);
+
         Task<IReadOnlyList<StandType>> GetStandTypes(StandTypeFilter filter);
         //IEnumerable<StandType> GetStandTypes(int brandId);
         //IEnumerable<StandType> GetStandTypesWithStands(int brandId);

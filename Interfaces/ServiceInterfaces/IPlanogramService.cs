@@ -15,11 +15,15 @@ namespace PMApplication.Interfaces.ServiceInterfaces
     public interface IPlanogramService
     {
         Task<Planogram> GetPlanogram(long id);
+        Task<Planogram> GetPlanogram(PlanogramFilter filter);
         Task<IEnumerable<Planogram>> GetPlanograms(PlanogramFilter filter);
         Task<IEnumerable<PlanogramLock>> GetLockedPlanograms();
 
         Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId,
             int brandId);
+
+        Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId, bool isDiamUser, string planogramHostUrl = "");
+
 
         /// <summary>
         /// Get All Planograms for a specific country
@@ -71,12 +75,11 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //  int GetPlanogramSectionOffSetWidth(int planogramId, int sectionStartPoint, int sectionEndPoint);
 
         Task CreatePlanogram(Planogram planogram);
-        void DeletePlanogram(long id);
-        void LockPlanogram(long id, CurrentUser user);
-        void UnLockPlanogram(long id, CurrentUser user);
-        void UnLockPlanogram(long id);
+        Task DeletePlanogram(long id);
+        Task LockPlanogram(PlanogramLockFilter filter);
+        Task UnLockPlanogram(PlanogramLockFilter filter);
 
-        bool IsLocked(long PlanogramId, CurrentUser user);
+        Task<bool> IsLocked(PlanogramLockFilter filter);
         void SavePlanogram(Planogram planogram);
 
         PlanogramNote GetNote(long noteId);

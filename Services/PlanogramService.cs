@@ -31,10 +31,11 @@ namespace PMApplication.Services
         private readonly IPlanogramPartRepository _planogramPartRepository;
         private readonly IPlanogramShelfRepository _planogramShelfRepository;
         private readonly IPlanogramNoteRepository _noteRepository;
+        private readonly IPlanogramLockRepository _planogramLockRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository)
+        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository)
         {
             _partRepository = partRepository;
             _planogramRepository = planogramRepository;
@@ -44,7 +45,15 @@ namespace PMApplication.Services
             _planogramShelfRepository = planogramShelfRepository;
             _clusterRepository = clusterRepository;
             _scratchPadRepository = scratchPadRepository;
+            _planogramLockRepository = planogramLockRepository;
             _noteRepository = planogramNoteRepository;
+        }
+
+        public async Task<Planogram> GetPlanogram(PlanogramFilter filter)
+        {
+            var spec = new GetPlanogramSpecification(filter);
+            var planogram = await _planogramRepository.FirstAsync(spec);
+            return planogram;
         }
 
         public async Task<IEnumerable<Planogram>> GetPlanograms(PlanogramFilter filter)
@@ -99,6 +108,13 @@ namespace PMApplication.Services
 
             return fullList;
 
+        }
+
+        public async Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId,
+            bool isDiamUser, string planogramHostUrl = "")
+        {
+            var planograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Archived, brandId, jobId, regionId, countryId, standTypeId);
+            return planograms;
         }
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
@@ -397,29 +413,60 @@ namespace PMApplication.Services
             }
         }
 
-        public void DeletePlanogram(long id)
+        public Task DeletePlanogram(long id)
         {
             throw new NotImplementedException();
         }
 
-        public void LockPlanogram(long id, CurrentUser user)
+        public async Task LockPlanogram(PlanogramLockFilter filter)
         {
-            throw new NotImplementedException();
+            UnLockPlanogram(filter);
+            //now lock the planogram
+            var plock = new PlanogramLock();
+
+            if (filter.PlanogramId != null)
+            {
+                plock.Locked = true;
+                plock.PlanogramId = (long)filter.PlanogramId;
+                plock.UserId = filter.User.Id;
+                plock.Username = filter.User.GivenName + " " + filter.User.Surname;
+                plock.DateOpened = DateTime.Now;
+                await _planogramLockRepository.AddAsync(plock);
+            }
         }
 
-        public void UnLockPlanogram(long id, CurrentUser user)
+        public async Task UnLockPlanogram(PlanogramLockFilter filter)
         {
-            throw new NotImplementedException();
+            var spec = new PlanogramLockSpecification(filter);
+            var plocks = await _planogramLockRepository.ListAsync(spec);
+            foreach (var lck in plocks)
+            {
+                lck.Locked = false;
+                lck.DateClosed = DateTime.Now;
+                await _planogramLockRepository.DeleteAsync(lck);
+                //SavePlanogram();
+            }
         }
 
         public void UnLockPlanogram(long id)
         {
-            throw new NotImplementedException();
+            var plocks = _planogramPartRepository;
         }
 
-        public bool IsLocked(long id, CurrentUser user)
+        public async Task<bool> IsLocked(PlanogramLockFilter filter)
         {
-            throw new NotImplementedException();
+            //PlanogramLock plock = new PlanogramLock();
+            var spec = new PlanogramLockSpecification(filter);
+            var plocks = await _planogramLockRepository.ListAsync(spec);
+
+            if (plocks.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void SavePlanogram(Planogram planogram)
