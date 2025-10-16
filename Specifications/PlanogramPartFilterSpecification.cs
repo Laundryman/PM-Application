@@ -11,7 +11,7 @@ namespace PMApplication.Specifications
         {
 
             Query.OrderBy(x => x.PlanogramId)
-                .ThenByDescending(x => x.Id);
+                .ThenByDescending(x => x.PlanogramId);
 
             //if (filter.LoadChildren)
             //    Query.Include(x => x.Stores);

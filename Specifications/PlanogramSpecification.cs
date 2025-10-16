@@ -10,7 +10,7 @@ namespace PMApplication.Specifications
         public PlanogramSpecification(PlanogramFilter filter)
         {
             if (filter.BrandId != 0)
-                Query.Where(x => x.Id == filter.BrandId);
+                Query.Where(x => x.BrandId == filter.BrandId);
             if (!String.IsNullOrEmpty(filter.UserId))
                 Query.Where(x => x.UserId == filter.UserId);
 
