@@ -116,7 +116,16 @@ namespace PMApplication.Services
 
         public async Task<StandType> GetStandType(int id)
         {
-            throw new NotImplementedException();
+            var standType = await _standTypeRepository.GetByIdAsync(id);
+            return standType;
+        }
+
+        public async Task<StandType?> GetStandType(StandTypeFilter filter)
+        {
+            var spec = new StandTypeByIdSpecification(filter);
+            var standTypes = await _standTypeRepository.ListAsync(spec);
+            return standTypes.FirstOrDefault();
+
         }
 
         public async Task<IReadOnlyList<StandType>> GetStandTypes(StandTypeFilter filter)

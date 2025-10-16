@@ -13,7 +13,6 @@ namespace PMApplication.Specifications
         {
             Query.OrderBy(x => x.Name)
                 .ThenByDescending(x => x.ParentStandTypeId);
-
             //int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId, int? partId, bool shoppable
 
             if (filter.IsPagingEnabled)
