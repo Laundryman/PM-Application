@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PMApplication.Dtos.PlanModels
 {
+    /// <summary>
+    /// obsolete - use PlanmPlanogramDto instead
+    /// </summary>
     public class PlanogramDto
     {
         public int Id { get; set; }
