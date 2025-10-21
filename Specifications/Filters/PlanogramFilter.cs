@@ -16,5 +16,6 @@ namespace PMApplication.Specifications.Filters
         public string UserId { get; set; }
         public string JobCode { get; set; }
         public int StatusId { get; set; }
+
     }
 }

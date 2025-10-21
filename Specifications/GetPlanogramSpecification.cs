@@ -13,13 +13,14 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.Id == filter.Id)
                     .Include(x => x.PlanogramNotes)
                     .Include(x => x.Stand)
-                    .Include(x => x.PlanogramPartFacings)
+                    //.Include(x => x.PlanogramPartFacings)
                     .Include(x => x.PlanogramParts)
+                    .ThenInclude(p => p.PlanogramPartFacings)
                     .Include(x => x.PlanogramShelves)
-                    .Include(x => x.ScratchPad)
-                    .ThenInclude(s => s.PlanogramShelves)
-                    .Include(x => x.ScratchPad)
-                    .ThenInclude(s => s.PlanogramParts);
+            .Include(x => x.ScratchPad)
+            .ThenInclude(s => s.PlanogramShelves)
+            .Include(x => x.ScratchPad)
+            .ThenInclude(s => s.PlanogramParts);
 
         }
 

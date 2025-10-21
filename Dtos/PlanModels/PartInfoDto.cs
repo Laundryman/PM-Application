@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PMApplication.Dtos.PlanModels
 {
+    /// <summary>
+    /// obsolete user PlanmPartInfo
+    /// </summary>
     public class PartInfoDto
     {
         public string Category { get; set; }

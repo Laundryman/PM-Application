@@ -52,7 +52,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<Part> GetMenuParts(int countryId, int categoryId, int brandId);
 
 
-        Task<IReadOnlyList<PlanmMenuPart>?> GetPlanxMenu(int brandId, int countryId, int standTypeId);
+        Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmMenu(PartFilter filter);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryMenu(int brandId, int categoryId, int countryId, string rootPath, int standTypeId, int standHeight, int standWidth);
         //IEnumerable<PlanxMenuPart> GetPlanxClusterMenu(int brandId, int clusterId, string rootPath, int standTypeId, int standHeight, int standWidth);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryClusterMenu(int brandId, int categoryId, string rootPath, int standId);

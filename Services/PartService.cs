@@ -124,12 +124,12 @@ namespace PMApplication.Services
         //    throw new NotImplementedException();
         //}
 
-        public async Task<IReadOnlyList<PlanmMenuPart>?> GetPlanxMenu(int brandId, int countryId, int standTypeId)
+        public async Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmMenu(PartFilter filter)
         {
             try
             {
 
-                return await _partRepository.GetPlanxMenu(brandId, countryId, standTypeId);
+                return await _partRepository.GetPlanmMenu((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
             }
             catch (Exception ex)
             {

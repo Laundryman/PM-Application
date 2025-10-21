@@ -19,7 +19,7 @@ namespace PMApplication.Dtos.PlanModels
         public string LastUpdatedByName { get; set; }
         public int? CountryId { get; set; }
         public int StandId { get; set; }
-        public int? ScratchPadId { get; set; }
+        public long? ScratchPadId { get; set; }
         public int StatusId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

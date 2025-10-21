@@ -4,7 +4,7 @@ namespace PMApplication.Entities.PlanogramAggregate;
 
 public partial class PlanogramPartFacing : BaseEntity<long>, IAggregateRoot
 {
-    public long PlanogramPartsId { get; set; }
+    public long PlanogramPartId { get; set; }
 
     public long PlanogramId { get; set; }
 
