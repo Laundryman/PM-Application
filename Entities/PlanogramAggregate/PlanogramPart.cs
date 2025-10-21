@@ -30,7 +30,7 @@ public partial class PlanogramPart : BaseEntity<long>, IAggregateRoot
 
     public string? Label { get; set; }
 
-    public virtual ICollection<PlanogramPart> InversePlanogramPartPlanogramParts { get; set; } = new List<PlanogramPart>();
+    //public virtual ICollection<PlanogramPart> InversePlanogramPartPlanogramParts { get; set; } = new List<PlanogramPart>();
 
     public virtual Part Part { get; set; } = null!;
 
