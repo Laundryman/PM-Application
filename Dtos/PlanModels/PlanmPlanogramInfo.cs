@@ -18,9 +18,9 @@ namespace PMApplication.Dtos.PlanModels
 
         public string UserRoles { get; set; }
 
-        public PlanmShelfInfoList PlanogramInfo { get; set; }
-        public PlanmShelfInfoList ScratchPadInfo { get; set; }
-        public PlanmShelfInfoList DeletedInfo { get; set; }
-        public IEnumerable<PlanmPartInfo> cassetteInfo { get; set; } //this is for cassettes/accessories without a shelf
+        public PlanmShelfInfoList? PlanogramInfo { get; set; }
+        public PlanmShelfInfoList? ScratchPadInfo { get; set; }
+        public PlanmShelfInfoList? DeletedInfo { get; set; }
+        public IEnumerable<PlanmPartInfo>? cassetteInfo { get; set; } //this is for cassettes/accessories without a shelf
     }
 }
