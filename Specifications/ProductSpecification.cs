@@ -15,9 +15,9 @@ namespace PMApplication.Specifications
             //{
             //    Query.Where(x.CountryList )
             //}
-            //if (filter.PartId != null)
-            //    Query.Where(x => x.PartProducts.All(p => p.PartId == filter.PartId));
-            
+            if (filter.PartId != null)
+                Query.Where(x => x.Parts.All(p => p.PartId == filter.PartId));
+
             if ((filter.BrandId != null))
                 Query.Where(x => x.BrandId == filter.BrandId);
 
@@ -42,6 +42,11 @@ namespace PMApplication.Specifications
                 }
                 Query.Where(predicate);
 
+            }
+
+            if (filter.IsPublished)
+            {
+                Query.Where(x => x.Published == true);
             }
 
             Query.OrderBy(x => x.Name);

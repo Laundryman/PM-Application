@@ -1,4 +1,6 @@
-﻿namespace PMApplication.Specifications.Filters
+﻿using PMApplication.Entities.CountriesAggregate;
+
+namespace PMApplication.Specifications.Filters
 {
     public class ShadeFilter : BaseFilter
     {
@@ -8,6 +10,8 @@
         public int ProductId { get; set; }
         public bool Published { get; set; }
         public string CountryList { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
 
         //public new bool LoadChildren { get; set; }
         //public new bool IsPagingEnabled { get; set; }

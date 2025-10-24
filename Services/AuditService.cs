@@ -22,9 +22,9 @@ namespace PMApplication.Services
             //_unitOfWork = unitOfWork;
         }
 
-        public void AuditEvent(AuditLog action)
+        public async Task<AuditLog> AuditEvent(AuditLog action)
         {
-            _auditRepository.AddAsync(action);
+            return await _auditRepository.AddAsync(action);
 
         }
 

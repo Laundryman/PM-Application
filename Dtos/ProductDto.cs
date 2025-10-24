@@ -1,4 +1,7 @@
-﻿namespace PMApplication.Dtos
+﻿using PMApplication.Dtos.PlanModels;
+using PMApplication.Entities;
+
+namespace PMApplication.Dtos
 {
     public class ProductDto
     {
@@ -18,5 +21,6 @@
         public bool Hero { get; set; }
         public int? ParentCategoryId { get; set; }
         public string ParentCategoryName { get; set;}
+        public IEnumerable<PlanmShadeDto> Shades { get; set; }
     }
 }

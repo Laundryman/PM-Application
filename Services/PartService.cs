@@ -41,24 +41,25 @@ namespace PMApplication.Services
             _planogramPartRepository = planogramPartRepository;
         }
 
-        public Task<IReadOnlyList<Part>> GetParts(PartFilter partFilter)
+        public async Task<IReadOnlyList<Part>> GetParts(PartFilter partFilter)
         {
             try
             {
                 var spec = new PartSpecification(partFilter);
-                return _partRepository.ListAsync(spec);
+                return await _partRepository.ListAsync(spec);
             }
             catch (Exception ex)
             {
                 // Log the exception or handle it as needed
-                throw new NotImplementedException("Method not implemented yet.", ex);
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 
-        public Part GetPart(int id)
+        public async Task<Part> GetPart(int id)
         {
-            var part = _partRepository.GetByIdAsync(id);
-            return part.Result;
+            var part = await _partRepository.GetByIdAsync(id);
+            return part;
         }
 
         public Task<IReadOnlyList<PlanogramPart>> GetNonMarketParts(PlanogramPartFilter filter)
@@ -100,7 +101,8 @@ namespace PMApplication.Services
             catch (Exception ex)
             {
                 // Log the exception or handle it as needed
-                throw new NotImplementedException("Method not implemented yet.", ex);
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 
@@ -129,7 +131,8 @@ namespace PMApplication.Services
             try
             {
 
-                return await _partRepository.GetPlanmMenu((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
+                var menu = await _partRepository.GetPlanmMenu((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
+                return menu;
             }
             catch (Exception ex)
             {
@@ -139,7 +142,7 @@ namespace PMApplication.Services
             }
         }
 
-        public Part GetPart(string partNumber)
+        public async Task<Part> GetPart(string partNumber)
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,7 @@ namespace PMApplication.Specifications.Filters
 {
     public class ScratchPadFilter
     {
-        public int Id { get; set; }
+        public long? Id { get; set; }
 
     }
 }

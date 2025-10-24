@@ -8,10 +8,10 @@ namespace PMApplication.Dtos.PlanModels
 {
     public class PlanmShadeDto
     {
-        public int ShadeId { get; set; }
-        public string ShadeNumber { get; set; }
-        public string ShadeDescription { get; set; }
-        public int ProductId { get; set; }
+        public long Id { get; set; }
+        public string? ShadeNumber { get; set; }
+        public string? ShadeDescription { get; set; }
+        public long ProductId { get; set; }
         public bool Published { get; set; }
     }
 }

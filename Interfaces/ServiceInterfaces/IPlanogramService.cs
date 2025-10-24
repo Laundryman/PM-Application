@@ -24,7 +24,10 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
         Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId, bool isDiamUser, string planogramHostUrl = "");
 
+        Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter);
+        Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
 
+        //Task<IReadOnlyList<PlanmPartInfo>> GetPlanogramParts(PlanogramPartFilter filter);
         /// <summary>
         /// Get All Planograms for a specific country
         /// </summary>
@@ -80,7 +83,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task UnLockPlanogram(PlanogramLockFilter filter);
 
         Task<bool> IsLocked(PlanogramLockFilter filter);
-        void SavePlanogram(Planogram planogram);
+        Task SavePlanogram(Planogram planogram);
 
         PlanogramNote GetNote(long noteId);
         Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(NoteFilter filter);
@@ -93,7 +96,8 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
         Task<long> CloneScratchPad(long planogramId, long newPlanogramId);
         Task<ScratchPad> GetScratchPad(long scratchPadId);
-        void CreateScratchPad(ScratchPad scratchPad);
+        Task<ScratchPad> GetScratchPad(ScratchPadFilter filter);
+        Task CreateScratchPad(ScratchPad scratchPad);
         void DeleteScratchPad(long id);
         //void SaveScratchPad();
 
@@ -105,7 +109,6 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
         //IEnumerable<PlanxPlanogramPart> GetPlanogramParts(int planogramId, int countryId);
         PlanogramPart GetPlanogramPart(int id);
-        Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
         void CreatePlanogramPart(PlanogramPart part);
         void DeletePlanogramPart(int id);
         void SavePlanogramPart();

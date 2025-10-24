@@ -1,4 +1,5 @@
-﻿using PMApplication.Entities.ClusterAggregate;
+﻿using ApplicationCore.Entities;
+using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
@@ -74,12 +75,15 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
 
     public virtual StandType standType { get; set; } = null!;
 
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
-    public virtual ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
+    public virtual List<Country> Countries { get; set; } = [];
+    public virtual List<Cluster> Clusters { get; set; } = [];
 
-    public virtual ICollection<Planogram> Planograms { get; set; } = new List<Planogram>();
+    public virtual List<Planogram> Planograms { get; set; } = [];
 
-    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
-    public virtual ICollection<StandColumn> ColumnList { get; set; } = new List<StandColumn>();
-    public virtual ICollection<StandRow> RowList { get; set; } = new List<StandRow>();
+    public virtual List<Part> Parts { get; set; } = [];
+    public virtual List<StandColumn> ColumnList { get; set; } = [];
+    public virtual List<StandRow> RowList { get; set; } = [];
+
+
+    //public virtual List<StandPart> StandParts { get; set; } = [];
 }

@@ -10,7 +10,8 @@ namespace PMApplication.Specifications
     {
         public ShadeSpecification(ShadeFilter filter)
         {
-            Query.Where(x => x.Published == true);
+            if (filter.Published)
+                Query.Where(x => x.Published == true);
 
             if (filter.ShadeNumber != null)
             {
@@ -35,6 +36,10 @@ namespace PMApplication.Specifications
 
             }
 
+            if (filter.Country != null)
+            {
+                Query.Where(x => x.Countries.Contains(filter.Country));
+            }
             Query.OrderBy(x => x.ShadeNumber);
 
             var baseFilter = new BaseFilter();
