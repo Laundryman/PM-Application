@@ -161,7 +161,7 @@ namespace PMApplication.Services
         }
 
 
-        public async Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo)
+        public async Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo, int brandId)
         {
             Cluster cluster = await _clusterRepository.GetByIdAsync(clusterId);
 
