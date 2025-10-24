@@ -9,14 +9,14 @@ namespace PMApplication.Dtos.PlanModels
     public class PlanmPlanogramInfo
     {
         public int PlanogramId { get; set; }
-        public string PlanogramName { get; set; }
+        public string? PlanogramName { get; set; }
         public int ClusterId { get; set; }
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string? UserId { get; set; }
+        public string? UserName { get; set; }
         public int CountryId { get; set; }
         public int BrandId { get; set; }
 
-        public string UserRoles { get; set; }
+        public string? UserRoles { get; set; }
 
         public PlanmShelfInfoList? PlanogramInfo { get; set; }
         public PlanmShelfInfoList? ScratchPadInfo { get; set; }
