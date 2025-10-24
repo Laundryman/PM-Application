@@ -14,6 +14,8 @@ namespace PMApplication.Dtos.PlanModels
         public string UserId { get; set; }
         public string UserName { get; set; }
         public int CountryId { get; set; }
+        public int BrandId { get; set; }
+
         public string UserRoles { get; set; }
 
         public PlanmShelfInfoList PlanogramInfo { get; set; }

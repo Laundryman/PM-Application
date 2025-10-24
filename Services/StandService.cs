@@ -47,9 +47,9 @@ namespace PMApplication.Services
 
         public async Task<Stand> GetStand(int id, bool includeColumnUprights)
         {
-            var part = await _standRepository.GetByIdAsync(id);
+            var stand = await _standRepository.GetByIdAsync(id);
             //var part
-            return part;
+            return stand;
         }
 
         public Task<IEnumerable<Stand>> GetStands()

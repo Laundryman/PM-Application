@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Models;
 using PMApplication.Dtos;
+using PMApplication.Dtos.PlanModels;
 using PMApplication.Entities;
 using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.PartAggregate;
@@ -68,7 +69,8 @@ namespace PMApplication.Services
             catch (Exception ex)
             {
                 // Log the exception or handle it as needed
-                throw new NotImplementedException("Method not implemented yet.", ex);
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 
@@ -115,6 +117,41 @@ namespace PMApplication.Services
         {
             var planograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Archived, brandId, jobId, regionId, countryId, standTypeId);
             return planograms;
+        }
+
+        public async Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter)
+        {
+            try
+            {
+                var spec = new GetPlanogramShelvesSpecification(filter);
+                var shelves = await _planogramShelfRepository.ListAsync(spec);
+                return shelves;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram shelves: " + ex.Message);
+                throw;
+            }
+            //return _mapper.Map<List<PlanmPartInfo>>(shelves);
+        }
+
+        public async Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter)
+        {
+            try
+            {
+                var spec = new GetPlanogramPartsSpecification(filter);
+                var parts = await _planogramPartRepository.ListAsync(spec);
+                //return _mapper.Map<List<PlanmPartInfo>>(parts);
+                return parts;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram parts: " + ex.Message);
+                throw;
+            }
+
         }
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
@@ -420,7 +457,11 @@ namespace PMApplication.Services
 
         public async Task LockPlanogram(PlanogramLockFilter filter)
         {
-            await UnLockPlanogram(filter);
+            var unlockFilter = new PlanogramLockFilter
+            {
+                PlanogramId = filter.PlanogramId
+            };
+            await UnLockPlanogram(unlockFilter);
             //now lock the planogram
             var plock = new PlanogramLock();
 
@@ -469,9 +510,9 @@ namespace PMApplication.Services
             }
         }
 
-        public void SavePlanogram(Planogram planogram)
+        public async Task SavePlanogram(Planogram planogram)
         {
-            _planogramRepository.UpdateAsync(planogram);
+            await _planogramRepository.UpdateAsync(planogram);
         }
 
         public PlanogramNote GetNote(long noteId)
@@ -646,7 +687,23 @@ namespace PMApplication.Services
             return scratchPad;
         }
 
-        public async void CreateScratchPad(ScratchPad scratchPad)
+        public async Task<ScratchPad> GetScratchPad(ScratchPadFilter filter)
+        {
+            try
+            {
+                var spec = new GetScratchPadSpecification(filter);
+                var scratchPad = await _scratchPadRepository.FirstAsync(spec);
+                return scratchPad;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting scratchpad: " + ex.Message);
+                throw;
+            }
+        }
+
+        public async Task CreateScratchPad(ScratchPad scratchPad)
         {
             await _scratchPadRepository.AddAsync(scratchPad);
             
@@ -696,12 +753,12 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter)
-        {
-            var spec = new PlanogramPartFilterSpecification(filter);
-            var parts = await _planogramPartRepository.ListAsync(spec);
-            return parts;
-        }
+        //public async Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter)
+        //{
+        //    var spec = new PlanogramPartFilterSpecification(filter);
+        //    var parts = await _planogramPartRepository.ListAsync(spec);
+        //    return parts;
+        //}
 
         public void CreatePlanogramPart(PlanogramPart part)
         {

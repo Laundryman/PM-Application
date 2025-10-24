@@ -32,8 +32,9 @@ namespace PMApplication.Services
 
         #region IProductService Members
 
-        public async Task<IReadOnlyList<Product>> GetProducts()
+        public async Task<IReadOnlyList<Product>> GetProducts(ProductFilter filter)
         {
+            var spec = new ProductSpecification(filter);
             var products = _productRepository.ListAllAsync();
             return await products;
         }
@@ -93,9 +94,19 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<Shade>> GetShades()
+        public async Task<IReadOnlyList<Shade>> GetShades(ShadeFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var spec = new ShadeSpecification(filter);
+                var shades = await _shadeRepository.ListAsync(spec);
+                return shades;
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error retrieving shades with filter {@Filter}", filter);
+                throw;
+            }
         }
 
         public async Task<IReadOnlyList<Shade>> GetShades(long shadeId)

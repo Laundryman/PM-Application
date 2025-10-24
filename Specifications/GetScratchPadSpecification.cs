@@ -5,9 +5,9 @@ using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications
 {
-    public class GetScratchPadSpecification : Specification<Planogram>
+    public class GetScratchPadSpecification : Specification<ScratchPad>
     {
-        public GetScratchPadSpecification(PlanogramFilter filter)
+        public GetScratchPadSpecification(ScratchPadFilter filter)
         {
             if (filter.Id != 0)
                 Query.Where(x => x.Id == filter.Id)
