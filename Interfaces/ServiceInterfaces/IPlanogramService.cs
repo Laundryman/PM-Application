@@ -27,6 +27,9 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter);
         Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
 
+        Task<PlanogramPreview> GetPlanogramPreview(long id);
+        Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter);
+
         //Task<IReadOnlyList<PlanmPartInfo>> GetPlanogramParts(PlanogramPartFilter filter);
         /// <summary>
         /// Get All Planograms for a specific country
@@ -69,7 +72,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<CassetteList> GetCassetteList(int id, string userId);
 
 
-        Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo);
+        Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo, int brandId);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate);
 

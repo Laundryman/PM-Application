@@ -33,10 +33,11 @@ namespace PMApplication.Services
         private readonly IPlanogramShelfRepository _planogramShelfRepository;
         private readonly IPlanogramNoteRepository _noteRepository;
         private readonly IPlanogramLockRepository _planogramLockRepository;
+        private readonly IPlanogramPreviewRepository _planogramPreviewRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository)
+        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository)
         {
             _partRepository = partRepository;
             _planogramRepository = planogramRepository;
@@ -47,6 +48,7 @@ namespace PMApplication.Services
             _clusterRepository = clusterRepository;
             _scratchPadRepository = scratchPadRepository;
             _planogramLockRepository = planogramLockRepository;
+            _planogramPreviewRepository = planogramPreviewRepository;
             _noteRepository = planogramNoteRepository;
         }
 
@@ -80,6 +82,7 @@ namespace PMApplication.Services
             try
             {
                 return await _planogramRepository.GetByIdAsync(id);
+                
             }
             catch (Exception ex)
             {
@@ -154,6 +157,19 @@ namespace PMApplication.Services
 
         }
 
+        public Task<PlanogramPreview> GetPlanogramPreview(long Id)
+        {
+            var previewsrc = _planogramPreviewRepository.GetByIdAsync(Id);
+            return previewsrc;
+        }
+
+        public Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter)
+        {
+            var spec = new PlanogramPreviewSpecification(filter);
+            var previewsrc = _planogramPreviewRepository.FirstSync(spec);
+            return previewsrc;
+        }
+
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
         {
             var skus = await _planogramRepository.GetSkuList(id, userId, hasColumns);
@@ -161,7 +177,7 @@ namespace PMApplication.Services
         }
 
 
-        public async Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo)
+        public async Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo, int brandId)
         {
             Cluster cluster = await _clusterRepository.GetByIdAsync(clusterId);
 

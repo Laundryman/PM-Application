@@ -9,11 +9,13 @@ namespace PMApplication.Dtos.PlanModels
     public class PlanmPartInfo
     {
         public string Category { get; set; }
-        public IEnumerable<PlanmPartFacing> facingProducts { get; set; }
-        public IEnumerable<ProductDto> products { get; set; }
+        public IEnumerable<PlanmPartFacing>? facingProducts { get; set; }
+        public IEnumerable<ProductDto>? products { get; set; }
 
         public List<int> CountryIds { get; set; }
-        public int Facings { get; set; }
+        public string? CountryList { get; set; }
+
+        public int? Facings { get; set; }
         public int Height { get; set; }
         public string? Name { get; set; }
         public string? Notes { get; set; }

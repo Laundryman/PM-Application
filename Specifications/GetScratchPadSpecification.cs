@@ -12,8 +12,25 @@ namespace PMApplication.Specifications
             if (filter.Id != 0)
                 Query.Where(x => x.Id == filter.Id)
                     .Include(s => s.PlanogramShelves)
-                    .Include(s => s.PlanogramParts);
 
+
+                    .Include(s => s.PlanogramParts)
+                    .ThenInclude(p => p.PlanogramPartFacings)
+                    //.ThenInclude(f => f.Product)
+
+                    .Include(s => s.PlanogramParts)
+                    .ThenInclude(p => p.Products)
+
+                    .Include(s => s.PlanogramParts)
+                    .ThenInclude(p => p.Part)
+
+                    .Include(s => s.PlanogramParts)
+                    .ThenInclude(p => p.Part)
+                    .ThenInclude(p => p.Countries)
+
+                    .Include(s => s.PlanogramParts)
+                    .ThenInclude(p => p.Part)
+                    .ThenInclude(p => p.Products);
         }
 
     }
