@@ -27,6 +27,9 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter);
         Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
 
+        Task<PlanogramPreview> GetPlanogramPreview(long id);
+        Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter);
+
         //Task<IReadOnlyList<PlanmPartInfo>> GetPlanogramParts(PlanogramPartFilter filter);
         /// <summary>
         /// Get All Planograms for a specific country
