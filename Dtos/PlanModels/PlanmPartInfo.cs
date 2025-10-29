@@ -8,11 +8,11 @@ namespace PMApplication.Dtos.PlanModels
 {
     public class PlanmPartInfo
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
         public IEnumerable<PlanmPartFacing>? facingProducts { get; set; }
         public IEnumerable<ProductDto>? products { get; set; }
 
-        public List<int> CountryIds { get; set; }
+        public List<int>? CountryIds { get; set; }
         public string? CountryList { get; set; }
 
         public int? Facings { get; set; }
@@ -64,8 +64,8 @@ namespace PMApplication.Dtos.PlanModels
         public bool Discontinued { get; set; }
         public string? ShelfLabel { get; set; }
 
-        public bool PlanxPartAllowed { get; set; }
+        public bool? PlanxPartAllowed { get; set; }
 
-        public bool NonMarket { get; set; }
+        public bool? NonMarket { get; set; }
     }
 }
