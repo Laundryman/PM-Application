@@ -13,7 +13,11 @@ namespace PMApplication.Specifications
             {
                 Query.Where(x => x.Id == filter.Id)
                     //.Include(x => x.PlanogramNotes)
-                .Include(x => x.Stand);
+                    .Include(x => x.Stand)
+                    .ThenInclude(s => s.ColumnList)
+                    .Include(x => x.Stand)
+                    .ThenInclude(s => s.RowList);
+
                 //.Include(x => x.PlanogramPartFacings)
                 //.Include(x => x.PlanogramParts)
                 //.ThenInclude(p => p.PlanogramPartFacings)

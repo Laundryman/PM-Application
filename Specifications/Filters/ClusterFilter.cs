@@ -8,6 +8,7 @@ namespace PMApplication.Specifications.Filters
 {
     public class ClusterFilter : BaseFilter
     {
+        public long Id { get; set; }
         public int? BrandId { get; set; }
         public string? UserId { get; set; }
         public int? CountryId { get; set; }

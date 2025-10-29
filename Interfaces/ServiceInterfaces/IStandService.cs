@@ -15,7 +15,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
     {
         Dictionary<string, byte> GetLayoutTypes();
         Task<Stand> GetStand(int id);
-        Task<Stand> GetStand(int id, bool includeColumnUprights);
+        Task<Stand> GetStand(StandFilter filter);
         Task<IEnumerable<Stand>> GetStands();
         Task<IReadOnlyList<Stand>> GetStands(StandFilter filter);
         //IEnumerable<Stand> GetStandsForBrand(int brandId);
@@ -32,6 +32,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
         Task<StandType> GetStandType(int id);
+
         Task<StandType?> GetStandType(StandTypeFilter filter);
 
         Task<IReadOnlyList<StandType>> GetStandTypes(StandTypeFilter filter);

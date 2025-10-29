@@ -15,6 +15,7 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
 
     public short Width { get; set; }
 
+    public string?  StandTypeName { get; set; }
     public int StandTypeId { get; set; }
 
     public int? MerchHeight { get; set; }
@@ -73,9 +74,13 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
 
     public int? ParentStandTypeId { get; set; }
 
-    public virtual StandType standType { get; set; } = null!;
+    public virtual StandType StandType { get; set; } = null!;
 
     public virtual List<Country> Countries { get; set; } = [];
+    //public virtual List<StandCountry> StandCountries { get; } = [];
+
+    public virtual List<CountryRegion> RegionCountries { get; } = [];
+
     public virtual List<Cluster> Clusters { get; set; } = [];
 
     public virtual List<Planogram> Planograms { get; set; } = [];

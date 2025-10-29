@@ -26,17 +26,21 @@ namespace PMApplication.Services
         private readonly IPartTypeRepository _partTypeRepository;
         private readonly IStandTypeRepository _standTypeRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IClusterRepository _clusterRepository;
         //private readonly IPartRepository _partRepositorySync;
         //private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public ClusterService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository)
+        public ClusterService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository, IClusterRepository clusterRepository, IMapper mapper, ILogger<PartService> logger)
         {
             _standRepository = standRepository;
             _partTypeRepository = partTypeRepository;
             _standTypeRepository = standTypeRepository;
             _categoryRepository = categoryRepository;
+            _clusterRepository = clusterRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -47,7 +51,16 @@ namespace PMApplication.Services
 
         public Task<IReadOnlyList<Cluster>> GetClusters(ClusterFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var spec = new ClusterSpecification(filter);
+                return _clusterRepository.ListAsync(spec);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting clusters with filter {@Filter}", filter);
+                throw;
+            }
         }
 
         public Task<Cluster> GetCluster(int id)

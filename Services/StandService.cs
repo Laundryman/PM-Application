@@ -45,9 +45,10 @@ namespace PMApplication.Services
             return part.Result;
         }
 
-        public async Task<Stand> GetStand(int id, bool includeColumnUprights)
+        public async Task<Stand> GetStand(StandFilter filter)
         {
-            var stand = await _standRepository.GetByIdAsync(id);
+            var spec = new StandSpecification(filter);
+            var stand = await _standRepository.FirstAsync(spec);
             //var part
             return stand;
         }

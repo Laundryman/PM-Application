@@ -26,12 +26,12 @@ namespace PMApplication.Specifications
                 Query.Include(x => x.ParentStandTypeId == filter.ParentStandTypeId);
 
 
-            if (filter.CountryId != null)
-            {
+            //if (filter.CountryId != null)
+            //{
 
-                Query.Where(x =>
-                    x.Stands.Any(st => st.Countries.Any(country => country.Id == filter.CountryId)));
-            }
+            //    Query.Where(x =>
+            //        x.Stands.Any(st => st.Countries.Any(country => country.Id == filter.CountryId)));
+            //}
 
             if (filter.HasStands)
             {

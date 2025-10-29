@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -177,69 +178,81 @@ namespace PMApplication.Services
         }
 
 
-        public async Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo, int brandId)
+        public async Task<long> CreatePlanogramFromCluster(ClusterFilter filter, string name, CurrentUser userInfo,
+            int brandId)
         {
-            Cluster cluster = await _clusterRepository.GetByIdAsync(clusterId);
 
-            Planogram planogram = new Planogram();
-
-            planogram.Cluster = cluster;
-            planogram.ClusterId = cluster.Id;
-            planogram.CurrentVersion = 1;
-            planogram.DateCreated = DateTime.Now;
-            planogram.DateUpdated = DateTime.Now;
-            planogram.DateSubmitted = null;
-            planogram.Name = name;
-            planogram.Stand = cluster.Stand;
-            planogram.StandId = cluster.Stand.Id;
-            //planogram.Status = 1;
-            planogram.StatusId = 1;
-            planogram.Template = false; //this is not a template (yet at least)
-            planogram.UserId = userInfo.Id;
-            planogram.CountryId = userInfo.DiamCountryId;
-            planogram.UserName = userInfo.DisplayName;
-            planogram.LubName = userInfo.GivenName + " " + userInfo.Surname;
-            planogram.LastUpdatedBy = userInfo.Id;
-            //planogram.CountryId = (int)oauthService.GetUserProfile(userId).CountryId;
-
-            CreatePlanogram(planogram);
-
-            //Add Shelves
-            foreach (ClusterShelf shelf in cluster.ClusterShelves)
+            try
             {
-                PlanogramShelf pShelf = new PlanogramShelf();
-                pShelf.Column = shelf.Column;
-                pShelf.Height = shelf.Height;
-                pShelf.PositionX = shelf.PositionX;
-                pShelf.PositionY = shelf.PositionY;
-                pShelf.Row = shelf.Row;
-                pShelf.Width = shelf.Width;
-                pShelf.Planogram = planogram;
-                pShelf.PlanogramId = planogram.Id;
-                pShelf.Part = shelf.Part;
+                var spec = new ClusterSpecification(filter);
+                Cluster cluster = await _clusterRepository.FirstAsync(spec);
 
-                pShelf.ShelfTypeId = shelf.Part.PartType.Id;
-                CreatePlanogramShelf(pShelf);
+                Planogram planogram = new Planogram();
+
+                //planogram.Cluster = cluster;
+                planogram.ClusterId = cluster.Id;
+                planogram.CurrentVersion = 1;
+                planogram.DateCreated = DateTime.Now;
+                planogram.DateUpdated = DateTime.Now;
+                planogram.DateSubmitted = null;
+                planogram.Name = name;
+                //planogram.Stand = cluster.Stand;
+                planogram.StandId = cluster.Stand.Id;
+                //planogram.Status = 1;
+                planogram.StatusId = 1;
+                planogram.Template = false; //this is not a template (yet at least)
+                planogram.UserId = userInfo.Id;
+                planogram.CountryId = userInfo.DiamCountryId;
+                planogram.UserName = userInfo.DisplayName;
+                planogram.LubName = userInfo.GivenName + " " + userInfo.Surname;
+                planogram.LastUpdatedBy = userInfo.Id;
+                //planogram.CountryId = (int)oauthService.GetUserProfile(userId).CountryId;
+
+                await CreatePlanogram(planogram);
+
+                //Add Shelves
+                foreach (ClusterShelf shelf in cluster.ClusterShelves)
+                {
+                    PlanogramShelf pShelf = new PlanogramShelf();
+                    pShelf.Column = shelf.Column;
+                    pShelf.Height = shelf.Height;
+                    pShelf.PositionX = shelf.PositionX;
+                    pShelf.PositionY = shelf.PositionY;
+                    pShelf.Row = shelf.Row;
+                    pShelf.Width = shelf.Width;
+                    pShelf.Planogram = planogram;
+                    pShelf.PlanogramId = planogram.Id;
+                    pShelf.Part = shelf.Part;
+
+                    pShelf.ShelfTypeId = shelf.Part.PartType.Id;
+                    await CreatePlanogramShelf(pShelf);
+                }
+
+                //Add Promos > now accessories
+
+                foreach (ClusterPart part in cluster.ClusterParts)
+                {
+                    PlanogramPart pPart = new PlanogramPart();
+                    pPart.Part = part.Part;
+                    pPart.PlanogramId = planogram.Id;
+                    pPart.PositionX = part.PositionX;
+                    pPart.PositionY = part.PositionY;
+                    pPart.Part = part.Part;
+                    await CreatePlanogramPart(pPart);
+
+
+                }
+
+
+                SavePlanogram(planogram);
+                return planogram.Id;
             }
-
-            //Add Promos > now accessories
-
-            foreach (ClusterPart part in cluster.ClusterParts)
+            catch (Exception ex)
             {
-                PlanogramPart pPart = new PlanogramPart();
-                pPart.Part = part.Part;
-                pPart.PlanogramId = planogram.Id;
-                pPart.PositionX = part.PositionX;
-                pPart.PositionY = part.PositionY;
-                pPart.Part = part.Part;
-                CreatePlanogramPart(pPart);
-
-
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram from cluster: " + ex.Message);
+                throw;
             }
-
-
-            SavePlanogram(planogram);
-            return planogram.Id;
         }
 
         public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile)
@@ -296,7 +309,7 @@ namespace PMApplication.Services
             }
 
             //NEED TO HANDLE PLANOGRAMS THAT HAVE NO SHELVES
-            if ((originalPlanogram.Stand.standType.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (originalPlanogram.Stand.standType.ParentStandTypeId == (int)StandTypeEnum.NEO))
+            if ((originalPlanogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (originalPlanogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.NEO))
             {
                 foreach (PlanogramPart part in originalPlanogram.PlanogramParts)
                 {
@@ -744,9 +757,18 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void CreatePlanogramShelf(PlanogramShelf shelf)
+        public async Task CreatePlanogramShelf(PlanogramShelf shelf)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _planogramShelfRepository.AddAsync(shelf);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram shelf: " + ex.Message);
+                throw;
+            }
         }
 
         public async Task DeletePlanogramShelf(long id)
@@ -776,9 +798,18 @@ namespace PMApplication.Services
         //    return parts;
         //}
 
-        public void CreatePlanogramPart(PlanogramPart part)
+        public async Task CreatePlanogramPart(PlanogramPart part)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _planogramPartRepository.AddAsync(part);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram part: " + ex.Message);
+                throw;
+            }
         }
 
         public void DeletePlanogramPart(int id)
