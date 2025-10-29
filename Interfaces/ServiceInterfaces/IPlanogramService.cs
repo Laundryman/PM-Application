@@ -72,7 +72,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<CassetteList> GetCassetteList(int id, string userId);
 
 
-        Task<long> CreatePlanogramFromCluster(int clusterId, string name, CurrentUser userInfo, int brandId);
+        Task<long> CreatePlanogramFromCluster(ClusterFilter filter, string name, CurrentUser userInfo, int brandId);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate);
 
@@ -106,13 +106,13 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
         PlanogramShelf GetPlanogramShelf(int id);
         IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId);
-        void CreatePlanogramShelf(PlanogramShelf shelf);
+        Task CreatePlanogramShelf(PlanogramShelf shelf);
         Task DeletePlanogramShelf(long id);
         void SavePlanogramShelf();
 
         //IEnumerable<PlanxPlanogramPart> GetPlanogramParts(int planogramId, int countryId);
         PlanogramPart GetPlanogramPart(int id);
-        void CreatePlanogramPart(PlanogramPart part);
+        Task CreatePlanogramPart(PlanogramPart part);
         void DeletePlanogramPart(int id);
         void SavePlanogramPart();
 

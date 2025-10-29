@@ -12,7 +12,8 @@ namespace PMApplication.Specifications
         public ClusterSpecification(ClusterFilter filter)
         {
             Query.OrderBy(x => x.Name);
-
+            Query.Include(x => x.Stand)
+                .ThenInclude(s => s.StandType);
             //int brandId, int? regionId, int? countryId, int? categoryId, int? parentCategoryId, int? partId, bool shoppable
 
             if (filter.IsPagingEnabled)
@@ -28,15 +29,21 @@ namespace PMApplication.Specifications
             if ((filter.StandTypeId != null))
                 Query.Include(x => x.Stand.StandTypeId == filter.StandTypeId);
 
-            if ((filter.CountryId != null))
-            {
-                Query.Include(x => x.Stand.Countries)
-                    .Where(x => x.Stand.Countries.All(c => c.Id == filter.CountryId));
-            }
+            //if ((filter.CountryId != null))
+            //{
+            //    Query.Include(x => x.Stand.Countries)
+            //        .Where(x => x.Stand.Countries.All(c => c.Id == filter.CountryId));
+            //}
 
             if (filter.Published != null)
             {
                 Query.Where(x => x.Published == filter.Published);
+            }
+
+            if (filter.Id != 0)
+            {
+                Query.Where(c => c.Id == filter.Id)
+                    .Include(c => c.Stand);
             }
         }
     }

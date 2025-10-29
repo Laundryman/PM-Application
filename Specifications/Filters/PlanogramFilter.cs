@@ -8,7 +8,7 @@ namespace PMApplication.Specifications.Filters
 {
     public class PlanogramFilter
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int BrandId { get; set; }
         public int CountryId { get; set; }
         public int RegionId { get; set; }
