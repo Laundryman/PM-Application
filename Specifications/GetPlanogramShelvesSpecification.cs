@@ -11,9 +11,9 @@ namespace PMApplication.Specifications
         {
             if (filter.Id != 0)
             {
-                Query.Where(x => (x.PlanogramId == filter.Id) && (x.ScratchPadId == null || x.ScratchPadId == 0));
-                //.Include(p => p.)
-                //.Include(p => p.Part)
+                Query.Where(x => (x.PlanogramId == filter.Id) && (x.ScratchPadId == null || x.ScratchPadId == 0))
+                    //.Include(p => p.)
+                    .Include(p => p.Part);
                 //.ThenInclude(p => p.Products);
 
             }

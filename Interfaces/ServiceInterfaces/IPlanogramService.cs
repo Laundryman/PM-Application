@@ -104,27 +104,27 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         void DeleteScratchPad(long id);
         //void SaveScratchPad();
 
-        PlanogramShelf GetPlanogramShelf(int id);
+        Task<PlanogramShelf> GetPlanogramShelf(int id);
         IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId);
         Task CreatePlanogramShelf(PlanogramShelf shelf);
         Task DeletePlanogramShelf(long id);
-        void SavePlanogramShelf();
+        Task UpdatePlanogramShelf(PlanogramShelf shelf);
 
         //IEnumerable<PlanxPlanogramPart> GetPlanogramParts(int planogramId, int countryId);
-        PlanogramPart GetPlanogramPart(int id);
+        Task<PlanogramPart> GetPlanogramPart(int id);
         Task CreatePlanogramPart(PlanogramPart part);
-        void DeletePlanogramPart(int id);
-        void SavePlanogramPart();
+        Task DeletePlanogramPart(long id);
+        Task SavePlanogramPart(PlanogramPart part);
 
-        PlanogramPartFacing GetPlanogramPartFacing(long id);
-        void CreatePlanogramPartFacing(PlanogramPartFacing partFacing);
-        void DeletePlanogramPartFacing(long id);
+        Task<PlanogramPartFacing> GetPlanogramPartFacing(long id);
+        Task CreatePlanogramPartFacing(PlanogramPartFacing partFacing);
+        Task DeletePlanogramPartFacing(long id);
         void SavePlanogramPartFacing();
 
         IEnumerable<PlanogramPartFacing> GetPlanogramPartFacings();
         IEnumerable<PartFacingDto> GetPlanogramPartFacings(int ppartId);
 
-        PlanogramStatus GetPlanogramStatus(int id);
+        Task<PlanogramStatus> GetPlanogramStatus(int id);
 
         //these are just special parts, that can have a parent part (cassette)
         void CreatePlanogramPartFactice(PlanogramPart part);

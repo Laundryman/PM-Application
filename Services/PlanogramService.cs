@@ -31,6 +31,7 @@ namespace PMApplication.Services
         private readonly IClusterRepository _clusterRepository;
         private readonly IScratchPadRepository _scratchPadRepository;
         private readonly IPlanogramPartRepository _planogramPartRepository;
+        private readonly IPlanogramPartFacingRepository _planogramPartFacingRepository;
         private readonly IPlanogramShelfRepository _planogramShelfRepository;
         private readonly IPlanogramNoteRepository _noteRepository;
         private readonly IPlanogramLockRepository _planogramLockRepository;
@@ -38,7 +39,7 @@ namespace PMApplication.Services
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository)
+        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository, IPlanogramPartFacingRepository facingRepository)
         {
             _partRepository = partRepository;
             _planogramRepository = planogramRepository;
@@ -50,6 +51,7 @@ namespace PMApplication.Services
             _scratchPadRepository = scratchPadRepository;
             _planogramLockRepository = planogramLockRepository;
             _planogramPreviewRepository = planogramPreviewRepository;
+            _planogramPartFacingRepository = facingRepository;
             _noteRepository = planogramNoteRepository;
         }
 
@@ -189,7 +191,7 @@ namespace PMApplication.Services
 
                 Planogram planogram = new Planogram();
 
-                //planogram.Cluster = cluster;
+                planogram.BrandId = brandId;
                 planogram.ClusterId = cluster.Id;
                 planogram.CurrentVersion = 1;
                 planogram.DateCreated = DateTime.Now;
@@ -336,7 +338,7 @@ namespace PMApplication.Services
                             }
                         }
 
-                        CreatePlanogramPart(newPart);
+                        await CreatePlanogramPart(newPart);
                         foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
                         {
                             PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
@@ -352,10 +354,10 @@ namespace PMApplication.Services
                             {
                                 newPartFacing.FacingStatusId = partFacing.FacingStatusId;
                             }
-                            CreatePlanogramPartFacing(newPartFacing);
+                            await CreatePlanogramPartFacing(newPartFacing);
                             newPart.PlanogramPartFacings.Add(newPartFacing);
                         }
-                        SavePlanogramPart();
+                        await SavePlanogramPart(newPart);
                     }
                 }
 
@@ -404,7 +406,7 @@ namespace PMApplication.Services
                             newPart.PartStatusId = part.PartStatusId;
                             newPart.Notes = part.Notes;
                         }
-                        CreatePlanogramPart(newPart);
+                        await CreatePlanogramPart(newPart);
                         foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
                         {
                             PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
@@ -422,7 +424,7 @@ namespace PMApplication.Services
                             CreatePlanogramPartFacing(newPartFacing);
                             newPart.PlanogramPartFacings.Add(newPartFacing);
                         }
-                        SavePlanogramPart();
+                        await SavePlanogramPart(newPart);
                         newShelf.PlanogramParts.Add(newPart);
                     }
                 }
@@ -450,12 +452,12 @@ namespace PMApplication.Services
                         accessoryPart.PartStatusId = part.PartStatusId;
                         accessoryPart.Notes = part.Notes;
                     }
-                    CreatePlanogramPart(accessoryPart);
+                    await CreatePlanogramPart(accessoryPart);
                 }
 
             }
 
-            SavePlanogram(newPlanogram);
+            await SavePlanogram(newPlanogram);
 
             // considered placing the clone snapshots call in here, decided against it as its not strictly a data operation - MB
             // instead, cloning is called from the UI, e.g. planogramsInProgress.ascx.cs : btnSaveAsTemplate_Click()
@@ -747,9 +749,18 @@ namespace PMApplication.Services
 
 
         #endregion
-        public PlanogramShelf GetPlanogramShelf(int id)
+        public Task<PlanogramShelf> GetPlanogramShelf(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _planogramShelfRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram shelf: " + ex.Message);
+                throw;
+            }
         }
 
         public IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId)
@@ -773,22 +784,49 @@ namespace PMApplication.Services
 
         public async Task DeletePlanogramShelf(long id)
         {
-            var shelf = await _planogramShelfRepository.GetByIdAsync(id);
-            if (shelf != null)
+            try
             {
-                await _planogramShelfRepository.DeleteAsync(shelf);
-                SavePlanogramShelf();
+                var shelf = await _planogramShelfRepository.GetByIdAsync(id);
+                if (shelf != null)
+                {
+                    await _planogramShelfRepository.DeleteAsync(shelf);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error deleting planogram shelf: " + ex.Message);
+                throw;
+            }
+
+        }
+
+        public async Task UpdatePlanogramShelf(PlanogramShelf shelf)
+        {
+            try
+            {
+                await _planogramShelfRepository.UpdateAsync(shelf);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error saving planogram shelf: " + ex.Message);
+                throw;
             }
         }
 
-        public void SavePlanogramShelf()
+        public Task<PlanogramPart> GetPlanogramPart(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public PlanogramPart GetPlanogramPart(int id)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return _planogramPartRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram part: " + ex.Message);
+                throw;
+            }
         }
 
         //public async Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter)
@@ -812,41 +850,81 @@ namespace PMApplication.Services
             }
         }
 
-        public void DeletePlanogramPart(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task DeletePlanogramPart(long id)
         {
-            var part = await _planogramPartRepository.GetByIdAsync(id);
-            await _planogramPartRepository.DeleteAsync(part);
-            SavePlanogramPart();
+            try
+            {
+                var part = await _planogramPartRepository.GetByIdAsync(id);
+                await _planogramPartRepository.DeleteAsync(part);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error deleting planogram part: " + ex.Message);
+                throw;
+            }
+
         }
 
-        public void SavePlanogramPart()
+        public async Task SavePlanogramPart(PlanogramPart part)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _planogramPartRepository.UpdateAsync(part);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error saving planogram part: " + ex.Message);
+                throw;
+            }
         }
 
-        public PlanogramPartFacing GetPlanogramPartFacing(long id)
+        public async Task<PlanogramPartFacing> GetPlanogramPartFacing(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _planogramPartFacingRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram part facing: " + ex.Message);
+                throw;
+            }
         }
 
-        public void CreatePlanogramPartFacing(PlanogramPartFacing partFacing)
+        public async Task CreatePlanogramPartFacing(PlanogramPartFacing partFacing)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _planogramPartFacingRepository.AddAsync(partFacing);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram part facing: " + ex.Message);
+                throw;
+            }
         }
 
-        public void DeletePlanogramPartFacing(long id)
+        public async Task DeletePlanogramPartFacing(long id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var partFacing = await _planogramPartFacingRepository.GetByIdAsync(id);
+                if (partFacing != null)
+                {
+                    await _planogramPartFacingRepository.DeleteAsync(partFacing);
+                }
 
-        public void DeletePlanogramPartFacing(int id)
-        {
-            throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error deleting planogram part facing: " + ex.Message);
+                throw;
+            }
         }
 
         public void SavePlanogramPartFacing()
@@ -864,7 +942,7 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public PlanogramStatus GetPlanogramStatus(int id)
+        public Task<PlanogramStatus> GetPlanogramStatus(int id)
         {
             throw new NotImplementedException();
         }
