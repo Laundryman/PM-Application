@@ -78,6 +78,7 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public string? ParentCategoryName { get; set; }
 
     public string? CountryList { get; set; }
+    public string? ProductList { get; set; }
 
     public int? RegionId { get; set; }
 

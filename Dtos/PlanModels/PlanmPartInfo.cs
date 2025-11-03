@@ -14,6 +14,7 @@ namespace PMApplication.Dtos.PlanModels
 
         public List<int>? CountryIds { get; set; }
         public string? CountryList { get; set; }
+        public string? ProductList { get; set; }
 
         public int? Facings { get; set; }
         public int Height { get; set; }
