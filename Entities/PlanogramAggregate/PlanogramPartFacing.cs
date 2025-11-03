@@ -9,10 +9,12 @@ public partial class PlanogramPartFacing : BaseEntity<long>, IAggregateRoot
     public long PlanogramId { get; set; }
 
     public long ProductId { get; set; }
+    public string ProductName { get; set; }
 
     public int StockCount { get; set; }
 
     public long? ShadeId { get; set; }
+    public string? ShadeName { get; set; }
 
     public int? Position { get; set; }
 

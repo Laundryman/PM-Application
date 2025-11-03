@@ -36,7 +36,7 @@ namespace PMApplication.Dtos.PlanModels
         //public string ParentPlanxPartId { get; set; }
         public string? PlanxShelfId { get; set; }
 
-        public int? PartId { get; set; }
+        public long? PartId { get; set; }
         public int? PartTypeId { get; set; }
         public int? ShelfTypeId { get; set; }
         public string? PartNumber { get; set; }

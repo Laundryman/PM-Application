@@ -16,7 +16,7 @@ namespace PMApplication.Specifications
 
                     .Include(s => s.PlanogramParts)
                     .ThenInclude(p => p.PlanogramPartFacings)
-                    //.ThenInclude(f => f.Product)
+                    .ThenInclude(f => f.Product)
 
                     .Include(s => s.PlanogramParts)
                     .ThenInclude(p => p.Products)
@@ -27,9 +27,9 @@ namespace PMApplication.Specifications
                     .ThenInclude(p => p.Product)
                     .ThenInclude(p => p.Shades)
 
-                    .Include(s => s.PlanogramParts)
-                    .ThenInclude(p => p.Part)
-                    .ThenInclude(p => p.Countries)
+                    //.Include(s => s.PlanogramParts)
+                    //.ThenInclude(p => p.Part)
+                    //.ThenInclude(p => p.Countries)
 
                     .Include(s => s.PlanogramParts)
                     .ThenInclude(p => p.Part)

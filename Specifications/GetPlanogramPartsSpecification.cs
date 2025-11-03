@@ -17,12 +17,12 @@ namespace PMApplication.Specifications
                     .ThenInclude(s => s.Shades)
 
                     .Include(x => x.Part)
-                    //.ThenInclude(p => p.Countries)
+                    .ThenInclude(p => p.PartType)
 
-                    .Include(p => p.Part)
-                    .ThenInclude(p => p.Products)
-                    .ThenInclude(pp => pp.Product)
-                    .ThenInclude(s => s.Shades)
+                    //.Include(p => p.Part)
+                    //.ThenInclude(p => p.Products)
+                    //.ThenInclude(pp => pp.Product)
+                    //.ThenInclude(s => s.Shades)
                     //.ThenInclude(p => p.Countries)
 
                     .OrderBy(p => p.PositionX).ThenBy(p => p.PositionY);
