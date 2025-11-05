@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using PMApplication.Dtos.PlanModels;
 using PMApplication.Entities;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
@@ -58,8 +59,32 @@ namespace PMApplication.Services
 
         public async Task<Part> GetPart(int id)
         {
-            var part = await _partRepository.GetByIdAsync(id);
-            return part;
+            try
+            {
+                var part = await _partRepository.GetByIdAsync(id);
+                return part;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<Part> GetPart(PartFilter partFilter)
+        {
+            try
+            {
+                var spec = new PartSpecification(partFilter);
+                var part = await _partRepository.FirstAsync(spec);
+                return part;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+
         }
 
         public Task<IReadOnlyList<PlanogramPart>> GetNonMarketParts(PlanogramPartFilter filter)
@@ -133,6 +158,22 @@ namespace PMApplication.Services
 
                 var menu = await _partRepository.GetPlanmMenu((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
                 return menu;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IReadOnlyList<Category>?> GetPlanmMenuCategories(PartFilter filter)
+        {
+            try
+            {
+
+                var menCats = await _partRepository.GetPlanmMenuCategories((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
+                return menCats;
             }
             catch (Exception ex)
             {

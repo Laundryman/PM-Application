@@ -29,6 +29,8 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
         Task<PlanogramPreview> GetPlanogramPreview(long id);
         Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter);
+        Task CreatePlanogramPreview(PlanogramPreview preview);
+        Task SavePlanogramPreview(PlanogramPreview preview);
 
         //Task<IReadOnlyList<PlanmPartInfo>> GetPlanogramParts(PlanogramPartFilter filter);
         /// <summary>
@@ -119,7 +121,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<PlanogramPartFacing> GetPlanogramPartFacing(long id);
         Task CreatePlanogramPartFacing(PlanogramPartFacing partFacing);
         Task DeletePlanogramPartFacing(long id);
-        void SavePlanogramPartFacing();
+        Task SavePlanogramPartFacing(PlanogramPartFacing partFacing);
 
         IEnumerable<PlanogramPartFacing> GetPlanogramPartFacings();
         IEnumerable<PartFacingDto> GetPlanogramPartFacings(int ppartId);

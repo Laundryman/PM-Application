@@ -4,6 +4,7 @@ namespace PMApplication.Specifications.Filters
 {
     public class PartFilter : BaseFilter
     {
+        public long? Id { get; set; }
         public string PartNumber { get; set; }
         public int? PartTypeId { get; set; }
         public int? StandTypeId { get; set; }

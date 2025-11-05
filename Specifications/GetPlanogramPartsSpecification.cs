@@ -13,14 +13,14 @@ namespace PMApplication.Specifications
             {
                 Query.Where(x => (x.PlanogramId == filter.PlanogramId) && (x.ScratchPadId == null))
                     .Include(p => p.PlanogramPartFacings)
-                    .Include(p => p.Products)
-                    .ThenInclude(s => s.Shades)
+                    //.Include(p => p.Products)
+                    //.ThenInclude(s => s.Shades)
 
                     .Include(x => x.Part)
                     .ThenInclude(p => p.PartType)
 
-                    .Include(p => p.Part)
-                    .ThenInclude(p => p.Products)
+                    //.Include(p => p.Part)
+                    //.ThenInclude(p => p.Products)
                     //.ThenInclude(pp => pp.Product)
                     //.ThenInclude(s => s.Shades)
                     //.ThenInclude(p => p.Countries)

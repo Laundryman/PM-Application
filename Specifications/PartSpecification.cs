@@ -19,6 +19,14 @@ namespace PMApplication.Specifications
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
                      .Take(PaginationHelper.CalculateTake(filter));
 
+            if (filter.Id != null)
+            {
+                Query.Include(p => p.Products)
+                    .ThenInclude(p => p.Product)
+                    .ThenInclude(p => p.Shades);
+                Query.Where(p => p.Id == filter.Id);
+            }
+
             if (!string.IsNullOrEmpty(filter.PartNumber))
                 Query.Where(x => x.PartNumber == filter.PartNumber);
 
@@ -32,11 +40,15 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.CategoryId == filter.CategoryId);
             if((filter.ParentCategoryId != null))
                 Query.Where(x => x.ParentCategoryId == filter.ParentCategoryId);
-            if (filter.Countries.Count > 0)
+            if (filter.Countries != null)
             {
-                var countryIds = filter.Countries.Select(c => c.Id).ToList();
-                Query.Where(p => p.Countries.Any(c => countryIds.Contains(c.Id)));
+                if (filter.Countries.Count > 0)
+                {
+                    var countryIds = filter.Countries.Select(c => c.Id).ToList();
+                    Query.Where(p => p.Countries.Any(c => countryIds.Contains(c.Id)));
+                }
             }
+
             if (filter.StandTypeId != null)
                 Query.Where(x => x.StandTypes.Any( s => s.Id == filter.StandTypeId));
             if (filter.excludeSpareParts)

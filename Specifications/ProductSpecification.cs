@@ -16,7 +16,8 @@ namespace PMApplication.Specifications
             //    Query.Where(x.CountryList )
             //}
             if (filter.PartId != null)
-                Query.Where(x => x.Parts.All(p => p.PartId == filter.PartId));
+                Query.Where(x => x.Parts.All(p => p.PartId == filter.PartId))
+                    .Include(p => p.Parts);
 
             if ((filter.BrandId != null))
                 Query.Where(x => x.BrandId == filter.BrandId);

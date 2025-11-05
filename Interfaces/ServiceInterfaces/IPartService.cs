@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using PMApplication.Dtos.PlanModels;
+using PMApplication.Entities;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Interfaces.ServiceInterfaces
@@ -15,6 +17,8 @@ namespace PMApplication.Interfaces.ServiceInterfaces
     {
         Task<IReadOnlyList<Part>> GetParts(PartFilter partFilter);
         Task<Part> GetPart(int id);
+        Task<Part> GetPart(PartFilter partFilter);
+
         //Task<IReadOnlyList<Part>> GetParts(int countryId);
         //Task<IReadOnlyList<Part>> GetParts(int countryId, int CategoryId);
         //Task<IReadOnlyList<Part>> GetParts(int brandId, int categoryId, IEnumerable<Country> countries, bool noTracking = false);
@@ -53,6 +57,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
 
 
         Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmMenu(PartFilter filter);
+        Task<IReadOnlyList<Category>?> GetPlanmMenuCategories (PartFilter filter);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryMenu(int brandId, int categoryId, int countryId, string rootPath, int standTypeId, int standHeight, int standWidth);
         //IEnumerable<PlanxMenuPart> GetPlanxClusterMenu(int brandId, int clusterId, string rootPath, int standTypeId, int standHeight, int standWidth);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryClusterMenu(int brandId, int categoryId, string rootPath, int standId);

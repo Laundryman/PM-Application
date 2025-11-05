@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Ardalis.GuardClauses;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Microsoft.Graph.Models;
+using PMApplication.Entities;
+using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Entities.PartAggregate;
+using PMApplication.Interfaces;
+using PMApplication.Interfaces.RepositoryInterfaces;
+using PMApplication.Interfaces.ServiceInterfaces;
+using PMApplication.Specifications;
+using PMApplication.Specifications.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ardalis.GuardClauses;
-using Microsoft.Extensions.Logging;
-using PMApplication.Entities;
-using PMApplication.Entities.PartAggregate;
-using PMApplication.Interfaces;
-using PMApplication.Interfaces.ServiceInterfaces;
-using PMApplication.Specifications;
-using PMApplication.Specifications.Filters;
-using AutoMapper;
-using PMApplication.Entities.CountriesAggregate;
-using PMApplication.Interfaces.RepositoryInterfaces;
 
 namespace PMApplication.Services
 {
@@ -64,27 +65,26 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        Task<Product> IProductService.GetProduct(long id)
+        public async Task<Product> GetProduct(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product = await _productRepository.GetByIdAsync(id);
+                return product;
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error retrieving product with id {@Id}", id);
+                throw;
+            }
         }
 
-        Task<HeroProduct> IProductService.GetHeroProduct(int categoryId, int brandId)
+        public Task<HeroProduct> GetHeroProduct(int categoryId, int brandId)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<Part> GetFactices(long productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product GetProduct(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public HeroProduct GetHeroProduct(int categoryId, int brandId)
         {
             throw new NotImplementedException();
         }
@@ -114,9 +114,20 @@ namespace PMApplication.Services
             var shades = _shadeRepository.ListAllAsync();
             return await shades;
         }
-        public Task<Shade> GetShade(long id)
+        public async Task<Shade> GetShade(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var shade = await _shadeRepository.GetByIdAsync(id);
+                return shade;
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error retrieving shade with id {@Id}", id);
+                throw;
+
+            }
+
         }
 
         public void CreateProduct(Product product)

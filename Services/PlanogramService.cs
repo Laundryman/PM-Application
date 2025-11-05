@@ -160,10 +160,19 @@ namespace PMApplication.Services
 
         }
 
-        public Task<PlanogramPreview> GetPlanogramPreview(long Id)
+        public async Task<PlanogramPreview> GetPlanogramPreview(long Id)
         {
-            var previewsrc = _planogramPreviewRepository.GetByIdAsync(Id);
-            return previewsrc;
+            try
+            {
+                var previewsrc = await _planogramPreviewRepository.GetByIdAsync(Id);
+                return previewsrc;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram preview: " + ex.Message);
+                throw;
+            }
         }
 
         public Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter)
@@ -171,6 +180,34 @@ namespace PMApplication.Services
             var spec = new PlanogramPreviewSpecification(filter);
             var previewsrc = _planogramPreviewRepository.FirstSync(spec);
             return previewsrc;
+        }
+
+        public async Task CreatePlanogramPreview(PlanogramPreview preview)
+        {
+            try
+            {
+                await _planogramPreviewRepository.AddAsync(preview);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram preview: " + ex.Message);
+                throw;
+            }
+        }
+
+        public async  Task SavePlanogramPreview(PlanogramPreview preview)
+        {
+            try
+            {
+                await _planogramPreviewRepository.UpdateAsync(preview);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error saving planogram preview: " + ex.Message);
+                throw;
+            }
         }
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
@@ -815,11 +852,11 @@ namespace PMApplication.Services
             }
         }
 
-        public Task<PlanogramPart> GetPlanogramPart(int id)
+        public async Task<PlanogramPart> GetPlanogramPart(int id)
         {
             try
             {
-                return _planogramPartRepository.GetByIdAsync(id);
+                return await _planogramPartRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -927,9 +964,18 @@ namespace PMApplication.Services
             }
         }
 
-        public void SavePlanogramPartFacing()
+        public async Task SavePlanogramPartFacing(PlanogramPartFacing partFacing)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _planogramPartFacingRepository.UpdateAsync(partFacing);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error saving planogram part facing: " + ex.Message);
+                throw;
+            }
         }
 
         public IEnumerable<PlanogramPartFacing> GetPlanogramPartFacings()
