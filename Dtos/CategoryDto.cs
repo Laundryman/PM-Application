@@ -11,10 +11,10 @@
         public string HeroImageUrl { get; set; }
         public CategoryDto ParentCategory { get; set;}
 
-        //public CategoryDto(string name)
-        //{
-        //    Name = name;
-        //}
+        public CategoryDto(string name)
+        {
+            Name = name;
+        }
 
 
     }
