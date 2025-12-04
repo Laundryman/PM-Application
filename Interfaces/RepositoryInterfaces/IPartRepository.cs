@@ -1,4 +1,5 @@
-﻿using PMApplication.Dtos.PlanModels;
+﻿using PMApplication.Dtos.Filters;
+using PMApplication.Dtos.PlanModels;
 using PMApplication.Entities;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
@@ -20,5 +21,10 @@ namespace PMApplication.Interfaces.RepositoryInterfaces
             string sortOrder,
             string searchString,
             bool shoppable);
+
+        Task<IReadOnlyList<SearchPartInfo>> SearchParts(PartFilterDto filter);
+
     }
+
+
 }

@@ -22,13 +22,13 @@ public partial class Brand : BaseEntity<int>, IAggregateRoot
 
     public decimal? AppVersion { get; set; }
 
-    public virtual ICollection<Cluster> Clusters { get; set; } = new List<Cluster>();
+    public virtual List<Cluster> Clusters { get; set; } = [];
 
-    public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
+    public virtual List<JobFolder> JobFolders { get; set; } = [];
 
-    public virtual ICollection<OrderWindow> OrderWindows { get; set; } = new List<OrderWindow>();
+    public virtual List<OrderWindow> OrderWindows { get; set; } = [];
 
-    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
+    public virtual List<Part> Parts { get; set; } = [];
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual List<Product> Products { get; set; } = [];
 }
