@@ -23,12 +23,13 @@ namespace PMApplication.Specifications
 
             }
 
-            if (filter.IsPagingEnabled)
-                Query.Skip(PaginationHelper.CalculateSkip(filter))
-                    .Take(PaginationHelper.CalculateTake(filter));
-
             if ((filter.RegionId != null))
-                Query.Where(x => x.RegionId == filter.RegionId);
+                Query.Include(c => c.Regions)
+                    .Where(x => x.Regions.Any( r => r.Id == filter.RegionId));
+
+            //if (filter.IsPagingEnabled)
+            //    Query.Skip(PaginationHelper.CalculateSkip(filter))
+            //        .Take(PaginationHelper.CalculateTake(filter));
 
         }
 

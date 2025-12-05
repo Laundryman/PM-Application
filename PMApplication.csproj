@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Dtos\PartFilterDto.cs" />
+    <Compile Remove="Entities\CountriesAggregate\CountryRegion.cs" />
     <Compile Remove="Entities\UserProfile.cs" />
     <Compile Remove="Entities\UserProfileBrand.cs" />
     <Compile Remove="Entities\UserProfileRegion.cs" />
