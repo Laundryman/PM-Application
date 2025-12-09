@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
-using PMApplication.Entities;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications

@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 using LinqKit;
-using PMApplication.Entities;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications
@@ -39,7 +39,7 @@ namespace PMApplication.Specifications
                 var predicate = PredicateBuilder.New<Product>(false);
                 foreach (var country in requiredCountries)
                 {
-                    predicate = predicate.Or(x => x.CountryList.Contains(country));
+                    predicate = predicate.Or(x => x.CountriesList.Contains(country));
                 }
                 Query.Where(predicate);
 

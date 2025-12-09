@@ -2,9 +2,9 @@
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Models;
-using PMApplication.Entities;
 using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Interfaces;
 using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;

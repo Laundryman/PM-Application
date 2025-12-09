@@ -1,5 +1,6 @@
 ﻿using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.PlanogramAggregate;

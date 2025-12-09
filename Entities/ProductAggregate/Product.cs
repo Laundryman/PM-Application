@@ -3,7 +3,7 @@ using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Interfaces;
 
-namespace PMApplication.Entities;
+namespace PMApplication.Entities.ProductAggregate;
 
 public partial class Product : BaseEntity<long>, IAggregateRoot
 {
@@ -33,7 +33,8 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public int? ParentCategoryId { get; set; }
 
-    public string? CountryList { get; set; }
+    public string? CountriesList { get; set; }
+    public string? RegionsList { get; set; }
 
     public virtual Brand Brand { get; set; } = null!;
 

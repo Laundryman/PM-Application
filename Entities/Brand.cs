@@ -2,6 +2,7 @@
 using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.OrderAggregate;
 using PMApplication.Entities.PartAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PMApplication.Entities.ProductAggregate;
 
 namespace PMApplication.Entities.PartAggregate
 {

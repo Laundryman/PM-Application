@@ -1,4 +1,5 @@
-﻿using PMApplication.Interfaces;
+﻿using PMApplication.Entities.ProductAggregate;
+using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.PlanogramAggregate;
 

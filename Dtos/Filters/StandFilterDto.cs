@@ -1,11 +1,11 @@
 ﻿namespace PMApplication.Dtos.Filters
 {
-    public class ProductFilterDto
+    public class StandFilterDto
     {
         public int BrandId { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }
-        public int? CategoryId { get; set; }
+        //public int? CategoryId { get; set; }
         //public string CountriesList { get; set; }
         //public int? ParentCategoryId { get; set; }
         //public int PartTypeId { get; set; }

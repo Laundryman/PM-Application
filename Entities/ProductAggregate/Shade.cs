@@ -2,7 +2,7 @@
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Interfaces;
 
-namespace PMApplication.Entities;
+namespace PMApplication.Entities.ProductAggregate;
 
 public partial class Shade : BaseEntity<long>, IAggregateRoot
 {

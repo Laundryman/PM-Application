@@ -21,8 +21,8 @@ namespace PMApplication.Dtos
         public bool Hero { get; set; }
         public int? ParentCategoryId { get; set; }
         public string? ParentCategoryName { get; set;}
-        public List<int>? CountryIds { get; set; }
-        public string? CountryList { get; set; }
+        public string? CountriesList { get; set; }
+        public string? RegionsList { get; set; }
         public IEnumerable<PlanmShadeDto>? Shades { get; set; }
     }
 }

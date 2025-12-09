@@ -1,6 +1,7 @@
 ﻿#nullable disable
 
 using PMApplication;
+using PMApplication.Entities.ProductAggregate;
 
 namespace PMApplication.Entities.CountriesAggregate
 {

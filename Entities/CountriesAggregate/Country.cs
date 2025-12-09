@@ -1,6 +1,7 @@
 ﻿using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
 

@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+using PMApplication.Entities.ProductAggregate;
+
 namespace PMApplication.Entities.PlanogramAggregate
 {
     public partial class PlanogramPartProduct
