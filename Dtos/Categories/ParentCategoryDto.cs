@@ -1,6 +1,6 @@
-﻿namespace PMApplication.Dtos
+﻿namespace PMApplication.Dtos.Categories
 {
-    public class CategoryDto
+    public class ParentCategoryDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -9,13 +9,7 @@
 
         public int? HeroProductId { get; set; }
         public string HeroImageUrl { get; set; }
-        public CategoryDto ParentCategory { get; set;}
-
-        public CategoryDto(string name)
-        {
-            Name = name;
-        }
-
+        public List<CategoryDto> SubCategories { get; set; } = new List<CategoryDto>();
 
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace PMApplication.Dtos.Filters
 {
-    public class CategoryFilterDto
+    public class StandTypeFilterDto
     {
         public int? Id { get; set; }
+        public int? BrandId { get; set; }
+        public int? ParentStandTypeId { get; set; }
         public bool GetParents { get; set; }
-        public int? ParentCatId { get; set; }
-        public bool LoadChildren { get; set; }
     }
 }
