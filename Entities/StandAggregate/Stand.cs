@@ -4,6 +4,7 @@ using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMApplication.Entities.StandAggregate;
 
@@ -73,8 +74,10 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
     public bool? AllowOverHang { get; set; }
 
     public int? ParentStandTypeId { get; set; }
+    [ForeignKey("StandTypeId")]
 
     public virtual StandType StandType { get; set; } = null!;
+    public virtual Brand Brand{ get; set; } = null!;
 
     public virtual List<Country> Countries { get; set; } = [];
     //public virtual List<StandCountry> StandCountries { get; } = [];

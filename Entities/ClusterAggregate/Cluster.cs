@@ -42,7 +42,7 @@ public partial class Cluster : BaseEntity<long>, IAggregateRoot
 
     public string? ClusterPartNumber { get; set; }
 
-    public int? ScratchPadId { get; set; }
+    public long? ScratchPadId { get; set; }
 
     public string? UserId { get; set; }
 

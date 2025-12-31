@@ -27,7 +27,8 @@ public partial class StandType : BaseEntity<int>, IAggregateRoot
     [ForeignKey("ParentStandTypeId")]
     public virtual StandType ParentStandType { get; set; } = null!;
     [InverseProperty("ParentStandType")]
-    public virtual ICollection<StandType> ChildTypes { get; set; } = new List<StandType>();
+    public virtual ICollection<StandType> ChildStandTypes { get; set; } = new List<StandType>();
+    [ForeignKey("BrandId")]
     public virtual Brand? Brand { get; set; }
     public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
     public virtual ICollection<Part> Parts { get; set; } = new List<Part>();

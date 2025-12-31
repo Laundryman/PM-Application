@@ -9,7 +9,7 @@ namespace PMApplication.Dtos.StandTypes
 {
     public class ParentStandTypeDto
     {
-        public IEnumerable<StandTypeDto> ChildTypes { get; set; }
+        public int Id { get; set; }
         public int StandTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,5 +20,6 @@ namespace PMApplication.Dtos.StandTypes
         public int StandCount { get; set; }
         public string StandImage { get; set; }
         public bool HidePrices { get; set; }
+        public IEnumerable<StandTypeDto> ChildStandTypes { get; set; }
     }
 }

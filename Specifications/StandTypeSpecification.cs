@@ -11,20 +11,34 @@ namespace PMApplication.Specifications
     {
         public StandTypeSpecification(StandTypeFilter filter)
         {
+            Query.Include(st => st.Stands)
+                .Include(st => st.Brand);
             Query.OrderBy(x => x.Name)
-                .ThenByDescending(x => x.ParentStandTypeId)
-                .Include(st => st.Stands);
+                .ThenByDescending(x => x.ParentStandTypeId);
 
-            if (filter.BrandId != null)
-                Query.Where(x => x.BrandId == filter.BrandId);
+
+            //if (filter.BrandId != null && filter.BrandId != 0)
+            //    Query.Where(x => x.BrandId == filter.BrandId);
 
             if ((filter.ParentStandTypeId != null))
-                Query.Include(x => x.ParentStandTypeId == filter.ParentStandTypeId);
+                Query.Where(x => x.ParentStandTypeId == filter.ParentStandTypeId);
 
             if (filter.GetParents)
             {
-                Query.Where(st => st.ParentStandTypeId == 0 || st.ParentStandTypeId == null)
-                    .Include(st => st.ChildTypes);
+                if (filter.BrandId != 0 && filter.BrandId != null)
+                {
+                    Query.Where(st => st.ParentStandTypeId == 0 || st.ParentStandTypeId == null)
+                        .Include(st => st.ChildStandTypes.Where(s => s.BrandId == filter.BrandId))
+                        .ThenInclude(st => st.Stands)
+                        .Include(st => st.Brand);
+                }
+                else
+                {
+                    Query.Where(st => st.ParentStandTypeId == 0 || st.ParentStandTypeId == null)
+                        .Include(st => st.ChildStandTypes)
+                        .ThenInclude(st => st.Stands)
+                        .Include(st => st.Brand);
+                }
             }
 
             //if (filter.IsPagingEnabled)

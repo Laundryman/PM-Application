@@ -10,6 +10,9 @@ namespace PMApplication.Specifications.Filters
     {
         public long Id { get; set; }
         public int? BrandId { get; set; }
+
+        public bool? IncludeShelves { get; set; }
+        public bool? IncludeParts { get; set; }
         public string? UserId { get; set; }
         public int? CountryId { get; set; }
         public int? RegionId { get; set; }
@@ -25,5 +28,6 @@ namespace PMApplication.Specifications.Filters
         public string? standType { get; set; }
         public int? standHeight { get; set; }
         public int? standWidth { get; set; }
+
     }
 }

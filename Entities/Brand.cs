@@ -3,6 +3,7 @@ using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.OrderAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.ProductAggregate;
+using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities;
@@ -32,4 +33,5 @@ public partial class Brand : BaseEntity<int>, IAggregateRoot
     public virtual List<Part> Parts { get; set; } = [];
 
     public virtual List<Product> Products { get; set; } = [];
+    public virtual List<Stand> Stands { get; set; } = [];
 }

@@ -1,4 +1,5 @@
-﻿using PMApplication.Dtos;
+﻿using System.Net.Sockets;
+using PMApplication.Dtos;
 
 namespace PMApplication.Specifications.Filters
 {
@@ -23,6 +24,7 @@ namespace PMApplication.Specifications.Filters
         public string? sortOrder { get; set; }
         public string? SearchString { get; set; }
         public bool excludeSpareParts { get; set; }
+        public long? ClusterId { get; set; }
         public ICollection<CountryDto> Countries { get; set; }
 
     }

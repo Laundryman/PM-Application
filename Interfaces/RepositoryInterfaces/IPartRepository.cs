@@ -9,6 +9,7 @@ namespace PMApplication.Interfaces.RepositoryInterfaces
     public interface IPartRepository : IAsyncRepositoryLong<Part>
     {
         Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmMenu(int brandId, int countryId, int standTypeId);
+        Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmClusterMenu(int brandId, int clusterId, int standTypeId);
         Task<IReadOnlyList<Category>?> GetPlanmMenuCategories(int brandId, int countryId, int standTypeId);
 
         Task<IReadOnlyList<PartInfo>> GetFilteredParts(int brandId,

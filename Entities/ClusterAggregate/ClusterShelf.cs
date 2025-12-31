@@ -1,5 +1,6 @@
 ﻿using PMApplication.Entities.PartAggregate;
 using PMApplication.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMApplication.Entities.ClusterAggregate;
 
@@ -19,7 +20,8 @@ public partial class ClusterShelf : BaseEntity<long>, IAggregateRoot
 
     public int PositionY { get; set; }
 
-    public int PartCatPartId { get; set; }
+    [ForeignKey("Part")]
+    public long PartId { get; set; }
 
     public int PartStatusId { get; set; }
 

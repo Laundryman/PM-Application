@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Microsoft.Graph.Models;
 using PMApplication.Entities;
 using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.CountriesAggregate;
@@ -17,6 +12,12 @@ using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
 using PMApplication.Specifications.Filters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace PMApplication.Services
 {
@@ -63,9 +64,26 @@ namespace PMApplication.Services
             }
         }
 
-        public Task<Cluster> GetCluster(int id)
+        public async Task<Cluster> GetCluster(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _clusterRepository.GetByIdAsync(id);
+
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting planogram: " + ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<Cluster> GetCluster(ClusterFilter filter)
+        {
+            var spec = new ClusterSpecification(filter);
+            var cluster = await _clusterRepository.FirstAsync(spec);
+            return cluster;
         }
 
         public void SaveCluster()
@@ -78,22 +96,34 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void ReloadCluster(int id)
+        public void ReloadCluster(long id)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCluster(int id)
+        public void DeleteCluster(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<ClusterShelf>> GetClusterShelves()
+        public async Task<IReadOnlyList<ClusterShelf>> GetClusterShelves(ClusterFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                filter.IncludeShelves = true;
+                var spec = new ClusterSpecification(filter);
+                var cluster = await _clusterRepository.FirstAsync(spec);
+                return cluster.ClusterShelves.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting clusters with filter {@Filter}", filter);
+                throw;
+            }
         }
 
-        public ClusterShelf GetClusterShelf(int id)
+        public ClusterShelf GetClusterShelf(long id)
         {
             throw new NotImplementedException();
         }
@@ -108,17 +138,29 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void DeleteClusterShelf(int id)
+        public void DeleteClusterShelf(long id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ClusterPart> GetClusterParts()
+        public async Task<IReadOnlyList<ClusterPart>> GetClusterParts(ClusterFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                filter.IncludeParts = true;
+                var spec = new ClusterSpecification(filter);
+                var cluster = await _clusterRepository.FirstAsync(spec);
+                return cluster.ClusterParts.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting clusters with filter {@Filter}", filter);
+                throw;
+            }
         }
 
-        public ClusterPart GetClusterPart(int id)
+        public ClusterPart GetClusterPart(long id)
         {
             throw new NotImplementedException();
         }
@@ -133,9 +175,10 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public void DeleteClusterPart(int id)
+        public void DeleteClusterPart(long id)
         {
             throw new NotImplementedException();
         }
+
     }
 }

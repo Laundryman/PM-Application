@@ -8,9 +8,9 @@ namespace PMApplication.Dtos.PlanModels
 {
     public class PlanmPlanogramInfo
     {
-        public int PlanogramId { get; set; }
+        public long PlanogramId { get; set; }
         public string? PlanogramName { get; set; }
-        public int? ClusterId { get; set; }
+        public long? ClusterId { get; set; }
         public string? UserId { get; set; }
         public string? UserName { get; set; }
         public int? CountryId { get; set; }
