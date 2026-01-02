@@ -9,6 +9,9 @@ namespace PMApplication.Specifications.Filters
         public string PartNumber { get; set; }
         public int? PartTypeId { get; set; }
         public int? StandTypeId { get; set; }
+
+        public bool IncludeProducts { get; set; }
+
         public short? Facings { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }

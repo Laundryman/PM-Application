@@ -13,7 +13,8 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public string? CassetteBio { get; set; }
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }
-    public string? CountryList { get; set; }
+    public string? CountriesList { get; set; }
+    public string? RegionsList { get; set; }
     public string? CustomerRefNo { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime? DateUpdated { get; set; }
@@ -39,7 +40,7 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public string? ProductList { get; set; }
     public bool Published { get; set; }
     public int? RegionId { get; set; }
-    public string? RegionName { get; set; }
+    //public string? RegionName { get; set; }
     public string? Render2dImage { get; set; }
     public bool? ShadeSelectByFacing { get; set; }
     public bool Shoppable { get; set; }

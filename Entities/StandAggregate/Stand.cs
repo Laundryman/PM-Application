@@ -51,7 +51,7 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
 
     public int? Rows { get; set; }
 
-    public bool? EqualRows { get; set; }
+    public bool EqualRows { get; set; } = false;
 
     public int? DefaultRowHeight { get; set; }
 

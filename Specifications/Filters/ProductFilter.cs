@@ -7,6 +7,8 @@
         public string CountryList { get; set; }
         public int PartTypeId { get; set; }
         public int? PartId { get; set; }
+
+        public bool IncludeShades { get; set; }
         public int? CountryId { get; set; }
         public int? BrandId { get; set; }
         public int? RegionId { get; set; }
