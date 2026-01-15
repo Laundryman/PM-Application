@@ -69,6 +69,6 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public virtual List<PartProduct> Products { get; set; } = [];
 
     public virtual List<Stand> Stands { get; set; } = [];
-    public virtual List<StandType> StandTypes { get; set; } = [];
+    public virtual List<StandTypePart> StandTypes { get; set; } = [];
 
 }

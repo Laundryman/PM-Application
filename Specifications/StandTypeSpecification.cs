@@ -13,12 +13,12 @@ namespace PMApplication.Specifications
         {
             Query.Include(st => st.Stands)
                 .Include(st => st.Brand);
-            Query.OrderBy(x => x.Name)
-                .ThenByDescending(x => x.ParentStandTypeId);
+            Query.OrderBy(x => x.Name);
 
 
-            //if (filter.BrandId != null && filter.BrandId != 0)
-            //    Query.Where(x => x.BrandId == filter.BrandId);
+            if (filter.BrandId != null && filter.BrandId != 0 && !filter.GetParents)
+                Query.Where(x => x.BrandId == filter.BrandId);
+                
 
             if ((filter.ParentStandTypeId != null))
                 Query.Where(x => x.ParentStandTypeId == filter.ParentStandTypeId);

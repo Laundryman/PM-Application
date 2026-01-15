@@ -4,7 +4,7 @@
     {
         public int? CategoryId { get; set; }
         public int? ParentCategoryId { get; set; }
-        public string CountryList { get; set; }
+        public string CountriesList { get; set; }
         public int PartTypeId { get; set; }
         public int? PartId { get; set; }
 

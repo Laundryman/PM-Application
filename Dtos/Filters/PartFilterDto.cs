@@ -3,7 +3,7 @@
     public partial class PartFilterDto
     {
 
-
+        public int? Id { get; set; }
         public int BrandId { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }

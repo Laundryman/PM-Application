@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using PMApplication.Dtos.StandTypes;
 using PMApplication.Entities.PartAggregate;
 
 namespace PMApplication.Dtos
@@ -54,6 +55,7 @@ namespace PMApplication.Dtos
         public string CountryList { get; set; }
         public PartType PartType { get; set; }
         public List<ProductDto> Products { get; set; }
+        public List<StandTypeDto> StandTypes { get; set; }
         public ICollection<CountryDto> Countries { get; set; }
     }
 }

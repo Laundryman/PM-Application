@@ -15,7 +15,7 @@ namespace PMApplication.Specifications
             //{
             //    Query.Where(x.CountryList )
             //}
-            if (filter.PartId != null)
+            if (filter.PartId != null && filter.PartId != 0)
                 Query.Where(x => x.Parts.All(p => p.PartId == filter.PartId))
                     .Include(p => p.Parts);
 
@@ -33,9 +33,9 @@ namespace PMApplication.Specifications
             }
 
 
-            if (filter.CountryList != null)
+            if (filter.CountriesList != null)
             {
-                var requiredCountries = filter.CountryList.Split(",").ToList();
+                var requiredCountries = filter.CountriesList.Split(",").ToList();
                 var predicate = PredicateBuilder.New<Product>(false);
                 foreach (var country in requiredCountries)
                 {

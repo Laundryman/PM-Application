@@ -50,7 +50,7 @@ namespace PMApplication.Specifications
             }
 
             if (filter.StandTypeId != null)
-                Query.Where(x => x.StandTypes.Any( s => s.Id == filter.StandTypeId));
+                Query.Where(x => x.StandTypes.Any( s => s.StandTypeId == filter.StandTypeId));
             if (filter.excludeSpareParts)
             {
                 Query.Where(p => p.PartTypeId != (int)PartTypeEnum.SparePart);
