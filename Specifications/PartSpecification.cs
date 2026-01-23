@@ -22,7 +22,6 @@ namespace PMApplication.Specifications
             if (filter.Id != null)
             {
                 Query.Include(p => p.Products)
-                    .ThenInclude(p => p.Product)
                     .ThenInclude(p => p.Shades);
                 Query.Where(p => p.Id == filter.Id);
             }
@@ -50,7 +49,7 @@ namespace PMApplication.Specifications
             }
 
             if (filter.StandTypeId != null)
-                Query.Where(x => x.StandTypes.Any( s => s.StandTypeId == filter.StandTypeId));
+                Query.Where(x => x.StandTypes.Any( s => s.Id == filter.StandTypeId));
             if (filter.excludeSpareParts)
             {
                 Query.Where(p => p.PartTypeId != (int)PartTypeEnum.SparePart);

@@ -48,7 +48,7 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public virtual ICollection<Country> Countries { get; set; } = [];
 
-    public virtual List<PartProduct> Parts { get; set; } = [];
+    public virtual List<Part> Parts { get; set; } = [];
 
     public virtual ICollection<PlanogramPart> PlanogramParts { get; set; } = [];
 }

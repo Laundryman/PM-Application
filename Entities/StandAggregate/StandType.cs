@@ -31,7 +31,7 @@ public partial class StandType : BaseEntity<int>, IAggregateRoot
     [ForeignKey("BrandId")]
     public virtual Brand? Brand { get; set; }
     public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
-    public virtual ICollection<StandTypePart> Parts { get; set; } = new List<StandTypePart>();
+    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
     public virtual ICollection<Stand> Stands { get; set; } = new List<Stand>();
 }
 

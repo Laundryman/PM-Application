@@ -15,11 +15,10 @@ namespace PMApplication.Specifications
             if (filter.Id != null)
             {
                 Query.Include(p => p.Products)
-                    .ThenInclude(p => p.Product)
                     .ThenInclude(p => p.Shades)
                     .Include(p => p.Countries)
                     .Include(p => p.StandTypes)
-                    .ThenInclude(s => s.StandType);
+                    .Include(p => p.Regions);
                 Query.Where(p => p.Id == filter.Id);
             }
 

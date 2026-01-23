@@ -1,6 +1,7 @@
 ﻿using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PlanogramAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
 
@@ -64,11 +65,12 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
 
     public virtual List<PlanogramShelf> PlanogramShelves { get; set; } = [];
 
+    public virtual List<Region> Regions { get; set; } = [];
     public virtual List<Country> Countries { get; set; } = [];
 
-    public virtual List<PartProduct> Products { get; set; } = [];
+    public virtual List<Product> Products { get; set; } = [];
 
     public virtual List<Stand> Stands { get; set; } = [];
-    public virtual List<StandTypePart> StandTypes { get; set; } = [];
+    public virtual List<StandType> StandTypes { get; set; } = [];
 
 }
