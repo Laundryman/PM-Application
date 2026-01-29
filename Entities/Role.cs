@@ -1,8 +1,10 @@
-﻿namespace PMApplication.Entities;
+﻿using PMApplication.Interfaces;
 
-public partial class Role
+namespace PMApplication.Entities;
+
+public partial class Role: BaseEntity<int>, IAggregateRoot
 {
-    public int RoleId { get; set; }
+    public int Id { get; set; }
 
-    public string RoleName { get; set; } = null!;
+    public string Name { get; set; } = null!;
 }
