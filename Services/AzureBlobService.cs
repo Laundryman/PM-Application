@@ -44,7 +44,21 @@ namespace PMApplication.Services
             {
                 string blobName = fileName;
                 BlobClient blobClient = containerClient.GetBlobClient(blobName);
+                var fileType = fileName.Split('.')[1];
+                var blobUploadOptions = new BlobUploadOptions();
+                var blobHttpHeaders = new BlobHttpHeaders();
+                if (fileType.ToLower() == "svg")
+                {
+                    blobHttpHeaders.ContentType = "image/svg+xml";
+                    
+                    blobUploadOptions.HttpHeaders = blobHttpHeaders;
+                    await blobClient.UploadAsync(file.OpenReadStream(), blobUploadOptions);
+                }
+                else
+                {
                     await blobClient.UploadAsync(file.OpenReadStream(), true);
+                }
+
             }
             catch (Exception ex)
             {

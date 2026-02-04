@@ -57,20 +57,20 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
 
     public virtual Category Category { get; set; } = null!;
 
-    public virtual List<ClusterPart> ClusterParts { get; set; } = [];
+    public virtual List<ClusterPart> ClusterParts { get; protected set; } = [];
 
     public virtual PartType PartType { get; set; } = null!;
 
-    public virtual List<PlanogramPart> PlanogramParts { get; set; } = [];
+    public virtual List<PlanogramPart> PlanogramParts { get; protected set; } = [];
 
-    public virtual List<PlanogramShelf> PlanogramShelves { get; set; } = [];
+    public virtual List<PlanogramShelf> PlanogramShelves { get; protected set; } = [];
 
-    public virtual List<Region> Regions { get; set; } = [];
-    public virtual List<Country> Countries { get; set; } = [];
+    public virtual List<Region> Regions { get; protected set; } = [];
+    public virtual List<Country> Countries { get; protected set; } = [];
 
-    public virtual List<Product> Products { get; set; } = [];
+    public virtual List<Product> Products { get; protected set; } = [];
 
-    public virtual List<Stand> Stands { get; set; } = [];
-    public virtual List<StandType> StandTypes { get; set; } = [];
+    public virtual List<Stand> Stands { get; protected set; } = [];
+    public virtual List<StandType> StandTypes { get; protected set; } = [];
 
 }
