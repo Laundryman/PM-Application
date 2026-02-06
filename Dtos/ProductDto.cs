@@ -24,5 +24,9 @@ namespace PMApplication.Dtos
         public string? CountriesList { get; set; }
         public string? RegionsList { get; set; }
         public IEnumerable<PlanmShadeDto>? Shades { get; set; }
+        public ICollection<RegionDto>? Regions { get; set; }
+        public IEnumerable<CountryDto>? Countries { get; set; }
+
+
     }
 }
