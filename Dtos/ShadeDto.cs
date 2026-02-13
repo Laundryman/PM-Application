@@ -8,5 +8,6 @@
         public int ProductId { get; set; }
         public bool Published { get; set; }
         public string CountryList { get; set; }
+        public List<CountryDto> Countries { get; set; }
     }
 }

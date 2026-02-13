@@ -21,7 +21,10 @@ namespace PMApplication.Specifications
             //    Query.Where(x => x.PartProducts.All(p => p.PartId == filter.PartId));
 
             if ((filter.ProductId != null))
-                Query.Where(x => x.ProductId == filter.ProductId);
+            {
+                Query.Where(x => x.ProductId == filter.ProductId)
+                    .Include(s => s.Countries);
+            }
 
 
             if (filter.CountryList != null)

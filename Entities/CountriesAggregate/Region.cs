@@ -1,6 +1,7 @@
 ﻿using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.ProductAggregate;
+using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.CountriesAggregate;
@@ -17,7 +18,7 @@ public partial class Region : BaseEntity<int>, IAggregateRoot
 
     //public virtual List<CountryRegion> CountryRegion { get; } = [];    
     public virtual List<Country> Countries { get; } = [];
-
+    public virtual List<Stand> Stands { get; set; } = null!;
     public virtual List<JobFolder> JobFolders { get;} = [];
 
     public virtual List<Part> Parts { get; set;  } = [];

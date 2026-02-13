@@ -39,6 +39,6 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
 
     public virtual List<Shade> Shades { get; set; } = new List<Shade>();
-    public virtual List<Region> Regions { get;} = [];
+    public virtual List<Region> Regions { get; set; } = [];
     //public virtual ICollection<CountryPart> CountryParts { get; } = new List<CountryPart>();
 }
