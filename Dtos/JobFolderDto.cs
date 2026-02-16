@@ -10,7 +10,7 @@ namespace PMApplication.Dtos
 {
     public class JobFolderDto
     {
-        public int JobFolderId { get; set; }
+        public int Id { get; set; }
         public int ParentFolderId { get; set; }
         public int BrandId { get; set; }
         public int? RegionId { get; set; }
@@ -20,10 +20,13 @@ namespace PMApplication.Dtos
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual Brand Brand { get; set; }
+        public virtual BrandDto Brand { get; set; }
+        public virtual RegionDto Region { get; set; }
         public List<JobDto> Jobs { get; set; }
-        public IEnumerable<string> SelectedCountries { get; set; }
-        public IEnumerable<SelectListItem> Regions { get; set; }
-        public IEnumerable<SelectListItem> Countries { get; set; }
+        public List<CountryDto> Countries { get; set; }
+        //public IEnumerable<string> SelectedCountries { get; set; }
+
+        //public IEnumerable<SelectListItem> Regions { get; set; }
+        //public IEnumerable<SelectListItem> Countries { get; set; }
     }
 }

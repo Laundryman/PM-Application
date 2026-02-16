@@ -29,4 +29,7 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
     public int UploadedBy { get; set; }
 
     public string? OriginalFileName { get; set; }
+
+    public int JobFolderId { get; set;  }
+    public JobFolder JobFolder { get; set; }
 }
