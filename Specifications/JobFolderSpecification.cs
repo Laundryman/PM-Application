@@ -12,6 +12,7 @@ namespace PMApplication.Specifications
             if (filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId)
                 .Include(x => x.Jobs)
+                //.ThenInclude(j => j.JobFolder)
                 .Include(x => x.Region)
                 .Include(x => x.Countries);
 

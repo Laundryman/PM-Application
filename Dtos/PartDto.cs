@@ -52,12 +52,11 @@ namespace PMApplication.Dtos
         public bool? DmiReco { get; set; }
         public bool? HidePrices { get; set; }
         //public string? CountryList { get; set; }
-        public PartType PartType { get; set; }
-        public List<ProductDto> Products { get; set; }
-        public List<StandTypeDto> StandTypes { get; set; }
-        public ICollection<RegionDto> Regions { get; set; }
-        public ICollection<CountryDto> Countries { get; set; }
-
+        public PartType? PartType { get; set; }
+        public List<ProductDto>? Products { get; set; }
+        public List<StandTypeDto>? StandTypes { get; set; }
+        public ICollection<RegionDto>? Regions { get; set; }
+        public ICollection<CountryDto>? Countries { get; set; }
 
         //public int? TotalResults { get; set; }
         //public int? RowNum { get; set; }

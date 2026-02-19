@@ -16,8 +16,8 @@ namespace PMApplication.Dtos
         public int StockCount { get; set; }
         public int? FacingStatusId { get; set; } //this utilises the plano item status for moving planos
         public int? ShadeId { get; set; }
-        public string ShadeNumber { get; set; }
-        public string ShadeDescription { get; set; }
+        public string? ShadeNumber { get; set; }
+        public string? ShadeDescription { get; set; }
         public bool? Published { get; set; }
         public System.DateTime? DateCreated { get; set; }
         public System.DateTime? DateUpdated { get; set; }

@@ -15,15 +15,16 @@ namespace PMApplication.Dtos
         public int BrandId { get; set; }
         public int? RegionId { get; set; }
 
-        public string BrandName { get; set; }
+        public string? BrandName { get; set; }
 
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
 
-        public virtual BrandDto Brand { get; set; }
-        public virtual RegionDto Region { get; set; }
-        public List<JobDto> Jobs { get; set; }
-        public List<CountryDto> Countries { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public virtual BrandDto? Brand { get; set; }
+        public virtual RegionDto? Region { get; set; }
+        public List<JobDto>? Jobs { get; set; }
+        public List<CountryDto>? Countries { get; set; }
         //public IEnumerable<string> SelectedCountries { get; set; }
 
         //public IEnumerable<SelectListItem> Regions { get; set; }

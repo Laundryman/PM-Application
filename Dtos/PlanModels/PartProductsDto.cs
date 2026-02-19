@@ -11,6 +11,6 @@ namespace PMApplication.Dtos.PlanModels
         public long? PlanogramPartsId { get; set; }
         public long PartId { get; set; }
         public long? PlanogramShelfId { get; set; }
-        public virtual IEnumerable<ProductDto> Products { get; set; }
+        public virtual IEnumerable<ProductDto>? Products { get; set; }
     }
 }
