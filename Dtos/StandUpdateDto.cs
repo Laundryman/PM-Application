@@ -8,7 +8,7 @@ using PMApplication.Entities.StandAggregate;
 using PMApplication.Dtos.StandTypes;
 namespace PMApplication.Dtos
 {
-    public class StandDto
+    public class StandUpdateDto
     {
         public int Id { get; set; }
         public int StandTypeId { get; set; }
