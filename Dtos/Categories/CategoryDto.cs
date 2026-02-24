@@ -12,11 +12,6 @@
         public CategoryDto? ParentCategory { get; set; }
 
 
-        public CategoryDto(string name)
-        {
-            Name = name;
-        }
-
 
     }
 }

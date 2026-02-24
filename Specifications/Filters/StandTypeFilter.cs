@@ -9,11 +9,11 @@
         public bool GetParents { get; set; }
         //public string? Description { get; set; }
 
-        //public int? CountryId { get; set; }
+        public int? CountryId { get; set; }
 
         //public bool Lock { get; set; }
 
-        //public bool HasStands { get; set; }
+        public bool HasStands { get; set; }
         //public int? RegionId { get; set; }
         //public bool Shoppable { get; set; }
         //public long PartId { get; set; }
