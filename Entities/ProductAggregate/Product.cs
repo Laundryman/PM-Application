@@ -40,11 +40,11 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public virtual Category Category { get; set; } = null!;
 
-    public virtual ICollection<HeroProduct> HeroProducts { get; set; } = [];
+    public virtual List<HeroProduct> HeroProducts { get; set; } = [];
 
-    public virtual ICollection<PlanogramPartFacing> PlanogramPartFacings { get; set; } = [];
+    public virtual List<PlanogramPartFacing> PlanogramPartFacings { get; set; } = [];
 
-    public virtual ICollection<Shade> Shades { get; set; } = [];
+    public virtual List<Shade> Shades { get; set; } = [];
 
     public virtual List<Region> Regions { get; protected set; } = [];
     public virtual List<Country> Countries { get; protected set; } = [];
@@ -52,5 +52,5 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public virtual List<Part> Parts { get; set; } = [];
 
-    public virtual ICollection<PlanogramPart> PlanogramParts { get; set; } = [];
+    public virtual List<PlanogramPart> PlanogramParts { get; set; } = [];
 }

@@ -9,12 +9,16 @@ namespace PMApplication.Specifications
     {
         public ProductSpecification(ProductFilter filter)
         {
-            Query.Where(x => x.Published == true);
+            if (filter.IsPublished) Query.Where(x => x.Published == true);
 
-            //if (filter.CountryList != null)
-            //{
-            //    Query.Where(x.CountryList )
-            //}
+
+            if (filter.Id != 0)
+            {
+                Query.Where(x => x.Id == filter.Id)
+                    .Include(x => x.Shades)
+                    .Include(x => x.Category);
+            }
+
             if (filter.PartId != null && filter.PartId != 0)
                 Query.Where(x => x.Parts.All(p => p.Id == filter.PartId))
                     .Include(p => p.Parts);
