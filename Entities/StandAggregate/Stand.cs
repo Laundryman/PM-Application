@@ -79,7 +79,7 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
     public virtual List<Country> Countries { get; set; } = [];
     //public virtual List<StandCountry> StandCountries { get; } = [];
 
-    public virtual List<CountryRegion> RegionCountries { get; } = [];
+    //public virtual List<CountryRegion> RegionCountries { get; } = [];
 
     public virtual List<Cluster> Clusters { get; set; } = [];
 

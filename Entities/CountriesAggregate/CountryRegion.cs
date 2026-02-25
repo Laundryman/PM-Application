@@ -4,9 +4,9 @@ namespace PMApplication.Entities.CountriesAggregate;
 
 public partial class CountryRegion : BaseEntity<int>, IAggregateRoot
 {
-    public int RegionsId { get; set; }
+    public int RegionId { get; set; }
 
-    public int CountriesId { get; set; }
+    public int CountryId { get; set; }
 
     public virtual Country Country { get; set; } = null!;
 

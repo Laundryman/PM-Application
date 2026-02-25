@@ -22,7 +22,7 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
     //public virtual Region? Region { get; set; }
 
-    public virtual List<CountryRegion> RegionCountries { get; } = [];
+    //public virtual List<CountryRegion> RegionCountries { get; } = [];
     //public virtual List<StandCountry> StandCountries { get; } = [];
 
     //public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();

@@ -28,27 +28,27 @@ namespace PMApplication.Services
             _logger = logger;
         }
 
-       public Task<IReadOnlyList<Job>> GetJobs(JobFilter filter)
+       public async Task<IReadOnlyList<Job>> GetJobs(JobFilter filter)
         {
             var spec = new JobSpecification(filter);
-            var jobs = _jobRepository.ListAsync(spec);
+            var jobs = await _jobRepository.ListAsync(spec);
             return jobs;
         }
 
-        public Task<IReadOnlyList<JobInfo>> GetFilteredJobs(int? page, int? pageSize, string sortBy, string sortOrder, string searchString, int? brandId)
+        public async Task<IReadOnlyList<JobInfo>> GetFilteredJobs(int? page, int? pageSize, string sortBy, string sortOrder, string searchString, int? brandId)
         {
-            var jobs = _jobRepository.GetFilteredJobs(page, pageSize, sortBy, sortOrder, searchString, brandId);
+            var jobs = await _jobRepository.GetFilteredJobs(page, pageSize, sortBy, sortOrder, searchString, brandId);
             return jobs;
         }
-        public Task<IReadOnlyList<JobInfo>> GetJobFolderJobs(int jobFolderId)
+        public async Task<IReadOnlyList<JobInfo>> GetJobFolderJobs(int jobFolderId)
         {
-            var jobs = _jobRepository.GetJobFolderJobs(jobFolderId);
+            var jobs = await _jobRepository.GetJobFolderJobs(jobFolderId);
             return jobs;
         }
 
-        public Task<Job> GetJob(int id)
+        public async Task<Job> GetJob(int id)
         {
-            var job = _jobRepository.GetByIdAsync(id);
+            var job = await _jobRepository.GetByIdAsync(id);
             return job;
         }
 
