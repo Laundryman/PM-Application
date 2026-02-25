@@ -1,6 +1,7 @@
 ﻿using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
 
@@ -22,7 +23,7 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
     //public virtual Region? Region { get; set; }
 
-    //public virtual List<CountryRegion> RegionCountries { get; } = [];
+    //public virtual List<CountryRegion> CountryRegion { get; } = [];
     //public virtual List<StandCountry> StandCountries { get; } = [];
 
     //public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
@@ -38,6 +39,6 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
 
 
     public virtual List<Shade> Shades { get; set; } = new List<Shade>();
-    public virtual List<Region> Regions { get;} = [];
+    public virtual List<Region> Regions { get; set; } = [];
     //public virtual ICollection<CountryPart> CountryParts { get; } = new List<CountryPart>();
 }

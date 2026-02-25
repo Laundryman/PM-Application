@@ -11,7 +11,8 @@ namespace PMApplication.Specifications
             if (filter.ParentCatId != 0)
                 Query.Where(x => x.ParentCategoryId == filter.ParentCatId);
             if (filter.GetParents)
-                Query.Where(x => x.ParentCategoryId == 0);
+                Query.Where(x => x.ParentCategoryId == 0)
+                    .Include(x => x.SubCategories);
             if (filter.Id != 0)
                 Query.Where(x => x.Id == filter.Id);
             //if (filter.BrandId != 0)

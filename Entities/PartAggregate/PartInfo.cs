@@ -22,8 +22,8 @@ namespace PMApplication.Entities.PartAggregate
         public string AltPartNumber { get; set; }
         public string CustomerRefNo { get; set; }
         public int CategoryId { get; set; }
-        public int ParentCategoryId { get; set; }
         public string CategoryName { get; set; }
+        public int ParentCategoryId { get; set; }
         public string ParentCategoryName { get; set; }
         public int PartTypeId { get; set; }
         public string PartTypeName { get; set; }
@@ -32,8 +32,7 @@ namespace PMApplication.Entities.PartAggregate
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
         public bool Published { get; set; }
-        public int TotalResults { get; set; }
-        public int RowNum { get; set; }
+        public bool Discontinued { get; set; }
         public bool Shoppable { get; set; }
         public string PackShotImageSrc { get; set; }
         public decimal UnitCost { get; set; }
@@ -44,8 +43,11 @@ namespace PMApplication.Entities.PartAggregate
         public string ManufacturingProcess { get; set; }
         public string TestingType { get; set; }
         public bool InternationalPart { get; set; }
-        public int? StandTypeId { get; set; }
+        //public int? StandTypeId { get; set; }
+        public string? StandTypeList { get; set; }
         public bool DmiReco { get; set; }
         public bool HidePrices { get; set; }
+        public int TotalResults { get; set; }
+        public int RowNum { get; set; }
     }
 }

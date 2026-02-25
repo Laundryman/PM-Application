@@ -20,6 +20,11 @@ namespace PMApplication.Specifications
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
                     .Take(PaginationHelper.CalculateTake(filter));
 
+            if (filter.IncludeShelves == true)
+            {
+                Query.Include(c => c.ClusterShelves);
+                    //.ThenInclude(s => s.Parts);
+            }
             if (filter.BrandId != null)
                 Query.Where(x => x.BrandId == filter.BrandId);
 
@@ -27,7 +32,7 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.StandId == filter.StandId);
 
             if ((filter.StandTypeId != null))
-                Query.Include(x => x.Stand.StandTypeId == filter.StandTypeId);
+                Query.Where(x => x.Stand.StandTypeId == filter.StandTypeId);
 
             //if ((filter.CountryId != null))
             //{

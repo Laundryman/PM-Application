@@ -1,4 +1,5 @@
 ﻿using Ardalis.Specification;
+using PMApplication.Dtos.Filters;
 using PMApplication.Entities.PartAggregate;
 
 namespace PMApplication.Specifications

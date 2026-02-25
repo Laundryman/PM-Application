@@ -1,8 +1,9 @@
 ﻿#nullable disable
 
+using PMApplication;
 using PMApplication.Entities.CountriesAggregate;
 
-namespace PMApplication.Entities
+namespace PMApplication.Entities.ProductAggregate
 {
     public partial class ShadeCountry
     {

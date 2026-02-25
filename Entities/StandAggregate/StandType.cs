@@ -1,4 +1,5 @@
-﻿using PMApplication.Entities.JobsAggregate;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Interfaces;
 
@@ -23,8 +24,11 @@ public partial class StandType : BaseEntity<int>, IAggregateRoot
     public int? HalfSectionColumnWidth { get; set; }
 
     public bool HidePrices { get; set; }
-
+    [ForeignKey("ParentStandTypeId")]
     public virtual StandType ParentStandType { get; set; } = null!;
+    [InverseProperty("ParentStandType")]
+    public virtual ICollection<StandType> ChildStandTypes { get; set; } = new List<StandType>();
+    [ForeignKey("BrandId")]
     public virtual Brand? Brand { get; set; }
     public virtual ICollection<JobFolder> JobFolders { get; set; } = new List<JobFolder>();
     public virtual ICollection<Part> Parts { get; set; } = new List<Part>();

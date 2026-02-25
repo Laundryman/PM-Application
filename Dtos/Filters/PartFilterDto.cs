@@ -3,10 +3,10 @@
     public partial class PartFilterDto
     {
 
-
-        public int? BrandId { get; set; }
-        public string? RegionId { get; set; }
-        public string? CountryId { get; set; }
+        public int? Id { get; set; }
+        public int BrandId { get; set; }
+        public int? RegionId { get; set; }
+        public int? CountryId { get; set; }
         //public int? CategoryId { get; set; }
         //public int? ParentCategoryId { get; set; }
         //public string? PartNumber { get; set; }

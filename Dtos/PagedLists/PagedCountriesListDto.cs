@@ -2,7 +2,7 @@
 {
     public partial class PagedCountriesListDto
     {
-        public Page Page { get; set; }
-        public List<CountryDto> Data { get; set; }
+        public Page? Page { get; set; }
+        public List<CountryDto>? Data { get; set; }
     }
 }

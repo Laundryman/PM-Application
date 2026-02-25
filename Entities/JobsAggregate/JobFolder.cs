@@ -18,6 +18,8 @@ public partial class JobFolder : BaseEntity<int>, IAggregateRoot
 
     public int? StandTypeId { get; set; }
 
+    public DateTime? DateCreated { get; set; }
+
     public virtual Brand Brand { get; set; } = null!;
 
     public virtual Region? Region { get; set; }

@@ -1,4 +1,5 @@
 ﻿using PMApplication.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMApplication.Entities.JobsAggregate;
 
@@ -29,4 +30,8 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
     public int UploadedBy { get; set; }
 
     public string? OriginalFileName { get; set; }
+
+    public int JobFolderId { get; set;  }
+    [ForeignKey("JobFolderId")]
+    public virtual JobFolder JobFolder { get; set; }
 }

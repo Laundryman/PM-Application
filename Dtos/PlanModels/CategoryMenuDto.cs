@@ -12,14 +12,15 @@ namespace PMApplication.Dtos.PlanModels
     public partial class CategoryMenuDto
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
         public int ParentCategoryId { get; set; }
-        public string Name { get; set; }
+        public string? ParentCategoryName { get; set; }
         public int DisplayOrder { get; set; }
 
         public int? HeroProductId { get; set; }
-        public string HeroImageUrl { get; set; }
-        public List<PlanmMenuPart> Parts { get; set; }
+        public string? HeroImageUrl { get; set; }
+        public List<PlanmMenuPart>? Parts { get; set; }
 
     }
 }

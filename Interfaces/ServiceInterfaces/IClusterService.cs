@@ -16,6 +16,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         bool ClusterHasPlanograms(int clusterId);
 
         Task<IReadOnlyList<Cluster>> GetClusters(ClusterFilter filter);
+        Task<Cluster> GetCluster(ClusterFilter filter);
         //IEnumerable<Cluster> GetClusters(int countryId);
         //IEnumerable<Cluster> GetClustersByBrand(int brandId, bool published);
         //IEnumerable<Cluster> GetAllClustersByBrand(int brandId);
@@ -23,23 +24,23 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId);
         //IEnumerable<Cluster> GetAllClustersByTypeForBrand(int standTypeId, int brandId);
         //IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId, int countryId);
-        Task<Cluster> GetCluster(int id);
+        Task<Cluster> GetCluster(long id);
         void SaveCluster();
         void CreateCluster(Cluster cluster);
-        void ReloadCluster(int id);
-        void DeleteCluster(int id);
+        void ReloadCluster(long id);
+        void DeleteCluster(long id);
 
-        Task<IReadOnlyList<ClusterShelf>> GetClusterShelves();
-        ClusterShelf GetClusterShelf(int id);
+        Task<IReadOnlyList<ClusterShelf>> GetClusterShelves(ClusterFilter filter);
+        ClusterShelf GetClusterShelf(long id);
         void SaveClusterShelf();
         void CreateClusterShelf(ClusterShelf clusterShelf);
-        void DeleteClusterShelf(int id);
+        void DeleteClusterShelf(long id);
 
-        IEnumerable<ClusterPart> GetClusterParts();
-        ClusterPart GetClusterPart(int id);
+        Task<IReadOnlyList<ClusterPart>> GetClusterParts(ClusterFilter filter);
+        ClusterPart GetClusterPart(long id);
         void SaveClusterPart();
         void CreateClusterPart(ClusterPart clusterPart);
-        void DeleteClusterPart(int id);
+        void DeleteClusterPart(long id);
 
     }
 }

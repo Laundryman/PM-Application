@@ -1,12 +1,12 @@
 ﻿using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
-using PMApplication.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PMApplication.Specifications.Filters;
+using PMApplication.Entities.ProductAggregate;
 
 namespace PMApplication.Interfaces.ServiceInterfaces
 {

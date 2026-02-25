@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PMApplication.Entities.ProductAggregate;
 
 namespace PMApplication.Extensions
 {
@@ -247,9 +248,9 @@ namespace PMApplication.Extensions
                 roles.Select(f =>
                     new SelectListItem
                     {
-                        Selected = (selectedRoles.Contains(f.RoleId.ToString())),
-                        Text = f.RoleName,
-                        Value = f.RoleId.ToString()
+                        Selected = (selectedRoles.Contains(f.Id.ToString())),
+                        Text = f.Name,
+                        Value = f.Id.ToString()
                     });
         }
 

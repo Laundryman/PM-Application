@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 using LinqKit;
-using PMApplication.Entities;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications
@@ -9,14 +9,18 @@ namespace PMApplication.Specifications
     {
         public ProductSpecification(ProductFilter filter)
         {
-            Query.Where(x => x.Published == true);
+            if (filter.IsPublished) Query.Where(x => x.Published == true);
 
-            //if (filter.CountryList != null)
-            //{
-            //    Query.Where(x.CountryList )
-            //}
-            if (filter.PartId != null)
-                Query.Where(x => x.Parts.All(p => p.PartId == filter.PartId))
+
+            if (filter.Id != 0)
+            {
+                Query.Where(x => x.Id == filter.Id)
+                    .Include(x => x.Shades)
+                    .Include(x => x.Category);
+            }
+
+            if (filter.PartId != null && filter.PartId != 0)
+                Query.Where(x => x.Parts.All(p => p.Id == filter.PartId))
                     .Include(p => p.Parts);
 
             if ((filter.BrandId != null))
@@ -33,13 +37,13 @@ namespace PMApplication.Specifications
             }
 
 
-            if (filter.CountryList != null)
+            if (filter.CountriesList != null)
             {
-                var requiredCountries = filter.CountryList.Split(",").ToList();
+                var requiredCountries = filter.CountriesList.Split(",").ToList();
                 var predicate = PredicateBuilder.New<Product>(false);
                 foreach (var country in requiredCountries)
                 {
-                    predicate = predicate.Or(x => x.CountryList.Contains(country));
+                    predicate = predicate.Or(x => x.CountriesList.Contains(country));
                 }
                 Query.Where(predicate);
 

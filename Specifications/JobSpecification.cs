@@ -11,8 +11,10 @@ namespace PMApplication.Specifications
         {
             if (filter.BrandId != 0)
                 Query.Where(x => x.Id == filter.BrandId);
-            //if (filter.BrandId != 0)
-            //    Query.Where(x => x.BrandId =  filter.BrandId);
+
+            if (filter.JobId != 0)
+                Query.Where(x => x.Id == filter.JobId);
+
 
             Query.OrderBy(x => x.Name);
         }

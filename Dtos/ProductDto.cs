@@ -5,7 +5,7 @@ namespace PMApplication.Dtos
 {
     public class ProductDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string? Name { get; set; }
         public string? ShortDescription { get; set; }
         public string? FullDescription { get; set; }
@@ -21,8 +21,12 @@ namespace PMApplication.Dtos
         public bool Hero { get; set; }
         public int? ParentCategoryId { get; set; }
         public string? ParentCategoryName { get; set;}
-        public List<int>? CountryIds { get; set; }
-        public string? CountryList { get; set; }
+        public string? CountriesList { get; set; }
+        public string? RegionsList { get; set; }
         public IEnumerable<PlanmShadeDto>? Shades { get; set; }
+        public ICollection<RegionDto>? Regions { get; set; }
+        public IEnumerable<CountryDto>? Countries { get; set; }
+
+
     }
 }

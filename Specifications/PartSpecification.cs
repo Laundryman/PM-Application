@@ -22,7 +22,6 @@ namespace PMApplication.Specifications
             if (filter.Id != null)
             {
                 Query.Include(p => p.Products)
-                    .ThenInclude(p => p.Product)
                     .ThenInclude(p => p.Shades);
                 Query.Where(p => p.Id == filter.Id);
             }

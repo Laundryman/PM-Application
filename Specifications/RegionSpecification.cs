@@ -14,7 +14,7 @@ namespace PMApplication.Specifications
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
                     .Take(PaginationHelper.CalculateTake(filter));
 
-            if ((filter.BrandId != null))
+            if ((filter.BrandId != null) && filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId);
 
         }

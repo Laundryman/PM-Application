@@ -3,7 +3,7 @@ using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Interfaces;
 
-namespace PMApplication.Entities;
+namespace PMApplication.Entities.ProductAggregate;
 
 public partial class Product : BaseEntity<long>, IAggregateRoot
 {
@@ -33,21 +33,24 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public int? ParentCategoryId { get; set; }
 
-    public string? CountryList { get; set; }
+    public string? CountriesList { get; set; }
+    public string? RegionsList { get; set; }
 
     public virtual Brand Brand { get; set; } = null!;
 
     public virtual Category Category { get; set; } = null!;
 
-    public virtual ICollection<HeroProduct> HeroProducts { get; set; } = [];
+    public virtual List<HeroProduct> HeroProducts { get; set; } = [];
 
-    public virtual ICollection<PlanogramPartFacing> PlanogramPartFacings { get; set; } = [];
+    public virtual List<PlanogramPartFacing> PlanogramPartFacings { get; set; } = [];
 
-    public virtual ICollection<Shade> Shades { get; set; } = [];
+    public virtual List<Shade> Shades { get; set; } = [];
 
-    public virtual ICollection<Country> Countries { get; set; } = [];
+    public virtual List<Region> Regions { get; protected set; } = [];
+    public virtual List<Country> Countries { get; protected set; } = [];
 
-    public virtual List<PartProduct> Parts { get; set; } = [];
 
-    public virtual ICollection<PlanogramPart> PlanogramParts { get; set; } = [];
+    public virtual List<Part> Parts { get; set; } = [];
+
+    public virtual List<PlanogramPart> PlanogramParts { get; set; } = [];
 }

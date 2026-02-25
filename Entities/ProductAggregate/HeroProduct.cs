@@ -1,6 +1,6 @@
 ﻿using PMApplication.Interfaces;
 
-namespace PMApplication.Entities;
+namespace PMApplication.Entities.ProductAggregate;
 
 public partial class HeroProduct : BaseEntity<int>, IAggregateRoot
 {

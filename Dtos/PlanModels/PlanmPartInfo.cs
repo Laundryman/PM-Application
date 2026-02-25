@@ -24,14 +24,14 @@ namespace PMApplication.Dtos.PlanModels
         public int? Stock { get; set; }
         public int? Width { get; set; }
 
-        public int? PlanogramId { get; set; }
-        public int? ClusterId { get; set; }
-        public int? ScratchPadId { get; set; }
-        public int? PlanogramPartId { get; set; }
-        public int? ClusterPartId { get; set; }
-        public int? ParentPlanogramPartId { get; set; }
+        public long? PlanogramId { get; set; }
+        public long? ClusterId { get; set; }
+        public long? ScratchPadId { get; set; }
+        public long? PlanogramPartId { get; set; }
+        public long? ClusterPartId { get; set; }
+        public long? ParentPlanogramPartId { get; set; }
         public long? PlanogramShelfId { get; set; }
-        public int? ClusterShelfId { get; set; }
+        public long? ClusterShelfId { get; set; }
         public int? PlanogramColumnId { get; set; }
         //public string PlanxPartId { get; set; }
         //public string ParentPlanxPartId { get; set; }

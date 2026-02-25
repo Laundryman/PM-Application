@@ -183,6 +183,22 @@ namespace PMApplication.Services
             }
         }
 
+        public async Task<IReadOnlyList<PlanmMenuPart>> GetPlanmClusterMenu(PartFilter filter)
+        {
+            try
+            {
+                var menu = await _partRepository.GetPlanmClusterMenu((int)filter.BrandId, (int)filter.ClusterId, (int)filter.StandTypeId);
+                return menu;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+
         public async Task<Part> GetPart(string partNumber)
         {
             throw new NotImplementedException();

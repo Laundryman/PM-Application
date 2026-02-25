@@ -14,7 +14,9 @@ namespace PMApplication.Entities.PlanogramAggregate
         public string? CustomerRefNo { get; set; }
         public int PartTypeId { get; set; }
         public string? PartType { get; set; }
+        public int CategoryId { get; set; }
         public int ParentCategoryId { get; set; }
+        public string? ParentCategoryName { get; set; }
         public string? CategoryName { get; set; }
         public string? Name { get; set; }
         public short Facings { get; set; }
@@ -36,7 +38,6 @@ namespace PMApplication.Entities.PlanogramAggregate
         public decimal? LaunchPrice { get; set; }
         public DateTime? LaunchDate { get; set; }
         public bool DmiReco { get; set; }
-        public int CategoryId { get; set; }
         public string? CassetteBio { get; set; }
         public int? PartStatusId { get; set; }
     }
