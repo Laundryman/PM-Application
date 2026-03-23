@@ -43,7 +43,7 @@ namespace PMApplication.Entities.PartAggregate
         public string ManufacturingProcess { get; set; }
         public string TestingType { get; set; }
         public bool InternationalPart { get; set; }
-        //public int? StandTypeId { get; set; }
+        public int? StandTypeId { get; set; }
         public string? StandTypeList { get; set; }
         public bool DmiReco { get; set; }
         public bool HidePrices { get; set; }

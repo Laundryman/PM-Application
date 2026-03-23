@@ -1,4 +1,4 @@
-﻿using PMApplication.Dtos.PlanModels;
+﻿using PMApplication.Dtos.Filters;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 
@@ -10,5 +10,7 @@ namespace PMApplication.Interfaces.RepositoryInterfaces
 
         Task<IReadOnlyList<PlanogramInfo>> GetPlanogramInfo(int statusId, int brandId, int? jobId, int? regionId,
             int? countryId, int? standTypeId);
+
+        Task<IReadOnlyList<SearchPlanogramInfo>> SearchPlanograms(PlanogramFilterDto filterDto);
     }
 }

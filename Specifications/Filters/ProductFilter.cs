@@ -13,6 +13,7 @@
         public int? CountryId { get; set; }
         public int? BrandId { get; set; }
         public int? RegionId { get; set; }
+        public bool HeroProduct { get; set; } = false;
         public bool IsPublished { get; set; }
         public new bool LoadChildren { get; set; }
         public new bool IsPagingEnabled { get; set; }

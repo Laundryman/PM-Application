@@ -21,14 +21,16 @@ namespace PMApplication.Services
     public class ProductService: IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IAsyncRepositoryLong<Product> _asyncProductRepository;
         private readonly IShadeRepository _shadeRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IProductRepository productRepository, IShadeRepository shadeRepository)
+        public ProductService(IProductRepository productRepository, IShadeRepository shadeRepository, IAsyncRepositoryLong<Product> asyncProductRepository)
         {
             _productRepository = productRepository;
             _shadeRepository = shadeRepository;
+            _asyncProductRepository = asyncProductRepository;
         }
 
         #region IProductService Members
@@ -79,9 +81,30 @@ namespace PMApplication.Services
             }
         }
 
-        public Task<HeroProduct> GetHeroProduct(int categoryId, int brandId)
+        public async Task<HeroProduct> GetHeroProduct(int categoryId, int brandId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = new ProductFilter
+                {
+                    BrandId = brandId,
+                    CategoryId = categoryId,
+                    HeroProduct = true
+                };
+                var product = await _asyncProductRepository.FirstOrDefaultAsync(new ProductSpecification(filter));
+                var heroProduct = new HeroProduct
+                {
+                    Product = product,
+                    CategoryId = categoryId,
+                    BrandId = brandId
+                };
+                return heroProduct;
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex, "Error retrieving hero product for category {@CategoryId} and brand {@BrandId}", categoryId, brandId);
+                throw;
+            }
         }
 
         public IEnumerable<Part> GetFactices(long productId)

@@ -36,6 +36,10 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.ParentCategoryId == filter.ParentCategoryId);
             }
 
+            if (filter.HeroProduct)
+            {
+                Query.Where(x => x.Hero == true);
+            }
 
             if (filter.CountriesList != null)
             {
