@@ -37,8 +37,6 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.ParentCategoryId == filter.ParentCategoryId);
             if ((filter.CategoryId != null))
                 Query.Where(x => x.CategoryId == filter.CategoryId);
-            if((filter.ParentCategoryId != null))
-                Query.Where(x => x.ParentCategoryId == filter.ParentCategoryId);
             if (filter.Countries != null)
             {
                 if (filter.Countries.Count > 0)

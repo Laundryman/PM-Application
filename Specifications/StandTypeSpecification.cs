@@ -11,14 +11,25 @@ namespace PMApplication.Specifications
     {
         public StandTypeSpecification(StandTypeFilter filter)
         {
-            Query.Include(st => st.Stands)
-                .Include(st => st.Brand);
+            Query.Include(st => st.Brand);
+
+            if (filter.CountryId != null)
+            {
+                Query.Include(st => st.Stands.Where(s => s.CountriesList.Contains(filter.CountryId.ToString())));
+
+            }
+            else
+            {
+                Query.Include(st => st.Stands);
+            }
+
             Query.OrderBy(x => x.Name);
 
 
             if (filter.BrandId != null && filter.BrandId != 0 && !filter.GetParents)
                 Query.Where(x => x.BrandId == filter.BrandId);
                 
+
 
             if ((filter.ParentStandTypeId != null))
                 Query.Where(x => x.ParentStandTypeId == filter.ParentStandTypeId);
