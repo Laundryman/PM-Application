@@ -28,5 +28,10 @@ namespace PMApplication.Dtos
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
         public bool Published { get; set; }
+        public bool? Discontinued { get; set; }
+        public string? PackShotImageSrc { get; set; }
+        public string? Render2dImage { get; set; }
+        public string? SvgLineGraphic { get; set; }
+
     }
 }

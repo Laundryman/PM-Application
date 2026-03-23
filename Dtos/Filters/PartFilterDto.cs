@@ -7,7 +7,8 @@
         public int BrandId { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }
-        //public int? CategoryId { get; set; }
+        public int? CategoryId { get; set; }
+        public int? StandTypeId { get; set; }
         //public int? ParentCategoryId { get; set; }
         //public string? PartNumber { get; set; }
         //public string? AltPartNumber { get; set; }
