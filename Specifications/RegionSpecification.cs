@@ -17,6 +17,14 @@ namespace PMApplication.Specifications
             if ((filter.BrandId != null) && filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId);
 
+            if (filter.Id != null)
+            {
+                Query.Where(x => x.Id == filter.Id);
+            }
+            if (filter.LoadChildren)
+            {
+                Query.Include(r => r.Countries);
+            }
         }
 
     }
