@@ -1,4 +1,5 @@
-﻿using PMApplication.Dtos.PlanModels;
+﻿using Microsoft.AspNetCore.Http;
+using PMApplication.Dtos.PlanModels;
 using PMApplication.Entities;
 
 namespace PMApplication.Dtos
@@ -17,6 +18,7 @@ namespace PMApplication.Dtos
         public DateTime? DateAvailable { get; set; }
         public bool Published { get; set; }
         public string? ProductImage { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public bool? Discontinued { get; set; }
         public bool Hero { get; set; }
         public int? ParentCategoryId { get; set; }
@@ -24,8 +26,8 @@ namespace PMApplication.Dtos
         public string? CountriesList { get; set; }
         public string? RegionsList { get; set; }
         public IEnumerable<PlanmShadeDto>? Shades { get; set; }
-        public ICollection<RegionDto>? Regions { get; set; }
-        public IEnumerable<CountryDto>? Countries { get; set; }
+        public string? Regions { get; set; }
+        public string? Countries { get; set; }
 
 
     }

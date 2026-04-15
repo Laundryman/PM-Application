@@ -4,6 +4,7 @@ namespace PMApplication.Specifications.Filters
 {
     public class ShadeFilter : BaseFilter
     {
+        public long Id { get; set; }
         public int BrandId { get; set; }
         public string ShadeNumber { get; set; }
         public string ShadeDescription { get; set; }
