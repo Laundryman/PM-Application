@@ -1,4 +1,4 @@
-﻿using Microsoft.Graph.DirectoryNamespace.PublicKeyInfrastructure;
+﻿//using Microsoft.Graph.DirectoryNamespace.PublicKeyInfrastructure;
 using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
