@@ -103,18 +103,37 @@ namespace PMApplication.Services
 
         public async Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId, int brandId)
         {
-            var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId, countryId, standTypeId);
-            IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
-            if (status == (int)PlanogramStatusEnum.Approved)
+            try
             {
-                //we also need to get validated planograms
-                validatedPlanograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
+                var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId,
+                    countryId, standTypeId);
+                IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
+                if (status == (int)PlanogramStatusEnum.Approved)
+                {
+                    //we also need to get validated planograms
+                    validatedPlanograms = await _planogramRepository.GetPlanogramInfo(
+                        (int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
+                }
+
+                var fullList = new List<PlanogramInfo>().AsReadOnly();
+                if (planograms != null && planograms.Any())
+                {
+                    fullList = planograms.ToList().AsReadOnly();
+                }
+                if (validatedPlanograms != null && validatedPlanograms.Any())
+                {
+                    fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
+                }
+
+
+                return fullList;
             }
-
-            var fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
-
-
-            return fullList;
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error getting your planograms: " + ex.Message);
+                throw;
+            }
 
         }
 
