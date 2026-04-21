@@ -11,9 +11,9 @@ public partial class SearchProductInfo
     [Key]
     public long Id { get; set; }
     public string Name { get; set; } = null!;
-    public string CategoryName { get; set; }
+    public string? CategoryName { get; set; }
     public int CategoryId { get; set; }
-    public string ParentCategoryName { get; set; }
+    public string? ParentCategoryName { get; set; }
     public int? ParentCategoryId { get; set; }
     public string? RegionsList { get; set; }
     public string? CountriesList { get; set; }

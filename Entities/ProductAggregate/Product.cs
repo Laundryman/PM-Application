@@ -1,4 +1,5 @@
-﻿using PMApplication.Entities.CountriesAggregate;
+﻿//using Microsoft.Graph.DirectoryNamespace.PublicKeyInfrastructure;
+using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Interfaces;
@@ -16,6 +17,10 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
     public int BrandId { get; set; }
 
     public int CategoryId { get; set; }
+    
+    public string? CategoryName { get; set; }
+
+    public string? ParentCategoryName { get; set; }
 
     public DateTime DateCreated { get; set; }
 
@@ -46,8 +51,8 @@ public partial class Product : BaseEntity<long>, IAggregateRoot
 
     public virtual List<Shade> Shades { get; set; } = [];
 
-    public virtual List<Region> Regions { get; protected set; } = [];
-    public virtual List<Country> Countries { get; protected set; } = [];
+    public virtual List<Region> Regions { get; set; } = [];
+    public virtual List<Country> Countries { get; set; } = [];
 
 
     public virtual List<Part> Parts { get; set; } = [];

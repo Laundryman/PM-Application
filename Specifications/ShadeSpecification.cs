@@ -20,7 +20,7 @@ namespace PMApplication.Specifications
             //if (filter.PartId != null)
             //    Query.Where(x => x.PartProducts.All(p => p.PartId == filter.PartId));
 
-            if ((filter.ProductId != null))
+            if ((filter.ProductId != 0))
             {
                 Query.Where(x => x.ProductId == filter.ProductId)
                     .Include(s => s.Countries);
@@ -42,6 +42,16 @@ namespace PMApplication.Specifications
             if (filter.Country != null)
             {
                 Query.Where(x => x.Countries.Contains(filter.Country));
+            }
+
+            if (filter.Id != 0)
+            {
+                Query.Where(x => x.Id == filter.Id);
+            }
+
+            if (filter.LoadChildren)
+            {
+                Query.Include(x => x.Countries);
             }
             Query.OrderBy(x => x.ShadeNumber);
 

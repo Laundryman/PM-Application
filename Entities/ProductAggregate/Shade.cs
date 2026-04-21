@@ -32,5 +32,5 @@ public partial class Shade : BaseEntity<long>, IAggregateRoot
 
     public virtual Product Product { get; set; } = null!;
 
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public virtual List<Country> Countries { get; set; } = new List<Country>();
 }

@@ -8,6 +8,7 @@
         public int? BrandId { get; set; }
         public string CountryList { get; set; }
 
+        public List<CountryDto> Countries { get; set; }
         public RegionDto(string name)
         {
             Name = name;

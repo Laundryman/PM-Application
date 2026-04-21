@@ -53,6 +53,15 @@ namespace PMApplication.Specifications
 
             }
 
+            if (filter.LoadChildren) 
+            {
+                Query.Include(x => x.Shades)
+                    .Include(x => x.Category)
+                    .Include(x => x.Brand)
+                    .Include(x => x.Regions)
+                    .Include(x => x.Countries);
+            }
+
             if (filter.IsPublished)
             {
                 Query.Where(x => x.Published == true);
