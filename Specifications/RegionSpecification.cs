@@ -17,6 +17,12 @@ namespace PMApplication.Specifications
             if ((filter.BrandId != null) && filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId);
 
+            if (!string.IsNullOrEmpty(filter.idList))
+            {
+                var ids = filter.idList.Split(',').Select(int.Parse).ToList();
+                Query.Where(x => ids.Contains(x.Id));
+            }
+
             if (filter.Id != null)
             {
                 Query.Where(x => x.Id == filter.Id);
