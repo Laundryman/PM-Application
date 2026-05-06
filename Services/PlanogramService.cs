@@ -260,7 +260,7 @@ namespace PMApplication.Services
                 planogram.StatusId = 1;
                 planogram.Template = false; //this is not a template (yet at least)
                 planogram.UserId = userInfo.Id;
-                planogram.CountryId = userInfo.DiamCountryId;
+                planogram.CountryId = userInfo.CountryId;
                 planogram.UserName = userInfo.DisplayName;
                 planogram.LubName = userInfo.GivenName + " " + userInfo.Surname;
                 planogram.LastUpdatedBy = userInfo.Id;
@@ -340,7 +340,7 @@ namespace PMApplication.Services
             newPlanogram.LastUpdatedBy = userProfile.Id;
             newPlanogram.UserName = userProfile.DisplayName;
             newPlanogram.LubName = userProfile.GivenName + " " + userProfile.Surname;
-            var countryId = userProfile.DiamCountryId;
+            var countryId = userProfile.CountryId;
             var regionId = 1;
             //var userProfile = oauthService.GetUserProfile(userId);
             newPlanogram.CountryId = countryId; // userProfile.CountryId;
