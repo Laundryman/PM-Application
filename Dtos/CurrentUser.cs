@@ -7,7 +7,7 @@
         public int CountryId { get; }
         //public CountryViewModel Country { get; }
         public string? CountryName { get; }
-        public int DiamUserId { get; }
+        //public int DiamUserId { get; }
         public string? BrandIds { get; }
         public string? Brands { get; }
         public string? BrandNameList { get; }
@@ -33,7 +33,7 @@
         public string? Id { get; set; }
         public int CountryId { get; set; }
         public string? CountryName { get; set; }
-        public int DiamUserId { get; set; }
+        //public int DiamUserId { get; set; }
         public string? BrandIds { get; set; }
         public string? Brands { get; set; }
         public string? BrandNameList { get; set; }
