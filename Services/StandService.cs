@@ -29,14 +29,16 @@ namespace PMApplication.Services
         //private readonly IPartRepository _partRepositorySync;
         //private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<PartService> _logger;
+        private readonly ILogger<StandService> _logger;
 
-        public StandService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository)
+        public StandService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository, ILogger<StandService> logger, IMapper mapper)
         {
             _standRepository = standRepository;
             _partTypeRepository = partTypeRepository;
             _standTypeRepository = standTypeRepository;
             _categoryRepository = categoryRepository;
+            _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<Stand> GetStand(int id)

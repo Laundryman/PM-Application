@@ -26,11 +26,13 @@ namespace PMApplication.Services
         private readonly IMapper _mapper;
         private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IProductRepository productRepository, IShadeRepository shadeRepository, IAsyncRepositoryLong<Product> asyncProductRepository)
+        public ProductService(IProductRepository productRepository, IShadeRepository shadeRepository, IAsyncRepositoryLong<Product> asyncProductRepository, ILogger<ProductService> logger, IMapper mapper)
         {
             _productRepository = productRepository;
             _shadeRepository = shadeRepository;
             _asyncProductRepository = asyncProductRepository;
+            _logger = logger;
+            _mapper = mapper;
         }
 
         #region IProductService Members

@@ -72,10 +72,10 @@ namespace PMApplication.Dtos
 
 
 
-        public virtual IEnumerable<PlanmStandColumnDto> ColumnList { get; set; }
-        public virtual IEnumerable<PlanmStandRowDto> RowList { get; set; }
-        public ICollection<RegionDto> Regions { get; set; }
-        public ICollection<CountryDto> Countries { get; set; }
+        public virtual IEnumerable<PlanmStandColumnDto>? ColumnList { get; set; }
+        public virtual IEnumerable<PlanmStandRowDto>? RowList { get; set; }
+        public ICollection<RegionDto>? Regions { get; set; }
+        public ICollection<CountryDto>? Countries { get; set; }
 
     }
 }

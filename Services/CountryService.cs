@@ -23,9 +23,11 @@ namespace PMApplication.Services
         private readonly IMapper _mapper;
         private readonly ILogger<CountryService> _logger;
 
-        public CountryService(ICountryRepository countryRepository)
+        public CountryService(ICountryRepository countryRepository, ILogger<CountryService> logger, IMapper mapper)
         {
             _countryRepository = countryRepository;
+            _logger = logger;
+            _mapper = mapper;
         }
 
 

@@ -54,7 +54,7 @@ namespace PMApplication.Services
         public async Task DeleteBrand(int id)
         {
             var brand = _brandRepository.GetByIdAsync(id);
-            Guard.Against.Null(brand, nameof(brand));
+            await Guard.Against.Null(brand, nameof(brand));
             await _brandRepository.DeleteAsync(brand.Result);
         }
 

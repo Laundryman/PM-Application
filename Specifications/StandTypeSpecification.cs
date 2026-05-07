@@ -15,7 +15,7 @@ namespace PMApplication.Specifications
 
             if (filter.CountryId != null)
             {
-                Query.Include(st => st.Stands.Where(s => s.CountriesList.Contains(filter.CountryId.ToString())));
+                Query.Include(st => st.Stands.Where(s => s.CountriesList != null && s.CountriesList.Contains(filter.CountryId.ToString())));
 
             }
             else

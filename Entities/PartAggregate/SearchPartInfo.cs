@@ -9,7 +9,7 @@ namespace PMApplication.Entities.PartAggregate
 
         [Key]
         public long Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public string? CategoryName { get; set; }
         public int CategoryId { get; set; }
         public string? ParentCategoryName { get; set; }
@@ -17,12 +17,12 @@ namespace PMApplication.Entities.PartAggregate
         public string? RegionsList { get; set; }
         public string? CountriesList { get; set; }
         public short Facings { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public short Height { get; set; }
         public short Width { get; set; }
         public short Depth { get; set; }
         public short Stock { get; set; }
-        public string PartNumber { get; set; }
+        public string? PartNumber { get; set; }
         public string? AltPartNumber { get; set; }
         public string? CustomerRefNo { get; set; }
         public int? PartTypeId { get; set; }

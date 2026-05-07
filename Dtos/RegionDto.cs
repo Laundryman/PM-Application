@@ -6,9 +6,9 @@
         public string Name { get; set; }
         public int ZoneId { get; set; }
         public int? BrandId { get; set; }
-        public string CountryList { get; set; }
+        public string? CountryList { get; set; }
 
-        public List<CountryDto> Countries { get; set; }
+        public List<CountryDto>? Countries { get; set; }
         public RegionDto(string name)
         {
             Name = name;

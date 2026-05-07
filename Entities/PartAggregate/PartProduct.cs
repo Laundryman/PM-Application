@@ -9,8 +9,8 @@ namespace PMApplication.Entities.PartAggregate
         public long PartId { get; set; }
         public long ProductId { get; set; }
 
-        public virtual Part Part { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual Part? Part { get; set; }
+        public virtual Product? Product { get; set; }
 
         //-----------------------------------------------
         //ctors

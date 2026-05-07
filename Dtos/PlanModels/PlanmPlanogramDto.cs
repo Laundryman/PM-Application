@@ -11,19 +11,19 @@ namespace PMApplication.Dtos.PlanModels
         public long Id { get; set; }
         public int? BrandId { get; set; }
         public int LegacyUserId { get; set; }
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string? UserId { get; set; }
+        public string? UserName { get; set; }
         public int ClusterId { get; set; }
         public int? LEgacyLastUpdatedBy { get; set; }
-        public string LastUpdatedBy { get; set; }
-        public string LastUpdatedByName { get; set; }
+        public string? LastUpdatedBy { get; set; }
+        public string? LastUpdatedByName { get; set; }
         public int? CountryId { get; set; }
         public int StandId { get; set; }
         public long? ScratchPadId { get; set; }
         public int StatusId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string PlanogramPreviewSrc { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? PlanogramPreviewSrc { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
@@ -31,9 +31,10 @@ namespace PMApplication.Dtos.PlanModels
         public int CurrentVersion { get; set; }
         public bool Template { get; set; }
         public int? LegacyArchivedBy { get; set; }
-        public string ArchivedBy { get; set; }
+        public string? ArchivedBy { get; set; }
         public DateTime? ArchivedDate { get; set; }
-        public string JobNumber { get; set; }
+        public string? JobNumber { get; set; }
+        public string? JobName { get; set; }
         public bool Archived { get; set; }
     }
 }

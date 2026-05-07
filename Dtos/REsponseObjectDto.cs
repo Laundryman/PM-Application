@@ -8,7 +8,7 @@ namespace PMApplication.Dtos
 {
     public class ResponseObjectDto
     {
-        string Message { get; set; }
-        private string ReasonPhrase { get; set; }
+        public string? Message { get; set; }
+        private string? ReasonPhrase { get; set; }
     }
 }

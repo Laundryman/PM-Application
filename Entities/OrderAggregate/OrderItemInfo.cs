@@ -11,12 +11,12 @@ namespace PMApplication.Entities.OrderAggregate
         public int InitialQuantity { get; set; }
         public DateTime DateAdded { get; set; }
         public int PartId { get; set; }
-        public string PartName { get; set; }
-        public string PartNumber { get; set; }
-        public string AltPartNumber { get; set; }
-        public string CustomerRefNo { get; set; }
-        public string PackShotImageSrc { get; set; }
-        public decimal Price { get; set; }
+        public string? PartName { get; set; }
+        public string? PartNumber { get; set; }
+        public string? AltPartNumber { get; set; }
+        public string? CustomerRefNo { get; set; }
+        public string? PackShotImageSrc { get; set; }
+        public decimal? Price { get; set; }
         public int? PlanogramId { get; set; }
         public bool Shoppable { get; set; }
         public bool HidePrices { get; set; }

@@ -14,7 +14,7 @@ namespace PMApplication.Specifications.Filters
         public int RegionId { get; set; }
         public int StandTypeId { get; set; }
         public string UserId { get; set; }
-        public string JobCode { get; set; }
+        public string? JobCode { get; set; }
         public int StatusId { get; set; }
 
     }

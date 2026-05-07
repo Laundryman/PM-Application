@@ -33,5 +33,5 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
 
     public int JobFolderId { get; set;  }
     [ForeignKey("JobFolderId")]
-    public virtual JobFolder JobFolder { get; set; }
+    public virtual JobFolder? JobFolder { get; set; }
 }

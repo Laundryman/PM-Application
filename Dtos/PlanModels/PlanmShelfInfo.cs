@@ -25,7 +25,7 @@ namespace PMApplication.Dtos.PlanModels
         public int Column { get; set; }
         public string? Notes { get; set; }
         public string? SvgLineGraphic { get; set; }
-        public PlanmPosition Position { get; set; }
+        public PlanmPosition? Position { get; set; }
         public IEnumerable<PlanmPartInfo>? Parts { get; set; }
     }
 }

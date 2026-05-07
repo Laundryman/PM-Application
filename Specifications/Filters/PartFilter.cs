@@ -6,7 +6,7 @@ namespace PMApplication.Specifications.Filters
     public class PartFilter : BaseFilter
     {
         public long? Id { get; set; }
-        public string PartNumber { get; set; }
+        public string? PartNumber { get; set; }
         public int? PartTypeId { get; set; }
         public int? StandTypeId { get; set; }
 
@@ -15,8 +15,8 @@ namespace PMApplication.Specifications.Filters
         public short? Facings { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }
-        public string AltPartNumber { get; set; }
-        public string CustomerRefNo { get; set; }
+        public string? AltPartNumber { get; set; }
+        public string? CustomerRefNo { get; set; }
         public int? CategoryId { get; set; }
         public int? ParentCategoryId { get; set; }
         public int? BrandId { get; set; }
@@ -28,7 +28,7 @@ namespace PMApplication.Specifications.Filters
         public string? SearchString { get; set; }
         public bool excludeSpareParts { get; set; }
         public long? ClusterId { get; set; }
-        public ICollection<CountryDto> Countries { get; set; }
+        public ICollection<CountryDto>? Countries { get; set; }
 
     }
 }

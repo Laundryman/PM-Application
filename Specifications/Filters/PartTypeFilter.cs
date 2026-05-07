@@ -4,14 +4,14 @@ namespace PMApplication.Specifications.Filters
 {
     public class PartTypeFilter : BaseFilter
     {
-        public string PartNumber { get; set; }
+        public string? PartNumber { get; set; }
         public int? PartTypeId { get; set; }
         public int? StandTypeId { get; set; }
         public short? Facings { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }
-        public string AltPartNumber { get; set; }
-        public string CustomerRefNo { get; set; }
+        public string? AltPartNumber { get; set; }
+        public string? CustomerRefNo { get; set; }
         public int? CategoryId { get; set; }
         public int? ParentCategoryId { get; set; }
         public int? BrandId { get; set; }

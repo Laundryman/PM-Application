@@ -302,7 +302,7 @@ namespace PMApplication.Services
                 }
 
 
-                SavePlanogram(planogram);
+                await SavePlanogram(planogram);
                 return planogram.Id;
             }
             catch (Exception ex)
@@ -351,7 +351,7 @@ namespace PMApplication.Services
             {
                 if (isUpdate)
                 {
-                    DuplicatePlanogramNotes(userProfile.Id, originalPlanogram.Stand.BrandId, newPlanogram.CountryId ?? 0,
+                    await DuplicatePlanogramNotes(userProfile.Id, originalPlanogram.Stand.BrandId, newPlanogram.CountryId ?? 0,
                         regionId, planogramId, newPlanogram.Id);
                 }
             }
@@ -441,7 +441,7 @@ namespace PMApplication.Services
                     {
                         newShelf.PartStatusId = shelf.PartStatusId;
                     }
-                    CreatePlanogramShelf(newShelf);
+                    await CreatePlanogramShelf(newShelf);
 
                     foreach (PlanogramPart part in shelf.PlanogramParts)
                     {
@@ -477,7 +477,7 @@ namespace PMApplication.Services
                             {
                                 newPartFacing.FacingStatusId = partFacing.FacingStatusId;
                             }
-                            CreatePlanogramPartFacing(newPartFacing);
+                            await CreatePlanogramPartFacing(newPartFacing);
                             newPart.PlanogramPartFacings.Add(newPartFacing);
                         }
                         await SavePlanogramPart(newPart);

@@ -13,7 +13,7 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public int BrandId { get; set; }
     public string? CassetteBio { get; set; }
     public int CategoryId { get; set; }
-    public string CategoryName { get; set; }
+    public string? CategoryName { get; set; }
     public string? CountriesList { get; set; }
     public string? RegionsList { get; set; }
     public string? CustomerRefNo { get; set; }

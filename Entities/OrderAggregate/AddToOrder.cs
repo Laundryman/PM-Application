@@ -5,7 +5,7 @@
         public long OrderId { get; set; }
         public long PlanogramId { get; set; }
         public int Quantity { get; set; }
-        public string IsFullPlano { get; set; }
+        public string? IsFullPlano { get; set; }
     }
 
 }

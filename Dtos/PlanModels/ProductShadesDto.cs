@@ -9,6 +9,6 @@ namespace PMApplication.Dtos.PlanModels
     public class ProductShadesDto
     {
         public int ProductId { get; set; }
-        public virtual IEnumerable<PlanmShadeDto> Shades { get; set; }
+        public virtual IEnumerable<PlanmShadeDto>? Shades { get; set; }
     }
 }

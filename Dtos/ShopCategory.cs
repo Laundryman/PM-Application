@@ -9,6 +9,6 @@ namespace PMApplication.Dtos
     public class ShopCategory
     {
         public int CategoryId { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

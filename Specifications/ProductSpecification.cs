@@ -47,7 +47,7 @@ namespace PMApplication.Specifications
                 var predicate = PredicateBuilder.New<Product>(false);
                 foreach (var country in requiredCountries)
                 {
-                    predicate = predicate.Or(x => x.CountriesList.Contains(country));
+                    predicate = predicate.Or(x => x.CountriesList != null && x.CountriesList.Contains(country));
                 }
                 Query.Where(predicate);
 

@@ -14,30 +14,12 @@ namespace PMApplication.Helpers
     //}
     public class RolesHelper
     {
-        //public static void Initialize(IConfiguration config)
-        //{
-        //    Config = config;
-        //}
-        private static IConfiguration Config { get; set; }
 
         public RolesHelper()
         {
-            Config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
+
         }
 
-        //public static IConfiguration GetConfig()
-        //{
-        //    var env = System.Environment.GetEnvironmentVariable("ASPNETFRAMEWORK_ENVIRONMENT");
-        //    //var settingsFile = "appsettings." + env + ".json";
-        //    var settingsFile = "appsettings.json";
-        //    Config = new ConfigurationBuilder()
-        //        .AddJsonFile(settingsFile)
-        //        .Build();
-        //    return Config;
-        //}
-        //
 
         #region Roles
 

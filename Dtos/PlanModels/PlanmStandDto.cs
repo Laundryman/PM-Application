@@ -11,21 +11,20 @@ namespace PMApplication.Dtos.PlanModels
 
         public int StandId { get; set; }
         public int StandTypeId { get; set; }
-        public int ParentStandTypeId { get; set; }
-        public string StandTypeName { get; set; }
-        public string ParentStandTypeName { get; set; }
+        public int? ParentStandTypeId { get; set; }
+        public string? StandTypeName { get; set; }
+        public string? ParentStandTypeName { get; set; }
         public int BrandId { get; set; }
         public bool IsUsed { get; set; }
         public bool ShelfLock { get; set; }
 
 
         //--------------------- Section 1 GENERAL ----------------------------------
-        public string Name { get; set; }
-        public string StandAssemblyNumber { get; set; }
-        public byte LayoutStyle { get; set; }
-        public short Height { get; set; }
-        public short Width { get; set; }
-
+        public string? Name { get; set; }
+        public string? StandAssemblyNumber { get; set; }
+        public byte? LayoutStyle { get; set; }
+        public short? Height { get; set; }
+        public short? Width { get; set; }
 
         //--------------------- Section 2 MERCHANDISING ---------------------------
         public int MerchHeight { get; set; }
@@ -50,8 +49,8 @@ namespace PMApplication.Dtos.PlanModels
         public int shelfIncrement { get; set; }
 
         //--------------------- Section 5 OTHER -----------------------------------
-        public string HeaderGraphic { get; set; }
-        public string HeaderGraphicLocation { get; set; }
+        public string? HeaderGraphic { get; set; }
+        public string? HeaderGraphicLocation { get; set; }
 
         public decimal? StandCost { get; set; }
         public DateTime DateCreated { get; set; }
@@ -60,13 +59,13 @@ namespace PMApplication.Dtos.PlanModels
 
         public bool Published { get; set; }
         public bool Discontinued { get; set; }
-        public int CountryId { get; set; }
-        public List<int> CountryIds { get; set; }
+        public int? CountryId { get; set; }
+        public List<int>? CountryIds { get; set; }
 
         public bool? SpanShelves { get; set; }
         public bool? AllowOverHang { get; set; }
 
-        public virtual IEnumerable<PlanmStandColumnDto> ColumnList { get; set; }
-        public virtual IEnumerable<PlanmStandRowDto> RowList { get; set; }
+        public virtual IEnumerable<PlanmStandColumnDto>? ColumnList { get; set; }
+        public virtual IEnumerable<PlanmStandRowDto>? RowList { get; set; }
     }
 }

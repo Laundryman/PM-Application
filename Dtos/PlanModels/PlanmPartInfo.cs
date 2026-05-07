@@ -45,7 +45,7 @@ namespace PMApplication.Dtos.PlanModels
         public int? StatusId { get; set; }
         public string? Status { get; set; }
         public string? SvgLineGraphic { get; set; }
-        public PlanmPosition Position { get; set; }
+        public PlanmPosition? Position { get; set; }
         public int? PlanogramPartPlanogramPartsId { get; set; }
 
         public string? ManufacturingProcess { get; set; }

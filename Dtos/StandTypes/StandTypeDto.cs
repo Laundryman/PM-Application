@@ -10,7 +10,7 @@ namespace PMApplication.Dtos.StandTypes
     public class StandTypeDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public string? Description { get; set; }
         public int? ParentStandTypeId { get; set; }
         public int? BrandId { get; set; }
@@ -21,7 +21,7 @@ namespace PMApplication.Dtos.StandTypes
         public string? StandImage { get; set; }
         public bool HidePrices { get; set; }
         public StandTypeDto? ParentStandType { get; set; }
-        public BrandDto Brand { get; set; }
+        public BrandDto? Brand { get; set; }
 
     }
 }

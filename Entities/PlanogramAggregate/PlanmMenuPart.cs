@@ -32,7 +32,7 @@ namespace PMApplication.Entities.PlanogramAggregate
         public string? ManufacturingProcess { get; set; }
         public string? Presentation { get; set; }
         public string? TestingType { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string? PackShotImageSrc { get; set; }
         public decimal UnitCost { get; set; }
         public decimal? LaunchPrice { get; set; }

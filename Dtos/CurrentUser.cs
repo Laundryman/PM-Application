@@ -26,8 +26,8 @@ namespace PMApplication.Dtos
         public string? MailNickName { get; }
         public string? CountryList { get; set; }
         public string? RegionList { get; set; }
-        public List<Region> Regions { get; set; }
-        public List<Country> Countries { get; set; }
+        public List<Region>? Regions { get; set; }
+        public List<Country>? Countries { get; set; }
 
     }
 
@@ -55,7 +55,7 @@ namespace PMApplication.Dtos
         public string? MailNickName { get; set; }
         public string? CountryList { get; set; }
         public string? RegionList { get; set; }
-        public List<Region> Regions { get; set; }
-        public List<Country> Countries { get; set; }
+        public List<Region>? Regions { get; set; }
+        public List<Country>? Countries { get; set; }
     }
 }
