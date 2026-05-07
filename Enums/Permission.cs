@@ -13,8 +13,9 @@ namespace PMApplication.Enums
         Edit = 2,
         Approve = 3,
         Validate = 4,
-        Shop = 5,
-        Order = 6,
+        Archive = 5,
+        Shop = 6,
+        Order = 7,
     }
 
 }

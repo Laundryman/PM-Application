@@ -1,15 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-
+﻿using AutoMapper.Configuration;
+using Microsoft.Extensions.Configuration;
+using PMApplication.Entities;
+using PMApplication.Enums;
 namespace PMApplication.Helpers
 {
-    public enum Role : int
-    {
-        Administrator = 1,
-        Validator = 2,
-        Editor = 3,
-        Approver = 4
+    //public enum Role : int
+    //{
+    //    Administrator = 1,
+    //    Validator = 2,
+    //    Editor = 3,
+    //    Approver = 4
 
-    }
+    //}
     public class RolesHelper
     {
         //public static void Initialize(IConfiguration config)
@@ -25,317 +27,213 @@ namespace PMApplication.Helpers
                 .Build();
         }
 
-        public static IConfiguration GetConfig()
-        {
-            var env = System.Environment.GetEnvironmentVariable("ASPNETFRAMEWORK_ENVIRONMENT");
-            //var settingsFile = "appsettings." + env + ".json";
-            var settingsFile = "appsettings.json";
-            Config = new ConfigurationBuilder()
-                .AddJsonFile(settingsFile)
-                .Build();
-            return Config;
-        }
-        //public static bool IsAdminUser()
+        //public static IConfiguration GetConfig()
         //{
-        //    string str_adminRole = diamConfiguration["DiamRoles:AdminRole;
-        //    int adminRole = int.Parse(str_adminRole);
-        //    string[] str_roles = Roles.GetRolesForUser();
-        //    int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-
-        //    // Execute the following logic for Items and Alternating Items.
-        //    if (roles.Contains(adminRole))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    { return false; }
+        //    var env = System.Environment.GetEnvironmentVariable("ASPNETFRAMEWORK_ENVIRONMENT");
+        //    //var settingsFile = "appsettings." + env + ".json";
+        //    var settingsFile = "appsettings.json";
+        //    Config = new ConfigurationBuilder()
+        //        .AddJsonFile(settingsFile)
+        //        .Build();
+        //    return Config;
         //}
+        //
 
+        #region Roles
 
-        public static bool IsAdminUser(string Roles)
+        public static bool IsAdministrator(int roleId)
         {
-            string adminRole = GetConfig()["DiamRoles:AdminRole"];
-            string[] str_adminRoles = adminRole.Split(new char[] { ',' });
-            int[] adminRoles = Array.ConvertAll(str_adminRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int arole in adminRoles)
+            return roleId == (int)RoleEnum.Administrator;
+        }
+
+        public static bool IsManager(int roleId)
+        {
+            return roleId == (int)RoleEnum.Manager;
+        }
+
+        public static bool IsDesigner(int roleId)
+        {
+            return roleId == (int)RoleEnum.Designer;
+        }
+
+        public static bool IsAdminUser(int RoleId)
+        {
+            return RoleId == (int)RoleEnum.Administrator;
+        }
+
+        public static RoleEnum GetUserRole(string roleId)
+        {
+            //Config = config;
+            if (IsAdministrator(int.Parse(roleId)))
             {
-                if (roles.Contains(arole))
+                return RoleEnum.Administrator;
+            }
+
+            if (IsDesigner(int.Parse(roleId)))
+            {
+                return RoleEnum.Designer;
+            }
+
+            if (IsManager(int.Parse(roleId)))
+            {
+                return RoleEnum.Manager;
+            }
+
+            return RoleEnum.Designer;
+        }
+
+        #endregion
+
+        #region permissions
+
+        public static bool IsClientEditor(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Edit)
                 {
                     return true;
                 }
             }
-            return false;
-        }
 
-        public static bool IsDiamUser(string Roles)
-        {
-            string[] str_diamRoles = GetConfig()["DiamRoles:AdminRole"].Split(new char[] { ',' });
-            int[] diamRoles = Array.ConvertAll(str_diamRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (diamRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
             return false;
         }
-        public static bool IsClientEditor(string Roles)
-        {
-            string[] str_clientEditorRoles = GetConfig()["DiamRoles:clientEditorRoles"].Split(new char[] { ',' });
-            int[] clientEditorRoles = Array.ConvertAll(str_clientEditorRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (clientEditorRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool IsRegionalUser(string Roles)
-        {
-            string[] str_diamRoles = Config["DiamRoles:regionalRoles"].Split(new char[] { ',' });
-            int[] diamRoles = Array.ConvertAll(str_diamRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (diamRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        public static bool IsClientValidator(string Roles)
-        {
-            string[] str_clientValidatorRoles = GetConfig()["DiamRoles:clientValidatorRoles"].Split(new char[] { ',' });
-            int[] clientValidatorRoles = Array.ConvertAll(str_clientValidatorRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (clientValidatorRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool IsEditor(string Roles)
-        {
-            string[] str_editorRoles = GetConfig()["DiamRoles:Editor"].Split(new char[] { ',' });
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] editorRoles = Array.ConvertAll(str_editorRoles, s => int.Parse(s));
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (editorRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool IsApprover(string Roles)
-        {
-            string[] str_approverRoles = GetConfig()["DiamRoles:Approver"].Split(new char[] { ',' });
-            int[] approverRoles = Array.ConvertAll(str_approverRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (approverRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool IsValidator(string Roles)
-        {
-            string[] str_validatorRoles = GetConfig()["DiamRoles:Validator"].Split(new char[] { ',' });
-            int[] validatorRoles = Array.ConvertAll(str_validatorRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int role in roles)
-            {
-                if (validatorRoles.Contains(role))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static bool IsAdministrator(string Roles)
-        {
-            string adminRole = GetConfig()["DiamRoles:AdminRole"];
-            string[] str_adminRoles = adminRole.Split(new char[] { ',' });
-            int[] adminRoles = Array.ConvertAll(str_adminRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (int arole in adminRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-
-        }
-        public static bool IsSuperUser(string Roles)
-        {
-            string superUserRole = GetConfig()["DiamRoles:DiamSuperUser"];
-            string[] str_userRoles = superUserRole.Split(new char[] { ',' });
-            int[] userRoles = Array.ConvertAll(str_userRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var arole in userRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-
-        }
-        public static bool IsShopper(string Roles)
-        {
-            string shopperRole = GetConfig()["DiamRoles:Shopper"];
-            string[] str_shopperRoles = shopperRole.Split(new char[] { ',' });
-            int[] shopperRoles = Array.ConvertAll(str_shopperRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var arole in shopperRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static bool IsAdminShopper(string Roles)
-        {
-            string adminShopperRole = GetConfig()["DiamRoles:AdminShopper"];
-            string[] str_adminShopperRoles = adminShopperRole.Split(new char[] { ',' });
-            int[] adminShopperRoles = Array.ConvertAll(str_adminShopperRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var arole in adminShopperRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static bool IsArchiver(string Roles)
-        {
-            string archiveConfig = Config["DiamRoles:ArchiverRoles"];
-            string[] str_archiveRoles = archiveConfig.Split(new char[] { ',' });
-            int[] archiveRoles = Array.ConvertAll(str_archiveRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var arole in archiveRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static bool IsCreator(string Roles)
-        {
-            string creatorConfig = Config["DiamRoles:CreatorRoles"];
-            string[] strCreatorRoles = creatorConfig.Split(new char[] { ',' });
-            int[] creatorRoles = Array.ConvertAll(strCreatorRoles, s => int.Parse(s));
-            string[] str_roles = Roles.Split(new char[] { ',' });
-            int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
-            // Execute the following logic for Items and Alternating Items.
-            foreach (var arole in creatorRoles)
-            {
-                if (roles.Contains(arole))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        //public static bool IsPlanxUser(string Roles)
+        //public static bool IsRegionalUser(string Roles)
         //{
-        //    string plan_X = GetConfig()["DiamRoles:AdminRole"];
-        //    string[] str_planxroles = plan_X.Split(new char[] { ',' });
-        //    int[] planxroles = Array.ConvertAll(str_planxroles, s => int.Parse(s));
+        //    string[] str_diamRoles = Config["DiamRoles:regionalRoles"].Split(new char[] { ',' });
+        //    int[] diamRoles = Array.ConvertAll(str_diamRoles, s => int.Parse(s));
         //    string[] str_roles = Roles.Split(new char[] { ',' });
         //    int[] roles = Array.ConvertAll(str_roles, s => int.Parse(s));
+
         //    // Execute the following logic for Items and Alternating Items.
-        //    foreach (var pxrole in planxroles)
+        //    foreach (int role in roles)
         //    {
-        //        if (roles.Contains(pxrole))
+        //        if (diamRoles.Contains(role))
         //        {
         //            return true;
         //        }
         //    }
         //    return false;
-
         //}
 
-        public static Role GetUserRole(string Roles, IConfiguration config)
+
+        public static bool IsClientValidator(string permissions)
         {
-            Config = config;
-            if (IsAdministrator(Roles))
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
             {
-                return Role.Administrator;
+                if (int.Parse(perm) == (int)PermissionEnum.Validate)
+                {
+                    return true;
+                }
             }
-            if (IsApprover(Roles))
-            {
-                return Role.Approver;
-            }
-            if (IsValidator(Roles))
-            {
-                return Role.Validator;
-            }
-            if (IsEditor(Roles))
-            {
-                return Role.Editor;
-            }
-            return Role.Editor;
+
+            return false;
         }
+
+        public static bool IsEditor(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Edit)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsApprover(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Approve)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsValidator(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Validate)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsShopper(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Shop)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsAdminShopper(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Shop)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsArchiver(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Archive)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsCreator(string permissions)
+        {
+            var permArray = permissions.Split(new char[] { ',' });
+            foreach (var perm in permArray)
+            {
+                if (int.Parse(perm) == (int)PermissionEnum.Create)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        #endregion
+
+
     }
 
 }

@@ -1,4 +1,6 @@
-﻿namespace PMApplication.Dtos
+﻿using PMApplication.Entities.CountriesAggregate;
+
+namespace PMApplication.Dtos
 {
     public interface ICurrentUser
     {
@@ -24,6 +26,8 @@
         public string? MailNickName { get; }
         public string? CountryList { get; set; }
         public string? RegionList { get; set; }
+        public List<Region> Regions { get; set; }
+        public List<Country> Countries { get; set; }
 
     }
 
@@ -51,5 +55,7 @@
         public string? MailNickName { get; set; }
         public string? CountryList { get; set; }
         public string? RegionList { get; set; }
+        public List<Region> Regions { get; set; }
+        public List<Country> Countries { get; set; }
     }
 }
