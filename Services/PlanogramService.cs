@@ -237,7 +237,7 @@ namespace PMApplication.Services
 
 
         public async Task<long> CreatePlanogramFromCluster(ClusterFilter filter, string name, CurrentUser userInfo,
-            int brandId)
+            int brandId, int countryId)
         {
 
             try
@@ -260,7 +260,7 @@ namespace PMApplication.Services
                 planogram.StatusId = 1;
                 planogram.Template = false; //this is not a template (yet at least)
                 planogram.UserId = userInfo.Id;
-                planogram.CountryId = userInfo.CountryId;
+                planogram.CountryId = countryId;
                 planogram.UserName = userInfo.DisplayName;
                 planogram.LubName = userInfo.GivenName + " " + userInfo.Surname;
                 planogram.LastUpdatedBy = userInfo.Id;
