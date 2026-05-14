@@ -16,7 +16,7 @@ namespace PMApplication.Entities.OrderAggregate
         public string? AltPartNumber { get; set; }
         public string? CustomerRefNo { get; set; }
         public string? PackShotImageSrc { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; } = 0;
         public int? PlanogramId { get; set; }
         public bool Shoppable { get; set; }
         public bool HidePrices { get; set; }
