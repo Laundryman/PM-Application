@@ -1,5 +1,7 @@
 ﻿using Ardalis.Specification;
+using LinqKit;
 using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications
@@ -22,6 +24,19 @@ namespace PMApplication.Specifications
                 var ids = filter.idList.Split(',').Select(int.Parse).ToList();
                 Query.Where(x => ids.Contains(x.Id));
             }
+
+            if (filter.CountriesList != null)
+            {
+                var requiredCountries = filter.CountriesList.Split(",").ToList();
+                var predicate = PredicateBuilder.New<Region>(false);
+                foreach (var country in requiredCountries)
+                {
+                    predicate = predicate.Or(x => x.CountryList != null && x.CountryList.Contains(country));
+                }
+                Query.Where(predicate);
+
+            }
+
 
             if (filter.Id != null)
             {

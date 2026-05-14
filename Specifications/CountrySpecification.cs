@@ -11,6 +11,11 @@ namespace PMApplication.Specifications
         {
             Query.OrderBy(x => x.Name);
 
+            if ((filter.RegionId != null))
+                Query.Include(c => c.Regions)
+                    .Where(x => x.Regions.Any(r => r.Id == filter.RegionId));
+
+
             if (filter.CountryList != null)
             {
                 var requiredCountries = filter.CountryList.Split(",").ToList();
@@ -23,9 +28,6 @@ namespace PMApplication.Specifications
 
             }
 
-            if ((filter.RegionId != null))
-                Query.Include(c => c.Regions)
-                    .Where(x => x.Regions.Any( r => r.Id == filter.RegionId));
 
             //if (filter.IsPagingEnabled)
             //    Query.Skip(PaginationHelper.CalculateSkip(filter))

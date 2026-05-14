@@ -8,6 +8,7 @@ namespace PMApplication.Specifications.Filters
         public int? CountryId { get; set; }
         public int? Id { get; set; }
         public string? idList { get; set; }
+        public string? CountriesList { get; set; }
         //public bool LoadChildren { get; set; }
         //public bool IsPagingEnabled { get; set; }
         //public int Page { get; set; }

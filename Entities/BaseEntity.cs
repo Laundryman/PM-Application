@@ -16,6 +16,6 @@ namespace PMApplication.Entities
     public abstract class BaseEntity<T> : IBaseEntity<T>
         where T : struct, IEquatable<T>
     {
-        public virtual T Id { get; protected set; }
+        public virtual T Id { get; set; }
     }
 }
