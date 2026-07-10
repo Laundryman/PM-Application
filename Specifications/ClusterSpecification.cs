@@ -1,7 +1,9 @@
 ﻿using Ardalis.Specification;
+using LinqKit;
 using Microsoft.Graph.Models;
 using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.PartAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Specifications.Filters;
 
@@ -34,11 +36,12 @@ namespace PMApplication.Specifications
             if ((filter.StandTypeId != null))
                 Query.Where(x => x.Stand.StandTypeId == filter.StandTypeId);
 
-            //if ((filter.CountryId != null))
-            //{
-            //    Query.Include(x => x.Stand.Countries)
-            //        .Where(x => x.Stand.Countries.All(c => c.Id == filter.CountryId));
-            //}
+            if (filter.CountryId != null)
+            {
+                var predicate = PredicateBuilder.New<Cluster>(false);
+                predicate = predicate.Or(x => x.CountriesList != null && x.CountriesList.Contains(filter.CountryId.ToString()));
+                Query.Where(predicate);
+            }
 
             if (filter.Published != null)
             {

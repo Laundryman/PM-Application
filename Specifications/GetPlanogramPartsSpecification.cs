@@ -12,23 +12,37 @@ namespace PMApplication.Specifications
             if (filter.PlanogramId != 0)
             {
                 Query.Where(x => (x.PlanogramId == filter.PlanogramId) && (x.ScratchPadId == null))
-                    .Include(p => p.PlanogramPartFacings)
+                    .Include(p => p.PlanogramPartFacings);
+                    //.ThenInclude(pf => pf.Product);
                     //.Include(p => p.Products)
                     //.ThenInclude(s => s.Shades)
 
-                    .Include(x => x.Part)
-                    .ThenInclude(p => p.PartType)
+                    //.Include(x => x.Part)
 
-                    //.Include(p => p.Part)
-                    //.ThenInclude(p => p.Products)
-                    //.ThenInclude(pp => pp.Product)
-                    //.ThenInclude(s => s.Shades)
-                    //.ThenInclude(p => p.Countries)
+                    if (filter.LoadChildren)
+                    {
+                    Query.Include(p => p.Part)
+                        .ThenInclude(p => p.PartType)
+                        .Include(p => p.Part)
+                        .ThenInclude(p => p.Products)
+                        //.ThenInclude(p => p.PartType)
+                        //.ThenInclude(prod => prod.Product)
+                        .ThenInclude(s => s.Shades);
+                        //.Include(f => f.PlanogramPartFacings);
+                        //.ThenInclude(p => p.Countries);
+                    }
+                    else
+                {
+                    Query.Include(x => x.Part)
+                    .ThenInclude(p => p.PartType);
 
-                    .OrderBy(p => p.PositionX).ThenBy(p => p.PositionY);
+                }
+
+
                 //.ThenInclude(p => p.Countries)
 
             }
+
 
             if (filter.NewParts)
             {
@@ -39,6 +53,8 @@ namespace PMApplication.Specifications
             {
                 Query.Where(x => x.PlanogramPartPlanogramPartsId == filter.PartId);
             }
+
+            Query.OrderBy(p => p.PositionX).ThenBy(p => p.PositionY);
         }
 
     }

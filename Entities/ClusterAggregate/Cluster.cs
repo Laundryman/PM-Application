@@ -49,6 +49,8 @@ public partial class Cluster : BaseEntity<long>, IAggregateRoot
     public string? UserName { get; set; }
 
     public string? Lubname { get; set; }
+    public string? CountriesList { get; set; }
+    public string? RegionsList { get; set; }
 
     public virtual Brand Brand { get; set; } = null!;
 

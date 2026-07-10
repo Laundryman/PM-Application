@@ -37,9 +37,9 @@ namespace PMApplication.Services
         private readonly IPlanogramLockRepository _planogramLockRepository;
         private readonly IPlanogramPreviewRepository _planogramPreviewRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<PartService> _logger;
+        private readonly ILogger<PlanogramService> _logger;
 
-        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PartService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository, IPlanogramPartFacingRepository facingRepository)
+        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PlanogramService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository, IPlanogramPartFacingRepository facingRepository)
         {
             _partRepository = partRepository;
             _planogramRepository = planogramRepository;
@@ -236,8 +236,7 @@ namespace PMApplication.Services
         }
 
 
-        public async Task<long> CreatePlanogramFromCluster(ClusterFilter filter, string name, CurrentUser userInfo,
-            int brandId, int countryId)
+        public async Task<long> CreatePlanogramFromCluster(ClusterFilter filter, CreatePlanogramDto newPlanogramDetails, CurrentUser userInfo)
         {
 
             try
@@ -247,20 +246,22 @@ namespace PMApplication.Services
 
                 Planogram planogram = new Planogram();
 
-                planogram.BrandId = brandId;
+                planogram.BrandId = newPlanogramDetails.BrandId;
                 planogram.ClusterId = cluster.Id;
                 planogram.CurrentVersion = 1;
                 planogram.DateCreated = DateTime.Now;
                 planogram.DateUpdated = DateTime.Now;
                 planogram.DateSubmitted = null;
-                planogram.Name = name;
+                planogram.Name = newPlanogramDetails.Name;
                 //planogram.Stand = cluster.Stand;
-                planogram.StandId = cluster.Stand.Id;
+                planogram.StandTypeId = newPlanogramDetails.StandTypeId;
+                planogram.StandId = newPlanogramDetails.StandId;
                 //planogram.Status = 1;
                 planogram.StatusId = 1;
                 planogram.Template = false; //this is not a template (yet at least)
                 planogram.UserId = userInfo.Id;
-                planogram.CountryId = countryId;
+                planogram.CountryId = newPlanogramDetails.CountryId;
+                planogram.RegionId = newPlanogramDetails.RegionId;
                 planogram.UserName = userInfo.DisplayName;
                 planogram.LubName = userInfo.GivenName + " " + userInfo.Surname;
                 planogram.LastUpdatedBy = userInfo.Id;

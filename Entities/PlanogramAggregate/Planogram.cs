@@ -9,11 +9,13 @@ public partial class Planogram : BaseEntity<long>, IAggregateRoot
     public long ClusterId { get; set; }
 
     public string Name { get; set; } = null!;
+    public int StandTypeId { get; set; }
     public int StandId { get; set; }
     public string? OrderRef { get; set; }
     public string? Description { get; set; }
     public int StatusId { get; set; }
     public int? CountryId { get; set; }   
+    public int? RegionId { get; set; }
     public long? ScratchPadId { get; set; }
     public bool HasComments { get; set; }
     public string? PlanogramPreviewSrc { get; set; }

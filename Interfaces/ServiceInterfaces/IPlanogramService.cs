@@ -74,7 +74,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<CassetteList> GetCassetteList(int id, string userId);
 
 
-        Task<long> CreatePlanogramFromCluster(ClusterFilter filter, string name, CurrentUser userInfo, int brandId, int countryId);
+        Task<long> CreatePlanogramFromCluster(ClusterFilter filter, CreatePlanogramDto newPlanogramDetails, CurrentUser userInfo);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate);
 
