@@ -9,12 +9,12 @@ namespace PMApplication.Dtos
         public string? Name { get; set; }
         public string? ShortDescription { get; set; }
         public string? FullDescription { get; set; }
-        public int BrandId { get; set; }
-        public int CategoryId { get; set; }
+        public int? BrandId { get; set; }
+        public int? CategoryId { get; set; }
         public string? CategoryName { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
-        public DateTime? DateAvailable { get; set; }
+        public string? DateCreated { get; set; }
+        public string? DateUpdated { get; set; }
+        public string? DateAvailable { get; set; }
         public bool Published { get; set; }
         public string? ProductImage { get; set; }
         public bool? Discontinued { get; set; }

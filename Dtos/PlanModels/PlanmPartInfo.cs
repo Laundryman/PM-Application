@@ -19,7 +19,9 @@ namespace PMApplication.Dtos.PlanModels
         public int? Facings { get; set; }
         public int Height { get; set; }
         public string? Name { get; set; }
+        public string? Title { get; set; }
         public string? Notes { get; set; }
+        public bool HasNotes { get; set; }
         public string? Label { get; set; }
         public int? Stock { get; set; }
         public int? Width { get; set; }
@@ -35,7 +37,7 @@ namespace PMApplication.Dtos.PlanModels
         public int? PlanogramColumnId { get; set; }
         //public string PlanxPartId { get; set; }
         //public string ParentPlanxPartId { get; set; }
-        public string? PlanxShelfId { get; set; }
+        public string? PlanmatrShelfId { get; set; }
 
         public long? PartId { get; set; }
         public int? PartTypeId { get; set; }
@@ -47,6 +49,7 @@ namespace PMApplication.Dtos.PlanModels
         public string? SvgLineGraphic { get; set; }
         public PlanmPosition? Position { get; set; }
         public int? PlanogramPartPlanogramPartsId { get; set; }
+        public int? PlanogrPlanogramPartsId { get; set; }
 
         public string? ManufacturingProcess { get; set; }
         public string? Presentation { get; set; }
