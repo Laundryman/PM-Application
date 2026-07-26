@@ -1,6 +1,8 @@
 ﻿using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.StandAggregate;
+using PMApplication.Entities.JobsAggregate;
 using PMApplication.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PMApplication.Entities.PlanogramAggregate;
 
@@ -28,6 +30,7 @@ public partial class Planogram : BaseEntity<long>, IAggregateRoot
 
     public DateTime? DateSubmitted { get; set; }
 
+    public long? CopiedFrom { get; set; }
     public int CurrentVersion { get; set; }
 
     public bool Template { get; set; }
@@ -62,6 +65,8 @@ public partial class Planogram : BaseEntity<long>, IAggregateRoot
     public string? ArchivedBy { get; set; }
 
     public int? JobId { get; set; }
+    [ForeignKey("JobId")]
+    public virtual Job? Job { get; set; }
 
     public virtual Cluster Cluster { get; set; } = null!;
     public virtual ScratchPad ScratchPad { get; set; } = null!;

@@ -13,9 +13,12 @@ namespace PMApplication.Specifications.Filters
         public int CountryId { get; set; }
         public int RegionId { get; set; }
         public int StandTypeId { get; set; }
+        public string StandTypeList { get; set; }
         public string UserId { get; set; }
         public string? JobCode { get; set; }
         public int StatusId { get; set; }
+
+        public bool LoadRelatedEntities{ get; set; } = false;
 
     }
 }

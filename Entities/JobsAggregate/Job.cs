@@ -1,6 +1,6 @@
 ﻿using PMApplication.Interfaces;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using PMApplication.Entities.PlanogramAggregate;
 namespace PMApplication.Entities.JobsAggregate;
 
 public partial class Job : BaseEntity<int>, IAggregateRoot
@@ -34,4 +34,5 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
     public int JobFolderId { get; set;  }
     [ForeignKey("JobFolderId")]
     public virtual JobFolder? JobFolder { get; set; }
+    public virtual List<Planogram>? Planograms { get; set; } = new List<Planogram>();
 }

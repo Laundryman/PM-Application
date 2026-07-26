@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PMApplication.Dtos.PlanModels
+{
+    public class ClonePlanogramDto
+    {
+        public long Id { get; set; }
+        public bool? IsUpdate { get; set; } = false;
+        public int? BrandId { get; set; }
+
+        public string? Name { get; set; }
+        public int? CountryId { get; set; }
+        public int? RegionId { get; set; }
+        
+
+    }
+}

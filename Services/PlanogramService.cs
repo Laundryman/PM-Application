@@ -26,6 +26,7 @@ namespace PMApplication.Services
 {
     public class PlanogramService : IPlanogramService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IPartRepository _partRepository;
         private readonly IPlanogramRepository _planogramRepository;
         private readonly IClusterRepository _clusterRepository;
@@ -39,8 +40,9 @@ namespace PMApplication.Services
         private readonly IMapper _mapper;
         private readonly ILogger<PlanogramService> _logger;
 
-        public PlanogramService(IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PlanogramService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository, IPlanogramPartFacingRepository facingRepository)
+        public PlanogramService(IUnitOfWork unitOfWork, IPartRepository partRepository, IPlanogramRepository planogramRepository, IPlanogramPartRepository planogramPartRepository, IMapper mapper, ILogger<PlanogramService> logger, IPlanogramShelfRepository planogramShelfRepository, IClusterRepository clusterRepository, IPlanogramNoteRepository planogramNoteRepository, IScratchPadRepository scratchPadRepository, IPlanogramLockRepository planogramLockRepository, IPlanogramPreviewRepository planogramPreviewRepository, IPlanogramPartFacingRepository facingRepository)
         {
+            _unitOfWork = unitOfWork;
             _partRepository = partRepository;
             _planogramRepository = planogramRepository;
             _planogramPartRepository = planogramPartRepository;
@@ -101,49 +103,54 @@ namespace PMApplication.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId, int brandId)
+        //public async Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId, int brandId)
+        //{
+        //    try
+        //    {
+        //        var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId,
+        //            countryId, standTypeId);
+        //        IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
+        //        if (status == (int)PlanogramStatusEnum.Approved)
+        //        {
+        //            //we also need to get validated planograms
+        //            validatedPlanograms = await _planogramRepository.GetPlanogramInfo(
+        //                (int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
+        //        }
+
+        //        var fullList = new List<PlanogramInfo>().AsReadOnly();
+        //        if (planograms != null && planograms.Any())
+        //        {
+        //            fullList = planograms.ToList().AsReadOnly();
+        //        }
+        //        if (validatedPlanograms != null && validatedPlanograms.Any())
+        //        {
+        //            fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
+        //        }
+
+
+        //        return fullList;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception or handle it as needed
+        //        _logger.LogError("Error getting your planograms: " + ex.Message);
+        //        throw;
+        //    }
+
+        //}
+
+        //public async Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId,
+        //    bool isDiamUser, string planogramHostUrl = "")
+        //{
+        //    var planograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Archived, brandId, jobId, regionId, countryId, standTypeId);
+        //    return planograms;
+        //}
+
+        public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
         {
-            try
-            {
-                var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId,
-                    countryId, standTypeId);
-                IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
-                if (status == (int)PlanogramStatusEnum.Approved)
-                {
-                    //we also need to get validated planograms
-                    validatedPlanograms = await _planogramRepository.GetPlanogramInfo(
-                        (int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
-                }
-
-                var fullList = new List<PlanogramInfo>().AsReadOnly();
-                if (planograms != null && planograms.Any())
-                {
-                    fullList = planograms.ToList().AsReadOnly();
-                }
-                if (validatedPlanograms != null && validatedPlanograms.Any())
-                {
-                    fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
-                }
-
-
-                return fullList;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as needed
-                _logger.LogError("Error getting your planograms: " + ex.Message);
-                throw;
-            }
-
+            var skus = await _planogramRepository.GetSkuList(id, userId, hasColumns);
+            return skus;
         }
-
-        public async Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId,
-            bool isDiamUser, string planogramHostUrl = "")
-        {
-            var planograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Archived, brandId, jobId, regionId, countryId, standTypeId);
-            return planograms;
-        }
-
         public async Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter)
         {
             try
@@ -227,12 +234,6 @@ namespace PMApplication.Services
                 _logger.LogError("Error saving planogram preview: " + ex.Message);
                 throw;
             }
-        }
-
-        public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
-        {
-            var skus = await _planogramRepository.GetSkuList(id, userId, hasColumns);
-            return skus;
         }
 
 
@@ -322,204 +323,229 @@ namespace PMApplication.Services
 
         public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate)
         {
-            Planogram originalPlanogram = await _planogramRepository.GetByIdAsync(planogramId);
-
-            Planogram newPlanogram = new Planogram();
-
-            newPlanogram.Cluster = originalPlanogram.Cluster;
-            newPlanogram.ClusterId = originalPlanogram.ClusterId;
-            newPlanogram.CurrentVersion = 1;
-            newPlanogram.DateCreated = DateTime.Now;
-            newPlanogram.DateUpdated = DateTime.Now;
-            newPlanogram.DateSubmitted = null;
-            newPlanogram.Name = name;
-            newPlanogram.Stand = originalPlanogram.Stand;
-            newPlanogram.StandId = originalPlanogram.StandId;
-            newPlanogram.StatusId = 1;
-            newPlanogram.Template = false; //this is not a template (yet at least)
-            newPlanogram.UserId = userProfile.Id;
-            newPlanogram.LastUpdatedBy = userProfile.Id;
-            newPlanogram.UserName = userProfile.DisplayName;
-            newPlanogram.LubName = userProfile.GivenName + " " + userProfile.Surname;
-            var countryId = userProfile.CountryId;
-            var regionId = 1;
-            //var userProfile = oauthService.GetUserProfile(userId);
-            newPlanogram.CountryId = countryId; // userProfile.CountryId;
-            //await CreatePlanogram(newPlanogram);
-            await _planogramRepository.AddAsync(newPlanogram);
-
             try
             {
+                _unitOfWork.BeginTransaction();
+
+                var filter = new PlanogramFilter
+                {
+                    Id = planogramId,
+                    LoadRelatedEntities = true,
+                };
+                var spec = new PlanogramSpecification(filter);
+
+                Planogram planogram = await _planogramRepository.FirstAsync(spec);
+                Planogram newPlanogram = new Planogram();
+
+                if (name == planogram.Name)
+                {
+                    name = name + " - Copy";
+                }
+
+
+                newPlanogram.BrandId = planogram.BrandId;
+                newPlanogram.ClusterId = planogram.ClusterId;
+                newPlanogram.CurrentVersion = 1;
+                newPlanogram.DateCreated = DateTime.Now;
+                newPlanogram.DateUpdated = DateTime.Now;
+                newPlanogram.DateSubmitted = null;
+                newPlanogram.Name = name;
+                newPlanogram.StandTypeId = planogram.StandTypeId;
+                newPlanogram.StandId = planogram.StandId;
+                newPlanogram.StatusId = 1; // Set to Draft
+                newPlanogram.Template = false; //this is not a template (yet at least)
+                newPlanogram.UserId = userProfile.Id;
+                newPlanogram.CountryId = planogram.CountryId;
+                newPlanogram.RegionId = planogram.RegionId;
+                newPlanogram.UserName = userProfile.DisplayName;
+                newPlanogram.LubName = userProfile.GivenName + " " + userProfile.Surname;
+                newPlanogram.LastUpdatedBy = userProfile.Id;
+                newPlanogram.CopiedFrom = planogram.Id;
+                newPlanogram.UserId = userProfile.Id;
+
+
+                await CreatePlanogram(newPlanogram);
+                var psFilter = new PlanogramFilter();
+                psFilter.Id = planogram.Id;
+                var planogramShelves = _planogramShelfRepository.ListAsync(new PlanogramShelfSpecification(psFilter)).Result;
+                var ppFilter = new PlanogramPartFilter();
+                ppFilter.PlanogramId = planogram.Id;
+                var planogramParts = _planogramPartRepository.ListAsync(new PlanogramPartFilterSpecification(ppFilter)).Result;
+
+
                 if (isUpdate)
                 {
-                    await DuplicatePlanogramNotes(userProfile.Id, originalPlanogram.Stand.BrandId, newPlanogram.CountryId ?? 0,
-                        regionId, planogramId, newPlanogram.Id);
+                    await DuplicatePlanogramNotes(userProfile.Id, planogram.Id, newPlanogram.Id);
                 }
+                var scratchPadId = planogram.ScratchPadId;
+                if (isUpdate & scratchPadId != null)
+                {
+                    //we need to clone the scratchpad too.
+                    scratchPadId = await CloneScratchPad(planogram.Id, newPlanogram.Id);
+                }
+
+                //NEED TO HANDLE PLANOGRAMS THAT HAVE NO SHELVES
+                if ((planogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (planogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.NEO))
+                {
+                    foreach (PlanogramPart part in planogramParts)
+                    {
+                        if ((PartTypeEnum)part.Part.PartType.Id != PartTypeEnum.Accessory && part.ScratchPadId == null)
+                        {
+                            PlanogramPart newPart = new PlanogramPart();
+                            newPart.Id = part.Id;
+                            newPart.PlanogramId = newPlanogram.Id;
+                            newPart.PositionX = part.PositionX;
+                            newPart.PositionY = part.PositionY;
+                            newPart.Products = part.Products;
+                            newPart.DateUpdated = DateTime.Now;
+                            newPart.DateCreated = DateTime.Now;
+                            newPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
+                            if (isUpdate)
+                            {
+                                newPart.PartStatusId = part.PartStatusId;
+                                newPart.Notes = part.Notes;
+                                if (newPart.PositionX == 0 && newPart.PositionY == 0)
+                                {
+                                    newPart.ScratchPadId = scratchPadId;
+                                }
+                            }
+
+                            await CreatePlanogramPart(newPart);
+                            foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
+                            {
+                                PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
+                                newPartFacing.PlanogramId = newPlanogram.Id;
+                                newPartFacing.PlanogramPart = newPart;
+                                newPartFacing.Position = partFacing.Position;
+                                newPartFacing.ProductId = partFacing.ProductId;
+                                newPartFacing.Shade = partFacing.Shade;
+                                newPartFacing.StockCount = partFacing.StockCount;
+                                newPartFacing.FacingStatusId = (int)PlanoItemStatusEnum.NotChanged;
+
+                                if (isUpdate)
+                                {
+                                    newPartFacing.FacingStatusId = partFacing.FacingStatusId;
+                                }
+                                await CreatePlanogramPartFacing(newPartFacing);
+                                newPart.PlanogramPartFacings.Add(newPartFacing);
+                            }
+                            await SavePlanogramPart(newPart);
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    //Add Shelves
+                    foreach (PlanogramShelf shelf in planogramShelves.Where(ps => ps.ScratchPadId == null || ps.ScratchPadId == 0))
+                    {
+                        PlanogramShelf newShelf = new PlanogramShelf();
+                        newShelf.Column = shelf.Column;
+                        newShelf.Height = shelf.Height;
+                        newShelf.PositionX = shelf.PositionX;
+                        newShelf.PositionY = shelf.PositionY;
+                        newShelf.Row = shelf.Row;
+                        newShelf.Width = shelf.Width;
+                        //newShelf.Planogram = newPlanogram;
+                        newShelf.PlanogramId = newPlanogram.Id;
+                        //newShelf.Part = shelf.Part;
+                        newShelf.PartId = shelf.PartId;
+                        newShelf.Label = shelf.Label;
+                        newShelf.ShelfTypeId = shelf.ShelfTypeId;
+                        newShelf.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
+                        if (isUpdate)
+                        { 
+                            newShelf.PartStatusId = shelf.PartStatusId;
+                        }
+                        await CreatePlanogramShelf(newShelf);
+
+                        foreach (PlanogramPart part in shelf.PlanogramParts)
+                        {
+                            PlanogramPart newPart = new PlanogramPart();
+                            newPart.PartId = part.PartId; 
+                            newPart.Label = part.Label;
+                            newPart.PlanogramId = newPlanogram.Id;
+                            //newPart.PlanogramShelf = newShelf;
+                            newPart.PlanogramShelfId = newShelf.Id;
+                            newPart.PositionX = part.PositionX;
+                            newPart.PositionY = part.PositionY;
+                            //need to clone the products
+                            //newPart.Products = part.Products;
+                            newPart.DateUpdated = DateTime.Now;
+                            newPart.DateCreated = DateTime.Now;
+                            newPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
+                            //here if a bool val set to update save it or if not don't save it.
+                            if (isUpdate)
+                            {
+                                newPart.PartStatusId = part.PartStatusId;
+                                newPart.Notes = part.Notes;
+                            }
+                            await CreatePlanogramPart(newPart);
+                            foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
+                            {
+                                PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
+                                newPartFacing.PlanogramId = newPlanogram.Id;
+                                newPartFacing.PlanogramPartId = newPart.Id;
+                                newPartFacing.Position = partFacing.Position;
+                                newPartFacing.ProductId = partFacing.ProductId;
+                                newPartFacing.Shade = partFacing.Shade;
+                                newPartFacing.StockCount = partFacing.StockCount;
+                                newPartFacing.FacingStatusId = (int)PlanoItemStatusEnum.NotChanged;
+                                if (isUpdate)
+                                {
+                                    newPartFacing.FacingStatusId = partFacing.FacingStatusId;
+                                }
+                                await CreatePlanogramPartFacing(newPartFacing);
+                                newPart.PlanogramPartFacings.Add(newPartFacing);
+                            }
+                            await SavePlanogramPart(newPart);
+                        }
+                        await SavePlanogramShelf(newShelf);
+                    }
+                }
+                //Add Promos > Now Accessories
+
+                foreach (PlanogramPart part in planogramParts)
+                {
+                    if ((PartTypeEnum)part.Part.PartTypeId == PartTypeEnum.Accessory && part.ScratchPadId == null ||
+                        (PartTypeEnum)part.Part.PartTypeId == PartTypeEnum.Glorifier && part.ScratchPadId == null ||
+                        (PartTypeEnum)part.Part.PartTypeId == PartTypeEnum.Blanking && (part.ScratchPadId == null && part.PlanogramShelfId == null))
+                    {
+                        PlanogramPart accessoryPart = new PlanogramPart();
+                        //accessoryPart.Part = part.Part;
+                        accessoryPart.PlanogramId = newPlanogram.Id;
+                        accessoryPart.PartId = part.PartId;
+                        accessoryPart.PositionX = part.PositionX;
+                        accessoryPart.PositionY = part.PositionY;
+                        accessoryPart.DateUpdated = DateTime.Now;
+                        accessoryPart.DateCreated = DateTime.Now;
+                        accessoryPart.Label = part.Label ?? "";
+                        accessoryPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
+
+                        if (isUpdate)
+                        {
+                            accessoryPart.PartStatusId = part.PartStatusId;
+                            accessoryPart.Notes = part.Notes;
+                        }
+                        await CreatePlanogramPart(accessoryPart);
+                    }
+
+                }
+
+                await SavePlanogram(newPlanogram);
+                _unitOfWork.Commit();
+                // considered placing the clone snapshots call in here, decided against it as its not strictly a data operation - MB
+                // instead, cloning is called from the UI, e.g. planogramsInProgress.ascx.cs : btnSaveAsTemplate_Click()
+
+                return newPlanogram.Id;
             }
             catch (Exception ex)
             {
-
+                _unitOfWork.Rollback();
+                _logger.LogError(ex, "Error cloning planogram");
+                throw;
             }
-            var scratchPadId = originalPlanogram.ScratchPadId;
-            if (isUpdate & scratchPadId != null)
-            {
-                //we need to clone the scratchpad too.
-                scratchPadId = await CloneScratchPad(originalPlanogram.Id, newPlanogram.Id);
-            }
-
-            //NEED TO HANDLE PLANOGRAMS THAT HAVE NO SHELVES
-            if ((originalPlanogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (originalPlanogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.NEO))
-            {
-                foreach (PlanogramPart part in originalPlanogram.PlanogramParts)
-                {
-                    if ((PartTypeEnum)part.Part.PartType.Id != PartTypeEnum.Accessory && part.ScratchPadId == null)
-                    {
-                        PlanogramPart newPart = new PlanogramPart();
-                        newPart.Part = part.Part;
-                        newPart.PlanogramId = newPlanogram.Id;
-                        //newPart.PlanogramShelf = newShelf;
-                        //newPart.PlanogramShelfId = newShelf.PlanogramShelfId;
-                        newPart.PositionX = part.PositionX;
-                        newPart.PositionY = part.PositionY;
-                        newPart.Products = part.Products;
-                        newPart.DateUpdated = DateTime.Now;
-                        newPart.DateCreated = DateTime.Now;
-                        newPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
-                        if (isUpdate)
-                        {
-                            newPart.PartStatusId = part.PartStatusId;
-                            newPart.Notes = part.Notes;
-                            if (newPart.PositionX == 0 && newPart.PositionY == 0)
-                            {
-                                newPart.ScratchPadId = scratchPadId;
-                            }
-                        }
-
-                        await CreatePlanogramPart(newPart);
-                        foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
-                        {
-                            PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
-                            newPartFacing.PlanogramId = newPlanogram.Id;
-                            newPartFacing.PlanogramPart = newPart;
-                            newPartFacing.Position = partFacing.Position;
-                            newPartFacing.ProductId = partFacing.ProductId;
-                            newPartFacing.Shade = partFacing.Shade;
-                            newPartFacing.StockCount = partFacing.StockCount;
-                            newPartFacing.FacingStatusId = (int)PlanoItemStatusEnum.NotChanged;
-
-                            if (isUpdate)
-                            {
-                                newPartFacing.FacingStatusId = partFacing.FacingStatusId;
-                            }
-                            await CreatePlanogramPartFacing(newPartFacing);
-                            newPart.PlanogramPartFacings.Add(newPartFacing);
-                        }
-                        await SavePlanogramPart(newPart);
-                    }
-                }
-
-            }
-            else
-            {
-
-                //Add Shelves
-                foreach (PlanogramShelf shelf in originalPlanogram.PlanogramShelves.Where(ps => ps.ScratchPadId == null || ps.ScratchPadId == 0))
-                {
-                    PlanogramShelf newShelf = new PlanogramShelf();
-                    newShelf.Column = shelf.Column;
-                    newShelf.Height = shelf.Height;
-                    newShelf.PositionX = shelf.PositionX;
-                    newShelf.PositionY = shelf.PositionY;
-                    newShelf.Row = shelf.Row;
-                    newShelf.Width = shelf.Width;
-                    newShelf.Planogram = newPlanogram;
-                    newShelf.PlanogramId = newPlanogram.Id;
-                    newShelf.Part = shelf.Part;
-                    newShelf.Label = shelf.Label;
-                    newShelf.ShelfTypeId = shelf.ShelfTypeId;
-                    newShelf.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
-                    if (isUpdate)
-                    {
-                        newShelf.PartStatusId = shelf.PartStatusId;
-                    }
-                    await CreatePlanogramShelf(newShelf);
-
-                    foreach (PlanogramPart part in shelf.PlanogramParts)
-                    {
-                        PlanogramPart newPart = new PlanogramPart();
-                        newPart.Part = part.Part;
-                        newPart.PlanogramId = newPlanogram.Id;
-                        newPart.PlanogramShelf = newShelf;
-                        newPart.PlanogramShelfId = newShelf.Id;
-                        newPart.PositionX = part.PositionX;
-                        newPart.PositionY = part.PositionY;
-                        newPart.Products = part.Products;
-                        newPart.DateUpdated = DateTime.Now;
-                        newPart.DateCreated = DateTime.Now;
-                        newPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
-                        //here if a bool val set to update save it or if not don't save it.
-                        if (isUpdate)
-                        {
-                            newPart.PartStatusId = part.PartStatusId;
-                            newPart.Notes = part.Notes;
-                        }
-                        await CreatePlanogramPart(newPart);
-                        foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
-                        {
-                            PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
-                            newPartFacing.PlanogramId = newPlanogram.Id;
-                            newPartFacing.PlanogramPart = newPart;
-                            newPartFacing.Position = partFacing.Position;
-                            newPartFacing.ProductId = partFacing.ProductId;
-                            newPartFacing.Shade = partFacing.Shade;
-                            newPartFacing.StockCount = partFacing.StockCount;
-                            newPartFacing.FacingStatusId = (int)PlanoItemStatusEnum.NotChanged;
-                            if (isUpdate)
-                            {
-                                newPartFacing.FacingStatusId = partFacing.FacingStatusId;
-                            }
-                            await CreatePlanogramPartFacing(newPartFacing);
-                            newPart.PlanogramPartFacings.Add(newPartFacing);
-                        }
-                        await SavePlanogramPart(newPart);
-                        newShelf.PlanogramParts.Add(newPart);
-                    }
-                }
-            }
-            //Add Promos > Now Accessories
-
-            foreach (PlanogramPart part in originalPlanogram.PlanogramParts)
-            {
-                if ((PartTypeEnum)part.Part.PartType.Id == PartTypeEnum.Accessory && part.ScratchPadId == null ||
-                    (PartTypeEnum)part.Part.PartType.Id == PartTypeEnum.Glorifier && part.ScratchPadId == null ||
-                    (PartTypeEnum)part.Part.PartType.Id == PartTypeEnum.Blanking && (part.ScratchPadId == null && part.PlanogramShelfId == null))
-                {
-                    PlanogramPart accessoryPart = new PlanogramPart();
-                    accessoryPart.Part = part.Part;
-                    accessoryPart.PlanogramId = newPlanogram.Id;
-                    accessoryPart.PositionX = part.PositionX;
-                    accessoryPart.PositionY = part.PositionY;
-                    accessoryPart.DateUpdated = DateTime.Now;
-                    accessoryPart.DateCreated = DateTime.Now;
-                    accessoryPart.Label = part.Label ?? "";
-                    accessoryPart.PartStatusId = (int)PlanoItemStatusEnum.NotChanged;
-
-                    if (isUpdate)
-                    {
-                        accessoryPart.PartStatusId = part.PartStatusId;
-                        accessoryPart.Notes = part.Notes;
-                    }
-                    await CreatePlanogramPart(accessoryPart);
-                }
-
-            }
-
-            await SavePlanogram(newPlanogram);
-
-            // considered placing the clone snapshots call in here, decided against it as its not strictly a data operation - MB
-            // instead, cloning is called from the UI, e.g. planogramsInProgress.ascx.cs : btnSaveAsTemplate_Click()
-
-            return newPlanogram.Id;
 
         }
 
@@ -533,7 +559,7 @@ namespace PMApplication.Services
             catch (Exception ex)
             {
                 // Log the exception or handle it as needed
-                _logger.LogError("Error creating planogram: " + ex.Message);
+                _logger.LogError(ex, "Error creating planogram");
                 throw;
             }
         }
@@ -615,14 +641,13 @@ namespace PMApplication.Services
             return planogramNotes;
         }
 
-        public Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId, int regionId, int planogramId,
-            long newPlanogramId)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId, int regionId, int planogramId,
+        //    long newPlanogramId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public async Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId, int regionId, long planogramId,
-            long newPlanogramId)
+        public async Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, long planogramId, long newPlanogramId)
         {
             var noteFilter = new NoteFilter();
             noteFilter.PlanogramId = planogramId;
@@ -933,6 +958,20 @@ namespace PMApplication.Services
             {
                 // Log the exception or handle it as needed
                 _logger.LogError("Error saving planogram part: " + ex.Message);
+                throw;
+            }
+        }
+
+        public async Task SavePlanogramShelf(PlanogramShelf shelf)
+        {
+            try
+            {
+                await _planogramShelfRepository.UpdateAsync(shelf);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error saving planogram shelf: " + ex.Message);
                 throw;
             }
         }

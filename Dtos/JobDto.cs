@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PMApplication.Dtos.PlanModels;
 
 namespace PMApplication.Dtos
 {
@@ -24,5 +25,6 @@ namespace PMApplication.Dtos
         public string? UploadedOn { get; set; }
         public string? DateFrom { get; set; }
         public string? DateTo { get; set; }
+        public List<PlanmPlanogramDto>? Planograms { get; set; } = new List<PlanmPlanogramDto>();
     }
 }

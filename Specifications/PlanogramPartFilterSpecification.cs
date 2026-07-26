@@ -13,15 +13,11 @@ namespace PMApplication.Specifications
             Query.OrderBy(x => x.PlanogramId)
                 .ThenByDescending(x => x.PlanogramId);
 
-            //if (filter.LoadChildren)
-            //    Query.Include(x => x.Stores);
-
-            if (filter.IsPagingEnabled)
-                Query.Skip(PaginationHelper.CalculateSkip(filter))
-                    .Take(PaginationHelper.CalculateTake(filter));
 
             if (filter.PlanogramId != null)
-                Query.Where(x => x.PlanogramId == filter.PlanogramId);
+                Query.Where(x => x.PlanogramId == filter.PlanogramId)
+                    .Include(pp => pp.Part);
+
 
             if ((filter.CountryId != null))
             {

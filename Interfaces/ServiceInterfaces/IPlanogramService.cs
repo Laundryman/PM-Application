@@ -19,10 +19,10 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IEnumerable<Planogram>> GetPlanograms(PlanogramFilter filter);
         Task<IEnumerable<PlanogramLock>> GetLockedPlanograms();
 
-        Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId,
-            int brandId);
+        //Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId,
+        //    int brandId);
 
-        Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId, bool isDiamUser, string planogramHostUrl = "");
+        //Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId, bool isDiamUser, string planogramHostUrl = "");
 
         Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter);
         Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
@@ -93,8 +93,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         PlanogramNote GetNote(long noteId);
         Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(NoteFilter filter);
 
-        Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, int brandId, int countryId,
-            int regionId, int planogramId, long newPlanogramId);
+        Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, long planogramId, long newPlanogramId);
         void CreatePlanogramNote(PlanogramNote planogramNote);
         void DeletePlanogramNote(int id);
         void SavePlanogramNote();

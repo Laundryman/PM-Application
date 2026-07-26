@@ -11,8 +11,8 @@ namespace PMApplication.Entities.PlanogramAggregate
     {
         [Key]
         public int SkuItemId { get; set; }
-        public int ColumnId { get; set; }
-        public int ColumnPosition { get; set; }
+        public int? ColumnId { get; set; }
+        public int? ColumnPosition { get; set; }
         public int? PlanogramPartsId { get; set; }
         public int? PlanogramShelfId { get; set; }
         public string? CustomerEmail { get; set; }
