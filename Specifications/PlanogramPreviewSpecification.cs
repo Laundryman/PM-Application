@@ -11,7 +11,6 @@ namespace PMApplication.Specifications
         public PlanogramPreviewSpecification(PlanogramFilter filter)
         {
 
-            if (filter.Id != null)
                 Query.Where(x => x.PlanogramId == filter.Id);
 
         }

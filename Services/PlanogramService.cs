@@ -186,15 +186,25 @@ namespace PMApplication.Services
 
         }
 
-        public async Task<PlanogramPreview> GetPlanogramPreview(long Id)
+        public async Task<PlanogramPreview?> GetPlanogramPreview(long Id)
         {
             try
             {
-                var previewsrc = await _planogramPreviewRepository.GetByIdAsync(Id);
-                return previewsrc;
+                var spec = new PlanogramPreviewSpecification(new PlanogramFilter { Id = Id });
+                var previewsrc = await _planogramPreviewRepository.ListAsync(spec);
+                if (previewsrc.Count > 0)
+                {
+                    return previewsrc.FirstOrDefault();
+                }
+                else
+                {
+                    return null;
+                }
+
             }
             catch (Exception ex)
             {
+                //if (ex.Message != "Sequence contains no elements" ) 
                 // Log the exception or handle it as needed
                 _logger.LogError("Error getting planogram preview: " + ex.Message);
                 throw;

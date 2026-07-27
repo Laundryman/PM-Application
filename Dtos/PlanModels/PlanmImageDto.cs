@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PMApplication.Dtos.PlanModels
 {
@@ -13,6 +14,7 @@ namespace PMApplication.Dtos.PlanModels
         public string? UserName { get; set; }
 
         public string? Image { get; set; }
+        
 
     }
 }
