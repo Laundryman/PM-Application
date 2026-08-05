@@ -1,4 +1,5 @@
-﻿using PMApplication.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.PlanogramAggregate;
 
@@ -10,7 +11,7 @@ public partial class PlanogramNote : BaseEntity<long>, IAggregateRoot
 
     public DateTime? NoteDate { get; set; }
 
-    public long? PlanogramNoteNoteId { get; set; }
+    public long? PlanogramNote_NoteId { get; set; }
 
     public string? NoteTitle { get; set; }
 
@@ -22,9 +23,12 @@ public partial class PlanogramNote : BaseEntity<long>, IAggregateRoot
 
     public string? Username { get; set; }
 
-    public virtual ICollection<PlanogramNote> InversePlanogramNoteNote { get; set; } = new List<PlanogramNote>();
+
+    public virtual List<PlanogramNote> PlanogramNotes { get; set; }
 
     public virtual Planogram Planogram { get; set; } = null!;
 
-    public virtual PlanogramNote? PlanogramNoteNote { get; set; }
+    //[ForeignKey("NoteInReplyTo")]
+    //[InverseProperty(nameof(PlanogramNote.PlanogramNotes))]
+    public virtual PlanogramNote? PlanogramNoteInReplyTo { get; set; }
 }

@@ -9,10 +9,14 @@ namespace PMApplication.Specifications
     {
         public NoteSpecification(NoteFilter filter)
         {
+            Query.Where(x => x.NoteInReplyTo == null);
             //if (filter.BrandId != null)
             //    Query.Where(x => x.BrandId == filter.BrandId);
             if (filter.PlanogramId != null)
-                Query.Where(x => x.PlanogramId == filter.PlanogramId);
+                Query.Where(x => x.PlanogramId == filter.PlanogramId)
+                    .Include(x => x.PlanogramNotes);
+                    //.Include(x => x.PlanogramNoteInReplyTo);
+                
 
             Query.OrderBy(x => x.NoteDate);
         }

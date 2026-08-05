@@ -21,6 +21,7 @@ namespace PMApplication.Dtos.PlanModels
         public int StandId { get; set; }
         public long? ScratchPadId { get; set; }
         public int StatusId { get; set; }
+        public string? StatusName { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? PlanogramPreviewSrc { get; set; }

@@ -15,7 +15,13 @@ public enum LogActionEnum : int
     CreateOrder = 9,
     EditOrder = 10,
     SubmitOrder = 11,
-    ApproveOrder = 12
+    ApproveOrder = 12,
+    RenamePlano = 13,
+    ArchivePlano = 14,
+    ValidatePlano = 15,
+    RejectPlano = 16,
+    RestorePlano = 17
+
 
 }
 

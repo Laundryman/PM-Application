@@ -90,11 +90,11 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<bool> IsLocked(PlanogramLockFilter filter);
         Task SavePlanogram(Planogram planogram);
 
-        PlanogramNote GetNote(long noteId);
+        Task<PlanogramNote> GetNote(long noteId);
         Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(NoteFilter filter);
 
         Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, long planogramId, long newPlanogramId);
-        void CreatePlanogramNote(PlanogramNote planogramNote);
+        Task CreatePlanogramNote(PlanogramNote planogramNote);
         void DeletePlanogramNote(int id);
         void SavePlanogramNote();
 

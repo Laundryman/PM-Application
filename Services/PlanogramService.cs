@@ -609,13 +609,10 @@ namespace PMApplication.Services
                 lck.Locked = false;
                 lck.DateClosed = DateTime.Now;
                 await _planogramLockRepository.DeleteAsync(lck);
+                
                 //SavePlanogram();
             }
-        }
 
-        public void UnLockPlanogram(long id)
-        {
-            var plocks = _planogramPartRepository;
         }
 
         public async Task<bool> IsLocked(PlanogramLockFilter filter)
@@ -639,9 +636,10 @@ namespace PMApplication.Services
             await _planogramRepository.UpdateAsync(planogram);
         }
 
-        public PlanogramNote GetNote(long noteId)
+        public async Task<PlanogramNote> GetNote(long noteId)
         {
-            throw new NotImplementedException();
+            var planogramNote = await _noteRepository.GetByIdAsync(noteId);
+            return planogramNote;
         }
 
         Task<IReadOnlyList<PlanogramNote>> IPlanogramService.GetPlanogramNotes(NoteFilter filter)
@@ -687,9 +685,9 @@ namespace PMApplication.Services
         }        
 
 
-        public void CreatePlanogramNote(PlanogramNote planogramNote)
+        public async Task CreatePlanogramNote(PlanogramNote planogramNote)
         {
-            throw new NotImplementedException();
+            await _noteRepository.AddAsync(planogramNote);
         }
 
         public void DeletePlanogramNote(int id)
