@@ -27,7 +27,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IReadOnlyList<PlanogramShelf>> GetPlanogramShelves(PlanogramFilter filter);
         Task<IReadOnlyList<PlanogramPart>> GetPlanogramParts(PlanogramPartFilter filter);
 
-        Task<PlanogramPreview> GetPlanogramPreview(long id);
+        Task<PlanogramPreview?> GetPlanogramPreview(long id);
         Task<PlanogramPreview> GetPlanogramPreview(PlanogramFilter filter);
         Task CreatePlanogramPreview(PlanogramPreview preview);
         Task SavePlanogramPreview(PlanogramPreview preview);
@@ -112,7 +112,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task UpdatePlanogramShelf(PlanogramShelf shelf);
 
         //IEnumerable<PlanxPlanogramPart> GetPlanogramParts(int planogramId, int countryId);
-        Task<PlanogramPart> GetPlanogramPart(int id);
+        Task<PlanogramPart> GetPlanogramPart(long id);
         Task CreatePlanogramPart(PlanogramPart part);
         Task DeletePlanogramPart(long id);
         Task SavePlanogramPart(PlanogramPart part);

@@ -17,7 +17,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
   public interface IPartService
     {
         Task<IReadOnlyList<Part>> GetParts(PartFilter partFilter);
-        Task<Part> GetPart(int id);
+        Task<Part> GetPart(long id);
         Task<Part> GetPart(PartFilter partFilter);
 
         //Task<IReadOnlyList<Part>> GetParts(int countryId);
@@ -61,7 +61,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<IReadOnlyList<Category>?> GetPlanmMenuCategories (PartFilter filter);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryMenu(int brandId, int categoryId, int countryId, string rootPath, int standTypeId, int standHeight, int standWidth);
         //IEnumerable<PlanmMenuPart> GetPlanmClusterMenu(int brandId, int clusterId, string rootPath, int standTypeId, int standHeight, int standWidth);
-        Task<IReadOnlyList<PlanmMenuPart>> GetPlanmClusterMenu(PartFilter filter);
+        Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmClusterMenu(PartFilter filter);
         //IEnumerable<PlanxMenuPart> GetPlanxCategoryClusterMenu(int brandId, int categoryId, string rootPath, int standId);
 
         Task<Part> GetPart(string partNumber);

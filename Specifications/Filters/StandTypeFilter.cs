@@ -1,4 +1,6 @@
-﻿namespace PMApplication.Specifications.Filters
+﻿using Microsoft.Graph.Models;
+
+namespace PMApplication.Specifications.Filters
 {
     public class StandTypeFilter : BaseFilter
     {

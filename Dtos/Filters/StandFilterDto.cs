@@ -2,11 +2,15 @@
 {
     public class StandFilterDto
     {
-        public int BrandId { get; set; }
+        public int? Id { get; set; }
+        public int? BrandId { get; set; }
         public int? RegionId { get; set; }
         public int? CountryId { get; set; }
+        public int? StandTypeId { get; set; }
+
         //public int? CategoryId { get; set; }
-        //public string CountriesList { get; set; }
+        public string? RegionIds { get; set; }
+        public string? CountryIds { get; set; }
         //public int? ParentCategoryId { get; set; }
         //public int PartTypeId { get; set; }
 

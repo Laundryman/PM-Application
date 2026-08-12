@@ -57,7 +57,7 @@ namespace PMApplication.Services
             }
         }
 
-        public async Task<Part> GetPart(int id)
+        public async Task<Part> GetPart(long id)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace PMApplication.Services
             try
             {
 
-                var menu = await _partRepository.GetPlanmMenu((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
+                var menu = await _partRepository.GetPlanmMenu(filter.BrandId!.Value, filter.CountryId!.Value, filter.StandTypeId!.Value);
                 return menu;
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace PMApplication.Services
             try
             {
 
-                var menCats = await _partRepository.GetPlanmMenuCategories((int)filter.BrandId, (int)filter.CountryId, (int)filter.StandTypeId);
+                var menCats = await _partRepository.GetPlanmMenuCategories(filter.BrandId!.Value, filter.CountryId!.Value, filter.StandTypeId!.Value);
                 return menCats;
             }
             catch (Exception ex)
@@ -183,11 +183,11 @@ namespace PMApplication.Services
             }
         }
 
-        public async Task<IReadOnlyList<PlanmMenuPart>> GetPlanmClusterMenu(PartFilter filter)
+        public async Task<IReadOnlyList<PlanmMenuPart>?> GetPlanmClusterMenu(PartFilter filter)
         {
             try
             {
-                var menu = await _partRepository.GetPlanmClusterMenu((int)filter.BrandId, (int)filter.ClusterId, (int)filter.StandTypeId);
+                var menu = await _partRepository.GetPlanmClusterMenu(filter.BrandId!.Value, filter.ClusterId!.Value, filter.StandTypeId!.Value);
                 return menu;
             }
             catch (Exception ex)

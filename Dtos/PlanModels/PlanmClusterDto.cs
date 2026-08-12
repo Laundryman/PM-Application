@@ -10,6 +10,7 @@ namespace PMApplication.Dtos.PlanModels
     {
         public long Id { get; set; }
         public string? UserId { get; set; }
+        public int BrandId { get; set; }
         public int ClusterId { get; set; }
         public int StandId { get; set; }
         public int? ScratchPadId { get; set; }

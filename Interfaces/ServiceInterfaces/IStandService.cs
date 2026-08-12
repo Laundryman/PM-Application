@@ -58,35 +58,6 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         void ReloadStand(int id);
         bool HasClusters(int id);
         bool HasPlanograms(int id);
-        bool ClusterHasPlanograms(int clusterId);
-
-        IEnumerable<Cluster> GetClusters();
-        IEnumerable<Cluster> GetClusters(int countryId);
-        IEnumerable<Cluster> GetClustersByBrand(int brandId, bool published);
-        IEnumerable<Cluster> GetAllClustersByBrand(int brandId);
-        IEnumerable<Cluster> GetClustersForStand(int standId);
-        IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId);
-        IEnumerable<Cluster> GetAllClustersByTypeForBrand(int standTypeId, int brandId);
-        IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId, int countryId);
-        Cluster GetCluster(int id);
-        XmlDocument GetClusterXML(int id, int userId, string rootPath);
-        void SaveCluster();
-        void CreateCluster(Cluster cluster);
-        void ReloadCluster(int id);
-        void DeleteCluster(int id);
-
-        IEnumerable<ClusterShelf> GetClusterShelves();
-        ClusterShelf GetClusterShelf(int id);
-        void SaveClusterShelf();
-        void CreateClusterShelf(ClusterShelf clusterShelf);
-        void DeleteClusterShelf(int id);
-
-        IEnumerable<ClusterPart> GetClusterParts();
-        ClusterPart GetClusterPart(int id);
-        void SaveClusterPart();
-        void CreateClusterPart(ClusterPart clusterPart);
-        void DeleteClusterPart(int id);
-
         IEnumerable<StandColumn> GetStandColumns(int standId);
         StandColumn GetStandColumn(int id);
         void SaveStandColumn();

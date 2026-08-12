@@ -23,7 +23,7 @@ public partial class ClusterPart : BaseEntity<long>, IAggregateRoot
 
     public DateTime? DateUpdated { get; set; }
 
-    public int? ScratchPadId { get; set; }
+    public long? ScratchPadId { get; set; }
 
     public virtual Cluster Cluster { get; set; } = null!;
 

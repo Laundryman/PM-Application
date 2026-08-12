@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Microsoft.AspNetCore.Mvc;
+using PMApplication.Dtos;
+using PMApplication.Dtos.PlanModels;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Interfaces.ServiceInterfaces
@@ -15,6 +18,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
     {
         bool ClusterHasPlanograms(int clusterId);
 
+        Task<long> CreateCluster(CreateLayoutDto newClusterDetails, CurrentUser userProfile);
         Task<IReadOnlyList<Cluster>> GetClusters(ClusterFilter filter);
         Task<Cluster> GetCluster(ClusterFilter filter);
         //IEnumerable<Cluster> GetClusters(int countryId);
@@ -26,21 +30,23 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId, int countryId);
         Task<Cluster> GetCluster(long id);
         void SaveCluster();
-        void CreateCluster(Cluster cluster);
+        Task CreateLayout(Cluster cluster);
         void ReloadCluster(long id);
         void DeleteCluster(long id);
 
         Task<IReadOnlyList<ClusterShelf>> GetClusterShelves(ClusterFilter filter);
-        ClusterShelf GetClusterShelf(long id);
-        void SaveClusterShelf();
-        void CreateClusterShelf(ClusterShelf clusterShelf);
-        void DeleteClusterShelf(long id);
+        Task<ClusterShelf> GetClusterShelf(long id);
+        Task UpdateClusterShelf(ClusterShelf shelf);
 
-        Task<IReadOnlyList<ClusterPart>> GetClusterParts(ClusterFilter filter);
-        ClusterPart GetClusterPart(long id);
-        void SaveClusterPart();
-        void CreateClusterPart(ClusterPart clusterPart);
-        void DeleteClusterPart(long id);
+        Task SaveClusterShelf(ClusterShelf clusterShelf);
+        Task CreateClusterShelf(ClusterShelf clusterShelf);
+        Task DeleteClusterShelf(long id);
+
+        Task<IReadOnlyList<ClusterPart>> GetClusterParts(ClusterPartFilter filter);
+        Task<ClusterPart> GetClusterPart(long id);
+        Task SaveClusterPart(ClusterPart clusterPart);
+        Task CreateClusterPart(ClusterPart clusterPart);
+        Task DeleteClusterPart(long id);
 
     }
 }
