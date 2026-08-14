@@ -7,5 +7,7 @@
         public int? BrandId { get; set; }
         public int? CountryId { get; set; }
         public bool GetParents { get; set; }
+        public int? StandTypeId { get; set; }
+        public bool HasStands { get; set; }
     }
 }

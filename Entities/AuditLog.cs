@@ -21,7 +21,7 @@ public enum LogActionEnum : int
     ValidatePlano = 15,
     RejectPlano = 16,
     RestorePlano = 17,
-    CreateCluster = 18,
+    CreateLayout = 18,
 
 
 }

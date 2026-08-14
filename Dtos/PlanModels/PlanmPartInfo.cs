@@ -8,6 +8,7 @@ namespace PMApplication.Dtos.PlanModels
 {
     public class PlanmPartInfo
     {
+        public long Id {get; set; }
         public string? Category { get; set; }
         public IEnumerable<PlanmPartFacing>? facingProducts { get; set; }
         public IEnumerable<ProductDto>? products { get; set; }

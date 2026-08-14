@@ -2,13 +2,15 @@
 {
     public class StandFilter : BaseFilter
     {
-        public bool includeColumnUprights { get; set; }
-        public int Id { get; set; }
-        public int BrandId { get; set; }
-        public int StandTypeId { get; set; }
-        public int CountryId { get; set; }
-        public int ParentStandTypeId { get; set; }
+        public bool IncludeColumnUprights { get; set; }
+        public int? Id { get; set; }
+        public int? BrandId { get; set; }
+        public int? StandTypeId { get; set; }
+        public int? CountryId { get; set; }
+        public int? ParentStandTypeId { get; set; }
         public bool Discontinued { get; set; }
+        public string? CountryIds { get; set; }
+        public string? RegionIds { get; set; }
 
         //public int RegionId { get; set; }
 

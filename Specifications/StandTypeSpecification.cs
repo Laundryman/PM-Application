@@ -1,7 +1,10 @@
 ﻿using Ardalis.Specification;
+using LinqKit;
 using Microsoft.Graph.Models;
 using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
+using PMApplication.Entities.ProductAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Specifications.Filters;
 
@@ -52,14 +55,9 @@ namespace PMApplication.Specifications
                 }
             }
 
-            //if (filter.IsPagingEnabled)
-            //    Query.Skip(PaginationHelper.CalculateSkip(filter))
-            //        .Take(PaginationHelper.CalculateTake(filter));
 
-            //if (filter.HasStands)
-            //{
-            //    Query.Include(x => x.Stands.Any());
-            //}
+
+
 
         }
     }

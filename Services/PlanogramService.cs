@@ -263,7 +263,7 @@ namespace PMApplication.Services
                 planogram.DateCreated = DateTime.Now;
                 planogram.DateUpdated = DateTime.Now;
                 planogram.DateSubmitted = null;
-                planogram.Name = newPlanogramDetails.Name;
+                planogram.Name = newPlanogramDetails.Name ?? "";
                 //planogram.Stand = cluster.Stand;
                 planogram.StandTypeId = newPlanogramDetails.StandTypeId;
                 planogram.StandId = newPlanogramDetails.StandId;
@@ -593,8 +593,8 @@ namespace PMApplication.Services
             {
                 plock.Locked = true;
                 plock.PlanogramId = (long)filter.PlanogramId;
-                plock.UserId = filter.User.Id;
-                plock.Username = filter.User.GivenName + " " + filter.User.Surname;
+                plock.UserId = filter.User?.Id ?? "";
+                plock.Username = filter.User != null ? filter.User.GivenName + " " + filter.User.Surname : "";
                 plock.DateOpened = DateTime.Now;
                 await _planogramLockRepository.AddAsync(plock);
             }
@@ -678,7 +678,7 @@ namespace PMApplication.Services
             }
             foreach (var note in newNotes)
             {
-                CreatePlanogramNote(note);
+                await CreatePlanogramNote(note);
             }
 
             return planogramNotes;
@@ -905,7 +905,7 @@ namespace PMApplication.Services
             }
         }
 
-        public async Task<PlanogramPart> GetPlanogramPart(int id)
+        public async Task<PlanogramPart> GetPlanogramPart(long id)
         {
             try
             {
