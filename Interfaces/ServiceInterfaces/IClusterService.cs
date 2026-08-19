@@ -29,7 +29,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         //IEnumerable<Cluster> GetAllClustersByTypeForBrand(int standTypeId, int brandId);
         //IEnumerable<Cluster> GetClustersByTypeForBrand(int standTypeId, int brandId, int countryId);
         Task<Cluster> GetCluster(long id);
-        void SaveCluster();
+        Task SaveCluster(Cluster cluster);
         Task CreateLayout(Cluster cluster);
         void ReloadCluster(long id);
         void DeleteCluster(long id);

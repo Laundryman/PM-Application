@@ -77,6 +77,8 @@ namespace PMApplication.Services
                 layout.StandTypeName = standType.Name;
                 layout.StandName = stand.Name;
                 layout.StandAssemblyNumber = stand.StandAssemblyNumber ?? "";
+                layout.Cols = stand.Cols;
+                layout.Rows = stand.Rows;
                 layout.StandId = newClusterDetails.StandId;
                 layout.Height = stand.Height;
                 layout.Width = stand.Width;
@@ -142,9 +144,9 @@ namespace PMApplication.Services
             return cluster;
         }
 
-        public void SaveCluster()
+        public async Task SaveCluster(Cluster cluster)
         {
-            throw new NotImplementedException();
+            await _clusterRepository.UpdateAsync(cluster);
         }
 
         public async Task CreateLayout(Cluster cluster)
