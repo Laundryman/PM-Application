@@ -93,7 +93,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<PlanogramNote> GetNote(long noteId);
         Task<IReadOnlyList<PlanogramNote>> GetPlanogramNotes(NoteFilter filter);
 
-        Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, long planogramId, long newPlanogramId);
+        Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(long planogramId, long newPlanogramId);
         Task CreatePlanogramNote(PlanogramNote planogramNote);
         void DeletePlanogramNote(int id);
         void SavePlanogramNote();

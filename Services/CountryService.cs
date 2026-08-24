@@ -36,18 +36,18 @@ namespace PMApplication.Services
 
 
 #region ICountryService Members
-        public Task<IReadOnlyList<Country>> GetCountries(CountryFilter filter)
+        public async Task<IReadOnlyList<Country>> GetCountries(CountryFilter filter)
         {
             try
             {
                 var spec = new CountrySpecification(filter);
-                return _countryRepository.ListAsync(spec);
+                return await _countryRepository.ListAsync(spec);
             }
             catch (Exception ex)
             {
                 // Log the exception or handle it as needed
                 _logger.LogError(ex, "Error retrieving stands with filter: {Filter}", filter);
-                return null;
+                return new List<Country>();
             }
         }
 
@@ -56,7 +56,11 @@ namespace PMApplication.Services
             //var country = await _countryRepository.GetByIdAsync(id);
             var getCountrySpec = new GetCountrySpec(id);
             var country = await _countryRepository.ListAsync(getCountrySpec);
-            return country.FirstOrDefault();
+            if (country == null || !country.Any())
+            {
+                throw new ArgumentNullException(nameof(country), "Country cannot be null");
+            }
+            return country.First();
         }
 
         /// <summary>

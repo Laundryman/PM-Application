@@ -65,8 +65,13 @@ namespace PMApplication.Services
                 Cluster layout = new Cluster();
 
                 var stand = await _standRepository.GetByIdAsync(newClusterDetails.StandId);
+                if (stand == null) {
+                    throw new ArgumentNullException(nameof(stand), "Stand cannot be null");
+                }
                 var standType = await _standTypeRepository.GetByIdAsync(newClusterDetails.StandTypeId);
-
+                if (standType == null) {
+                    throw new ArgumentNullException(nameof(standType), "StandType cannot be null");
+                }
                 layout.BrandId = newClusterDetails.BrandId;
                 layout.CurrentVersion = 1;
                 layout.DateCreated = DateTime.Now;

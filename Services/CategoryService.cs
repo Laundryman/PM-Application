@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PMApplication.Dtos;
@@ -41,7 +42,12 @@ namespace PMApplication.Services
 
         public async Task<Category> GetCategory(int id)
         {
-            return await _categoryRepository.GetByIdAsync(id);
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if (category == null)
+            {
+                throw new ArgumentNullException(nameof(category), "Category cannot be null");
+            }
+            return category;
         }
 
         public async Task CreateCategory(Category category)
@@ -52,6 +58,7 @@ namespace PMApplication.Services
         public async Task DeleteCategory(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
+            Guard.Against.Null(category, nameof(category));
             await _categoryRepository.DeleteAsync(category);
         }
 

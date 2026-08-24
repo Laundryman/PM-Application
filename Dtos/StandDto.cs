@@ -61,8 +61,9 @@ namespace PMApplication.Dtos
 
         public bool Published { get; set; }
         public bool Discontinued { get; set; }
-        public int CountryId { get; set; }
-        public List<int>? CountryIds { get; set; }
+        //public int CountryId { get; set; }
+        public string? CountriesList { get; set; }
+        public string? RegionsList { get; set; }
 
         public bool? SpanShelves { get; set; }
         public bool? AllowOverHang { get; set; }

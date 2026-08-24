@@ -24,7 +24,7 @@ public partial class PlanogramNote : BaseEntity<long>, IAggregateRoot
     public string? Username { get; set; }
 
 
-    public virtual List<PlanogramNote> PlanogramNotes { get; set; }
+    public virtual List<PlanogramNote>? PlanogramNotes { get; set; }
 
     public virtual Planogram Planogram { get; set; } = null!;
 

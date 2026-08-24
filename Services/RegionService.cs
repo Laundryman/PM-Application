@@ -48,13 +48,13 @@ namespace PMApplication.Services
         {
             var spec = new GetRegionSpec(regionId);
             var regions = await _regionRepository.ListAsync(spec);
-            return regions.FirstOrDefault();
+            return regions.FirstOrDefault() ?? new Region();
         }
 
         public async Task<Region> GetRegion(int id)
         {
             var region = await _regionRepository.GetByIdAsync(id);
-            return region;
+            return region ?? new Region();
         }
 
         public void CreateRegion(Region region)

@@ -14,6 +14,8 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
     public short Height { get; set; }
     public short Width { get; set; }
     public string?  StandTypeName { get; set; }
+    public int? ParentStandTypeId { get; set; }
+    public string? ParentStandTypeName { get; set; }
     public int StandTypeId { get; set; }
     public int? MerchHeight { get; set; }
     public int? MerchWidth { get; set; }
@@ -42,7 +44,6 @@ public partial class Stand : BaseEntity<int>, IAggregateRoot
     public bool? Discontinued { get; set; }
     public int BrandId { get; set; }
     public bool? AllowOverHang { get; set; }
-    public int? ParentStandTypeId { get; set; }
     public string? CountriesList { get; set; }
     public string? RegionsList { get; set; }
 

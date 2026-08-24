@@ -15,7 +15,7 @@ namespace PMApplication.Dtos.PlanModels
         }
 
         [Key]
-        public int ColumnId { get; set; }
+        public int Id { get; set; }
         public int StandId { get; set; }
         public int Position { get; set; }
         public int Width { get; set; }

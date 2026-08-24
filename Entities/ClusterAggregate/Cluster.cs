@@ -8,14 +8,14 @@ namespace PMApplication.Entities.ClusterAggregate;
 public partial class Cluster : BaseEntity<long>, IAggregateRoot
 {
     public int StandId { get; set; }
-    public string StandName { get; set; }
+    public string? StandName { get; set; }
     public int StandTypeId { get; set; }
-    public string StandTypeName { get; set; }
-    public string StandAssemblyNumber { get; set; }
+    public string? StandTypeName { get; set; }
+    public string? StandAssemblyNumber { get; set; }
     public short? Height { get; set; }
     public short? Width { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; } = string.Empty;
 
     public string? Description { get; set; }
 

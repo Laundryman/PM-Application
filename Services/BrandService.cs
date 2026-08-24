@@ -19,12 +19,14 @@ namespace PMApplication.Services
     public class BrandService: IBrandService
     {
         private readonly IBrandRepository _brandRepository;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;       
         private readonly ILogger<BrandService> _logger;
 
-        public BrandService(IBrandRepository brandRepository)
+        public BrandService(IBrandRepository brandRepository, IMapper mapper, ILogger<BrandService> logger)
         {
             _brandRepository = brandRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         #region IBrandService Members
@@ -41,8 +43,8 @@ namespace PMApplication.Services
             brandFilter.Id = id;
 
             var spec = new BrandSpecification(brandFilter);
-            var brand = await _brandRepository.ListAsync(spec);
-            return brand.FirstOrDefault();
+            var brand = await _brandRepository.GetByIdAsync(id);
+            return brand ?? new Brand();
         }
 
         public async Task<Brand> CreateBrand(Brand brand)
@@ -53,9 +55,9 @@ namespace PMApplication.Services
 
         public async Task DeleteBrand(int id)
         {
-            var brand = _brandRepository.GetByIdAsync(id);
-            await Guard.Against.Null(brand, nameof(brand));
-            await _brandRepository.DeleteAsync(brand.Result);
+            var brand = await _brandRepository.GetByIdAsync(id);
+            Guard.Against.Null(brand, nameof(brand));
+            await _brandRepository.DeleteAsync(brand);
         }
 
 

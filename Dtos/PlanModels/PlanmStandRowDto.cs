@@ -10,7 +10,7 @@ namespace PMApplication.Dtos.PlanModels
     public class PlanmStandRowDto
     {
         [Key]
-        public int RowId { get; set; }
+        public int Id { get; set; }
         public int StandId { get; set; }
         public int Position { get; set; }
         public int Height { get; set; }

@@ -117,13 +117,17 @@ namespace PMApplication.Services
             try
             {
                 var orderItems = await _orderItemRepository.GetOrderItems(orderId);
+                if (orderItems == null || !orderItems.Any())
+                {
+                    throw new ArgumentNullException(nameof(orderItems), "OrderItems cannot be null");
+                }
                 return orderItems;
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return new List<OrderItemInfo>();
             }
         }
 

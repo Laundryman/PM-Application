@@ -10,7 +10,7 @@ namespace PMApplication.Dtos.PlanModels
     public partial class PlanmStandColumnUprightDto
     {
         [Key]
-        public int ColumnUprightId { get; set; }
+        public int Id { get; set; }
         public int ColumnId { get; set; }
         public int StandId { get; set; }
         public int Position { get; set; }

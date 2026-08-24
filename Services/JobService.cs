@@ -49,6 +49,10 @@ namespace PMApplication.Services
         public async Task<Job> GetJob(int id)
         {
             var job = await _jobRepository.GetByIdAsync(id);
+            if (job == null)
+            {
+                throw new ArgumentNullException(nameof(job), "Job cannot be null");
+            }
             return job;
         }
 

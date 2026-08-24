@@ -385,7 +385,7 @@ namespace PMApplication.Services
 
                 if (isUpdate)
                 {
-                    await DuplicatePlanogramNotes(userProfile.Id, planogram.Id, newPlanogram.Id);
+                    await DuplicatePlanogramNotes(planogram.Id, newPlanogram.Id);
                 }
                 var scratchPadId = planogram.ScratchPadId;
                 if (isUpdate & scratchPadId != null)
@@ -655,8 +655,10 @@ namespace PMApplication.Services
         //    throw new NotImplementedException();
         //}
 
-        public async Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(string userId, long planogramId, long newPlanogramId)
+        public async Task<IReadOnlyList<PlanogramNote>> DuplicatePlanogramNotes(long planogramId, long newPlanogramId)
         {
+
+
             var noteFilter = new NoteFilter();
             noteFilter.PlanogramId = planogramId;
             var spec = new NoteSpecification(noteFilter);
