@@ -18,7 +18,8 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.Id == filter.Id)
                     .Include(x => x.Regions)
                     .Include(x => x.Countries)
-                    .Include(x => x.ColumnList);
+                    .Include(x => x.ColumnList)
+                    .Include(x => x.RowList);
             }
         }
     }
