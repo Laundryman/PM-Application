@@ -10,10 +10,10 @@ namespace PMApplication.Dtos.PlanModels
 {
     public class PlanmShelfInfo : BaseEntity<long>, IAggregateRoot
     {
-        public int PlanogramId { get; set; }
-        public int PartId { get; set; }
+        public long? PlanogramId { get; set; }
+        public long? PartId { get; set; }
         //public int PlanogramShelfId { get; set; }
-        public int ClusterShelfId { get; set; }
+        public long? ClusterShelfId { get; set; }
         public string? PlanxShelfId { get; set; }
         public int? ScratchPadId { get; set; }
         public int ShelfTypeId { get; set; }

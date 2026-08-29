@@ -4,8 +4,8 @@
     {
 
         public string Note { get; set; }
-        public int PlanogramId { get; set; }
-        public int ReplyNoteId { get; set; }
+        public long PlanogramId { get; set; }
+        public long ReplyNoteId { get; set; }
 
 
     }
