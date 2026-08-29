@@ -65,8 +65,13 @@ namespace PMApplication.Services
                 Cluster layout = new Cluster();
 
                 var stand = await _standRepository.GetByIdAsync(newClusterDetails.StandId);
+                if (stand == null) {
+                    throw new ArgumentNullException(nameof(stand), "Stand cannot be null");
+                }
                 var standType = await _standTypeRepository.GetByIdAsync(newClusterDetails.StandTypeId);
-
+                if (standType == null) {
+                    throw new ArgumentNullException(nameof(standType), "StandType cannot be null");
+                }
                 layout.BrandId = newClusterDetails.BrandId;
                 layout.CurrentVersion = 1;
                 layout.DateCreated = DateTime.Now;
@@ -77,6 +82,8 @@ namespace PMApplication.Services
                 layout.StandTypeName = standType.Name;
                 layout.StandName = stand.Name;
                 layout.StandAssemblyNumber = stand.StandAssemblyNumber ?? "";
+                layout.Cols = stand.Cols;
+                layout.Rows = stand.Rows;
                 layout.StandId = newClusterDetails.StandId;
                 layout.Height = stand.Height;
                 layout.Width = stand.Width;
@@ -142,9 +149,9 @@ namespace PMApplication.Services
             return cluster;
         }
 
-        public void SaveCluster()
+        public async Task SaveCluster(Cluster cluster)
         {
-            throw new NotImplementedException();
+            await _clusterRepository.UpdateAsync(cluster);
         }
 
         public async Task CreateLayout(Cluster cluster)

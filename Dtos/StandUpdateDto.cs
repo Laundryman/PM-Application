@@ -8,6 +8,9 @@ using PMApplication.Entities.StandAggregate;
 using PMApplication.Dtos.StandTypes;
 namespace PMApplication.Dtos
 {
+    /// <summary>
+    /// obsolete use standDto
+    /// </summary>
     public class StandUpdateDto
     {
         public int Id { get; set; }
@@ -61,9 +64,10 @@ namespace PMApplication.Dtos
 
         public bool Published { get; set; }
         public bool Discontinued { get; set; }
-        public int CountryId { get; set; }
-        public List<int>? CountryIds { get; set; }
-
+        //public int CountryId { get; set; }
+        //public List<int>? CountryIds { get; set; }
+        public string? CountriesList { get; set; }
+        public string? RegionsList { get; set; }
         public bool? SpanShelves { get; set; }
         public bool? AllowOverHang { get; set; }
 

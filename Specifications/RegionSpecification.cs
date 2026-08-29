@@ -10,7 +10,6 @@ namespace PMApplication.Specifications
     {
         public RegionSpecification(RegionFilter filter)
         {
-            Query.OrderBy(x => x.Name);
 
             if (filter.IsPagingEnabled)
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
@@ -46,6 +45,9 @@ namespace PMApplication.Specifications
             {
                 Query.Include(r => r.Countries);
             }
+
+            Query.OrderBy(x => x.Name);
+
         }
 
     }

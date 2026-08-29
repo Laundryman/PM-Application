@@ -68,9 +68,13 @@ namespace PMApplication.Services
         }
 
 
-        public Task<JobFolder> GetJob(int id)
+        public async Task<JobFolder> GetJob(int id)
         {
-            var jobFolder = _jobFolderRepository.GetByIdAsync(id);
+            var jobFolder = await _jobFolderRepository.GetByIdAsync(id);
+            if (jobFolder == null)
+            {
+                throw new ArgumentNullException(nameof(jobFolder), "JobFolder cannot be null");
+            }
             return jobFolder;
         }
 

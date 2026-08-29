@@ -14,7 +14,7 @@ namespace PMApplication.Dtos.PlanModels
         public int StandTypeId { get; set; }
         public int StandId { get; set; }
         public string? Name { get; set; }
-        public string CountryIds { get; set; }
-        public string RegionIds { get; set; }
+        public string? CountryIds { get; set; }
+        public string? RegionIds { get; set; }
     }
 }

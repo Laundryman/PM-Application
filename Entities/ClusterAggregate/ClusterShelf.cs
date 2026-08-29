@@ -8,6 +8,7 @@ public partial class ClusterShelf : BaseEntity<long>, IAggregateRoot
 {
     public long ClusterId { get; set; }
 
+    public string? Label { get; set; }
     public short Height { get; set; }
 
     public short Width { get; set; }

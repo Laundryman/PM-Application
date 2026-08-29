@@ -13,6 +13,8 @@ public partial class SearchClusterInfo
     public string Name { get; set; } = null!;
     public string? ClusterPartNumber { get; set; }
     public int StandId { get; set; }
+    public int StandTypeId { get; set; }
+
     public string? StandName { get; set; } = null!;
     public string? StandTypeName { get; set; } = null!;
     public string? StandAssemblyNumber { get; set; } = null!;

@@ -22,6 +22,7 @@ public enum LogActionEnum : int
     RejectPlano = 16,
     RestorePlano = 17,
     CreateLayout = 18,
+    EditlLayout = 19,
 
 
 }

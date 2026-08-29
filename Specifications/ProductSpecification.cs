@@ -12,7 +12,7 @@ namespace PMApplication.Specifications
             if (filter.IsPublished) Query.Where(x => x.Published == true);
 
 
-            if (filter.Id != 0)
+            if (filter.Id != 0 && filter.Id != null)
             {
                 Query.Where(x => x.Id == filter.Id)
                     .Include(x => x.Shades)

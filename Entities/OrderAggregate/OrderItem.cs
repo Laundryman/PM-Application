@@ -17,7 +17,7 @@ public partial class OrderItem : BaseEntity<long>, IAggregateRoot
 
     public string PartName { get; set; } = null!;
 
-    public string PartNumber { get; set; } = null!;
+    public string? PartNumber { get; set; } = null!;
 
     public decimal? Price { get; set; }
 

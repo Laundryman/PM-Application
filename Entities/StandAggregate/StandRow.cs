@@ -1,8 +1,9 @@
-﻿namespace PMApplication.Entities.StandAggregate;
+﻿using PMApplication.Interfaces;
 
-public partial class StandRow
+namespace PMApplication.Entities.StandAggregate;
+
+public partial class StandRow : BaseEntity<int>, IAggregateRoot
 {
-    public int RowId { get; set; }
 
     public int StandId { get; set; }
 

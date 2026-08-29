@@ -40,7 +40,7 @@ public partial class StandType : BaseEntity<int>, IAggregateRoot
 public class StandTypeComparer : IEqualityComparer<StandType>
 {
     // Countries are equal if their names and Id numbers are equal.
-    public bool Equals(StandType x, StandType y)
+    public bool Equals(StandType? x, StandType? y)
     {
 
         //Check whether the compared objects reference the same data.
