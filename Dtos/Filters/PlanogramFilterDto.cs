@@ -18,5 +18,6 @@ namespace PMApplication.Dtos.Filters
         public int? CountryId { get; set; }
         public string? RegionsList { get; set; }
         public string? CountriesList { get; set; }
+        public bool IncludeDeleted { get; set; } = true;
     }
 }
