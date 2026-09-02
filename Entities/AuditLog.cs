@@ -17,13 +17,14 @@ public enum LogActionEnum : int
     EditOrder = 10,
     SubmitOrder = 11,
     ApproveOrder = 12,
-    RenamePlano = 13,
-    ArchivePlano = 14,
+    DeletePlano = 13,
+    RenamePlano = 14,
     ValidatePlano = 15,
-    RejectPlano = 16,
-    RestorePlano = 17,
-    CreateLayout = 18,
-    EditlLayout = 19,
+    ArchivePlano = 16,
+    RejectPlano = 17,
+    RestorePlano = 18,
+    CreateLayout = 19,
+    EditLayout = 20,
 
 
 }
@@ -52,9 +53,9 @@ public partial class AuditLog : BaseEntity<long>, IAggregateRoot
     public string? PlanoName { get; set; }
 
     public long? OrderId { get; set; }
+    public string? OrderName { get; set; }
 
     public string? UserId { get; set; }
-
     public string? Roles { get; set; }
 
     public int RoleId { get; set; }
