@@ -1,4 +1,5 @@
-﻿using PMApplication.Interfaces;
+﻿using Microsoft.Graph.Drives.Item.Items.Item.GetActivitiesByInterval;
+using PMApplication.Interfaces;
 
 namespace PMApplication.Entities;
 
@@ -37,16 +38,37 @@ public partial class AuditLog : BaseEntity<long>, IAggregateRoot
     public int? LegacyUserId { get; set; }
 
     public int? BrandId { get; set; }
+    public string? BrandName { get; set; }
 
     public string? UserName { get; set; }
 
     public int? Action { get; set; }
+    public string? ActionName { get; set; }
+
+    public int? ActionType { get; set; }
 
     public long PlanoId { get; set; }
+
+    public string? PlanoName { get; set; }
 
     public long? OrderId { get; set; }
 
     public string? UserId { get; set; }
 
     public string? Roles { get; set; }
+
+    public int RoleId { get; set; }
+
+    public string? RoleName { get; set; }
+    public int? RegionId { get; set; }
+    public string? RegionName { get; set; }
+
+    public int? CountryId { get; set; }
+    public string? CountryName { get; set; }
+
+    public string? Permissions { get; set; }
+
+
+
+
 }
