@@ -29,6 +29,15 @@ public enum LogActionEnum : int
 
 }
 
+public enum LogActionTypeEnum : int
+{
+    UserAction = 1,
+    PlanoAction = 2,
+    OrderAction = 3,
+    LayoutAction = 4,
+    SystemAction = 5
+}
+
 public partial class AuditLog : BaseEntity<long>, IAggregateRoot
 {
 
@@ -48,7 +57,7 @@ public partial class AuditLog : BaseEntity<long>, IAggregateRoot
 
     public int? ActionType { get; set; }
 
-    public long PlanoId { get; set; }
+    public long? PlanoId { get; set; }
 
     public string? PlanoName { get; set; }
 
@@ -58,7 +67,7 @@ public partial class AuditLog : BaseEntity<long>, IAggregateRoot
     public string? UserId { get; set; }
     public string? Roles { get; set; }
 
-    public int RoleId { get; set; }
+    public int? RoleId { get; set; }
 
     public string? RoleName { get; set; }
     public int? RegionId { get; set; }

@@ -10,7 +10,7 @@ namespace PMApplication.Specifications
         public UsageReportSpecification(ReportingFilterDto filter)
         {
             if (filter.BrandId != 0)
-                Query.Where(x => x.Id == filter.BrandId);
+                Query.Where(x => x.BrandId == filter.BrandId);
 
             if (filter.RegionId != null && filter.RegionId != 0)
                 Query.Where(x => x.RegionId == filter.RegionId);
@@ -21,13 +21,13 @@ namespace PMApplication.Specifications
             if (filter.StartDate != null && filter.EndDate != null)
                 Query.Where(x => x.Date >= filter.StartDate && x.Date <= filter.EndDate);
 
-            if (filter.RoleId != 0)
+            if (filter.RoleId != null && filter.RoleId != 0)
                 Query.Where(x => x.RoleId == filter.RoleId);
 
-            if (filter.ActionType != 0)
+            if (filter.ActionType != null && filter.ActionType != 0)
                 Query.Where(x => x.ActionType == filter.ActionType);
 
-            if (filter.ActionId != 0)
+            if (filter.ActionId != null && filter.ActionId != 0)
                 Query.Where(x => x.Action == filter.ActionId);
 
             Query.OrderByDescending(x => x.Date);
