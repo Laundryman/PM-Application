@@ -23,10 +23,12 @@ namespace PMApplication.Specifications.Filters
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public bool Published { get; set; }
+        public bool Discontinued { get; set; }
         public string? sortBy { get; set; }
         public string? sortOrder { get; set; }
         public string? SearchString { get; set; }
         public bool excludeSpareParts { get; set; }
+        public bool excludeAccessories { get; set; } = false;
         public long? ClusterId { get; set; }
         public ICollection<CountryDto>? Countries { get; set; }
 

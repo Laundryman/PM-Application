@@ -9,6 +9,11 @@
         public int? CountryId { get; set; }
         public int? CategoryId { get; set; }
         public int? StandTypeId { get; set; }
+        public bool Published { get; set; } = false;
+        public bool Discontinued { get; set; } = false;
+        public bool IncludeProducts { get; set; } = false;
+
+        public bool ExcludeAccessories { get; set; } = false;
         //public int? ParentCategoryId { get; set; }
         //public string? PartNumber { get; set; }
         //public string? AltPartNumber { get; set; }
@@ -17,7 +22,6 @@
         //public string? PartTypeName { get; set; }
         //public DateTime? DateCreated { get; set; }
         //public DateTime? DateUpdated { get; set; }
-        //public bool Published { get; set; }
         //public bool LoadChildren { get; set; }
         //public bool IsPagingEnabled { get; set; }
         //public int Page { get; set; } = 1;
