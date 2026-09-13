@@ -20,11 +20,13 @@ public partial class Email : BaseEntity<int>, IAggregateRoot
 
     public int? EmailTrigger { get; set; }
 
+    public int? BrandId { get; set; }
     public string? BrandName { get; set; }
 
     public int LegacyUserId { get; set; }
 
     public int? PlanogramId { get; set; }
+    public string? PlanogramName { get; set; }
 
     public DateTime DateSent { get; set; }
 
