@@ -80,6 +80,7 @@ public partial class Planogram : BaseEntity<long>, IAggregateRoot
     public virtual ICollection<PlanogramShelf> PlanogramShelves { get; set; } = new List<PlanogramShelf>();
 
     public virtual Stand Stand { get; set; } = null!;
+    public virtual Brand Brand { get; set; } = null!;
 
     public virtual PlanogramStatus Status { get; set; } = null!;
 }

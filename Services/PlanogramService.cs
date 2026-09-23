@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Models;
 using PMApplication.Dtos;
 using PMApplication.Dtos.PlanModels;
+using PMApplication.Dtos.Filters.Widgets;
 using PMApplication.Entities;
 using PMApplication.Entities.ClusterAggregate;
 using PMApplication.Entities.PartAggregate;
@@ -19,7 +20,9 @@ using PMApplication.Interfaces;
 using PMApplication.Interfaces.RepositoryInterfaces;
 using PMApplication.Interfaces.ServiceInterfaces;
 using PMApplication.Specifications;
+using PMApplication.Specifications.Widgets;
 using PMApplication.Specifications.Filters;
+
 using static PMApplication.Enums.StatusEnums;
 
 namespace PMApplication.Services
@@ -97,54 +100,20 @@ namespace PMApplication.Services
             }
         }
 
-
-        public Task<IEnumerable<PlanogramLock>> GetLockedPlanograms()
+        public async Task<int> GetPlanogramCount(CountsFilterDto filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var spec = new PlanogramCountSpecification(filter);
+                var count = await _planogramRepository.CountAsync(spec);
+                return count;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error getting planogram count: " + ex.Message);
+                throw;
+            }
         }
-
-        //public async Task<IReadOnlyList<PlanogramInfo>> GetYourPlanograms(int status, int countryId, int regionId, int standTypeId, int brandId)
-        //{
-        //    try
-        //    {
-        //        var planograms = await _planogramRepository.GetPlanogramInfo((int)status, brandId, null, regionId,
-        //            countryId, standTypeId);
-        //        IEnumerable<PlanogramInfo> validatedPlanograms = new List<PlanogramInfo>();
-        //        if (status == (int)PlanogramStatusEnum.Approved)
-        //        {
-        //            //we also need to get validated planograms
-        //            validatedPlanograms = await _planogramRepository.GetPlanogramInfo(
-        //                (int)PlanogramStatusEnum.Validated, brandId, null, regionId, countryId, standTypeId);
-        //        }
-
-        //        var fullList = new List<PlanogramInfo>().AsReadOnly();
-        //        if (planograms != null && planograms.Any())
-        //        {
-        //            fullList = planograms.ToList().AsReadOnly();
-        //        }
-        //        if (validatedPlanograms != null && validatedPlanograms.Any())
-        //        {
-        //            fullList = planograms.Concat(validatedPlanograms).ToList().AsReadOnly();
-        //        }
-
-
-        //        return fullList;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log the exception or handle it as needed
-        //        _logger.LogError("Error getting your planograms: " + ex.Message);
-        //        throw;
-        //    }
-
-        //}
-
-        //public async Task<IReadOnlyList<PlanogramInfo>> GetArchivedPlanograms(string userId, int? jobId, int brandId, int countryId, int regionId, int standTypeId,
-        //    bool isDiamUser, string planogramHostUrl = "")
-        //{
-        //    var planograms = await _planogramRepository.GetPlanogramInfo((int)PlanogramStatusEnum.Archived, brandId, jobId, regionId, countryId, standTypeId);
-        //    return planograms;
-        //}
 
         public async Task<IReadOnlyList<Sku>> GetSkuList(long id, string userId, bool hasColumns)
         {
@@ -700,15 +669,15 @@ namespace PMApplication.Services
             await _noteRepository.AddAsync(planogramNote);
         }
 
-        public void DeletePlanogramNote(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //public void DeletePlanogramNote(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void SavePlanogramNote()
-        {
-            throw new NotImplementedException();
-        }
+        //public void SavePlanogramNote()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #region scratchpad
 
@@ -863,10 +832,10 @@ namespace PMApplication.Services
             }
         }
 
-        public IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId)
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<PlanogramShelf> GetPlanogramShelves(int planogramId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task CreatePlanogramShelf(PlanogramShelf shelf)
         {
@@ -1055,35 +1024,42 @@ namespace PMApplication.Services
             }
         }
 
-        public IEnumerable<PlanogramPartFacing> GetPlanogramPartFacings()
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<PlanogramPartFacing> GetPlanogramPartFacings()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public IEnumerable<PartFacingDto> GetPlanogramPartFacings(int ppartId)
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<PartFacingDto> GetPlanogramPartFacings(int ppartId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public Task<PlanogramStatus> GetPlanogramStatus(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<PlanogramStatus> GetPlanogramStatus(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
-        public void CreatePlanogramPartFactice(PlanogramPart part)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreatePlanogramPartFactice(PlanogramPart part)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void DeletePlanogramPartFactice(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //public void DeletePlanogramPartFactice(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void SavePlanogramPartFactice()
+        //public void SavePlanogramPartFactice()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        public async Task<IEnumerable<Planogram>> GetRecentPlanogramsAsync(PlanoWidgetFilterDto filter)
         {
-            throw new NotImplementedException();
+            var spec = new GetPlanoWidgetSpecification(filter);
+            var planograms = await _planogramRepository.ListAsync(spec);
+            return planograms;
         }
     }
+
 }
