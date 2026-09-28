@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using PMApplication.Dtos.PagedLists;
 using static System.Net.WebRequestMethods;
 
 namespace PMApplication.Services
@@ -34,12 +35,14 @@ namespace PMApplication.Services
 
         private readonly IClusterPartRepository _clusterPartRepository;
         private readonly IClusterShelfRepository _clusterShelfRepository;
+
+        private readonly ICountryRepository _countryRepository;
         //private readonly IPartRepository _partRepositorySync;
         //private readonly IAsyncRepositoryLong<PlanogramPart> _planogramPartRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PartService> _logger;
 
-        public ClusterService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository, IClusterRepository clusterRepository, IMapper mapper, ILogger<PartService> logger, IClusterPartRepository clusterPartRepository, IClusterShelfRepository clusterShelfRepository)
+        public ClusterService(IStandRepository standRepository, IPartTypeRepository partTypeRepository, IStandTypeRepository standTypeRepository, ICategoryRepository categoryRepository, IClusterRepository clusterRepository, IMapper mapper, ILogger<PartService> logger, IClusterPartRepository clusterPartRepository, IClusterShelfRepository clusterShelfRepository, ICountryRepository countryRepository)
         {
             _standRepository = standRepository;
             _partTypeRepository = partTypeRepository;
@@ -50,6 +53,7 @@ namespace PMApplication.Services
             _logger = logger;
             _clusterPartRepository = clusterPartRepository;
             _clusterShelfRepository = clusterShelfRepository;
+            _countryRepository = countryRepository;
         }
 
 
@@ -98,7 +102,23 @@ namespace PMApplication.Services
                 //planogram.CountryId = (int)oauthService.GetUserProfile(userId).CountryId;
                 layout.CountriesList = newClusterDetails.CountryIds;
                 layout.RegionsList = newClusterDetails.RegionIds;
+
                 await CreateLayout(layout);
+
+                //add countries to the cluster
+                var countryIds = newClusterDetails.CountryIds.Split(",").Select(int.Parse).ToList();
+                var countryList = new List<Country>();
+                foreach (var id in countryIds)
+                {
+                    var country = await _countryRepository.GetByIdAsync(id);
+                    if (country != null && !layout.Countries.Contains(country))
+                    {
+                        layout.Countries.Add(country);
+                    }
+
+                }
+
+                await _clusterRepository.UpdateAsync(layout);
 
                 //Add Promos > now accessories
 

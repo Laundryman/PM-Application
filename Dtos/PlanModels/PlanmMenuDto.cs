@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PMApplication.Entities.PlanogramAggregate;
 
 namespace PMApplication.Dtos.PlanModels
 {
@@ -17,5 +18,6 @@ namespace PMApplication.Dtos.PlanModels
         public string? StandTypeName { get; set; }
 
         public List<CategoryMenuDto>? Categories { get; set; }
+        public List<PlanmMenuPart>? Parts { get; set; }
     }
 }

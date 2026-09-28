@@ -19,6 +19,7 @@ namespace PMApplication.Dtos
         public string? CustomerRefNo { get; set; }
         public bool? Published { get; set; }
         public bool? Discontinued { get; set; }
+        public int? Status { get; set; } = 1;
         public short? Facings { get; set; }
         public short? Height { get; set; }
         public short? Width { get; set; }

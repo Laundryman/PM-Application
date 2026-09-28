@@ -32,6 +32,7 @@ namespace PMApplication.Entities.PartAggregate
         public DateTime DateUpdated { get; set; }
         public bool Published { get; set; }
         public bool Discontinued { get; set; }
+        public int? Status{ get; set; }
         public bool Shoppable { get; set; }
         public string? CassetteBio { get; set; }
         public string? Presentation { get; set; }

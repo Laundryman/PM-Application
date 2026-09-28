@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graph.Solutions.BackupRestore.DriveProtectionUnitsBulkAdditionJobs.Item;
+using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Entities.StandAggregate;
 using PMApplication.Interfaces;
@@ -68,6 +69,7 @@ public partial class Cluster : BaseEntity<long>, IAggregateRoot
     public virtual ICollection<ClusterShelf> ClusterShelves { get; set; } = new List<ClusterShelf>();
 
     public virtual ICollection<Planogram> Planograms { get; set; } = new List<Planogram>();
+    public virtual ICollection<Country> Countries{ get; set; } = new List<Country>();
 
     public virtual Stand Stand { get; set; } = null!;
 }

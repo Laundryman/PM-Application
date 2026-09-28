@@ -40,6 +40,7 @@ public partial class Part : BaseEntity<long>, IAggregateRoot
     public string? Presentation { get; set; }
     public string? ProductList { get; set; }
     public bool Published { get; set; }
+    public int? Status { get; set; }
     public int? RegionId { get; set; }
     //public string? RegionName { get; set; }
     public string? Render2dImage { get; set; }

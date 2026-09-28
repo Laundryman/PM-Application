@@ -1,4 +1,5 @@
-﻿using PMApplication.Entities.JobsAggregate;
+﻿using PMApplication.Entities.ClusterAggregate;
+using PMApplication.Entities.JobsAggregate;
 using PMApplication.Entities.PartAggregate;
 using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Entities.ProductAggregate;
@@ -36,7 +37,7 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
     public virtual List<Product> Products { get; set; } = new List<Product>();
 
     public virtual List<PlanogramPart> PlanogramParts { get; set; } = new List<PlanogramPart>();
-
+    public virtual List<Cluster> Clusters { get; set; } = new List<Cluster>();
 
     public virtual List<Shade> Shades { get; set; } = new List<Shade>();
     public virtual List<Region> Regions { get; set; } = [];
