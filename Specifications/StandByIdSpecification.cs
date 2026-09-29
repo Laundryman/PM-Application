@@ -14,6 +14,7 @@ namespace PMApplication.Specifications
                 .Include(p => p.Countries)
                 .Include(p => p.Regions)
                 .Include(p => p.ColumnList)
+                .ThenInclude(p => p.StandColumnUprights)
                 .Include(p => p.RowList);
         }
 
