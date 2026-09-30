@@ -21,6 +21,16 @@ namespace PMApplication.Enums
         }
     }
 
+    public enum ItemStatusEnum : int
+    {
+        New = 1,
+        Editing = 2,
+        Published = 3,
+        Deleted = 4,
+        Discontinued = 5,
+        Active = 6,
+        Inactive = 7,
+    }
     //public class LoggingAction
     //{
     //    public enum LogActionEnum : int

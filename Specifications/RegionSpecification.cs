@@ -2,6 +2,7 @@
 using LinqKit;
 using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Entities.ProductAggregate;
+using PMApplication.Enums;
 using PMApplication.Specifications.Filters;
 
 namespace PMApplication.Specifications
@@ -10,10 +11,11 @@ namespace PMApplication.Specifications
     {
         public RegionSpecification(RegionFilter filter)
         {
-
-            if (filter.IsPagingEnabled)
-                Query.Skip(PaginationHelper.CalculateSkip(filter))
-                    .Take(PaginationHelper.CalculateTake(filter));
+            
+            if (filter.IncludeDeleted == false)
+            {
+                Query.Where(x => x.Status == (int)ItemStatusEnum.Published);
+            }
 
             if ((filter.BrandId != null) && filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId);

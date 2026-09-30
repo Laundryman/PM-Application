@@ -15,6 +15,7 @@ public partial class Region : BaseEntity<int>, IAggregateRoot
     public int? BrandId { get; set; }
 
     public string? CountryList { get; set; }
+    public int Status { get; set; }
 
     //public virtual List<CountryRegion> CountryRegion { get; } = [];    
     public virtual List<Country> Countries { get; } = [];

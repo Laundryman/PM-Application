@@ -25,13 +25,5 @@ namespace PMApplication.Enums
         BaseShelf = 10
     }
 
-    public enum ItemStatusEnum : int
-    {
-        New = 1,
-        Editing = 2,
-        Published = 3,
-        Deleted = 4,
-        Discontinued = 5
-    }
 
 }

@@ -9,6 +9,8 @@ namespace PMApplication.Specifications.Filters
         public int? Id { get; set; }
         public string? idList { get; set; }
         public string? CountriesList { get; set; }
+
+        public bool? IncludeDeleted { get; set; } = false;
         //public bool LoadChildren { get; set; }
         //public bool IsPagingEnabled { get; set; }
         //public int Page { get; set; }

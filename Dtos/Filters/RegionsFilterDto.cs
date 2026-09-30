@@ -5,8 +5,6 @@
         public int? BrandId { get; set; }
         public string? IdList { get; set; }
         public bool LoadChildren { get; set; }
-        public bool IsPagingEnabled { get; set; }
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public bool? IncludeDeleted { get; set; }
     }
 }
