@@ -29,5 +29,7 @@ namespace PMApplication.Specifications.Filters
         public int? standHeight { get; set; }
         public int? standWidth { get; set; }
 
+        public bool IncludeChildren { get; set; } = false;
+
     }
 }

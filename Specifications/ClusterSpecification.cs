@@ -53,6 +53,15 @@ namespace PMApplication.Specifications
                 Query.Where(c => c.Id == filter.Id)
                     .Include(c => c.Stand);
             }
+
+            if (filter.IncludeChildren)
+            {
+                Query.Include(c => c.Stand)
+                    .ThenInclude(s => s.StandType)
+                    .Include(c => c.ClusterShelves)
+                    .Include(c => c.ClusterParts)
+                    .Include(c => c.Countries);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace PMApplication.Specifications.Filters
         public int? ParentStandTypeId { get; set; }
         public int? BrandId { get; set; }
         public bool GetParents { get; set; }
-        //public string? Description { get; set; }
+        public bool? IncludeParent { get; set; } = false; //include the parent and child standtypes in the result set
 
         public int? CountryId { get; set; }
 

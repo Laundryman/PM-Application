@@ -16,6 +16,11 @@ namespace PMApplication.Specifications
         {
             Query.Include(st => st.Brand);
 
+            if (filter.Id != null)
+            {
+                Query.Where(st => st.Id == filter.Id);
+            }
+
             if (filter.CountryId != null)
             {
                 Query.Include(st => st.Stands.Where(s => s.CountriesList != null && s.CountriesList.Contains(filter.CountryId.ToString())));
@@ -31,8 +36,12 @@ namespace PMApplication.Specifications
 
             if (filter.BrandId != null && filter.BrandId != 0 && !filter.GetParents)
                 Query.Where(x => x.BrandId == filter.BrandId);
-                
 
+            if (filter.IncludeParent == true)
+            {
+                Query.Include(st => st.ChildStandTypes)
+                    .Include(st => st.ParentStandType);
+            }
 
             if ((filter.ParentStandTypeId != null))
                 Query.Where(x => x.ParentStandTypeId == filter.ParentStandTypeId);
