@@ -27,11 +27,28 @@ namespace PMApplication.Specifications
 
             }
 
-            //if (filter.CountryId != 0)
-            //{
-            //    Query.Where(x => x.CountryId == filter.CountryId)
-            //        }
+            if (filter.RegionId!= null && filter.RegionId != 0)
+            {
+                Query.Where(j => j.RegionId == filter.RegionId);
+            }
 
+            if (filter.CountryId != null && filter.CountryId != 0)
+            {
+                Query.Where(j => j.Countries.Any(c => c.Id == filter.CountryId));
+            }
+
+            //if (filter.CountryList != null)
+            //{
+            //    var requiredCountries = filter.CountryList.Split(",").ToList();
+            //    var predicate = PredicateBuilder.New<JobFolder>(false);
+            //    foreach (var country in requiredCountries)
+            //    {
+            //        var countryId = int.Parse(country);
+            //        predicate = predicate.Or(x => x.Countries.Any(c => c.Id == countryId));
+            //    }
+            //    Query.Where(predicate);
+
+            //}
             if (filter.IncludeChildren)
             {
                 Query.Include(x => x.Jobs!)

@@ -7,6 +7,7 @@
         public int? CountryId { get; set; } = 0;
         public int? RegionId { get; set; } = 0;
         public string? RegionList { get; set; }
+        public string? CountryList { get; set; }
         public bool HasJobs { get; set; } = false;
         public bool IncludeChildren { get; set; } = false;
     }
