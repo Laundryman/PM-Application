@@ -24,7 +24,7 @@ namespace PMApplication.Interfaces.RepositoryInterfaces
             bool shoppable);
 
         Task<IReadOnlyList<SearchPartInfo>> SearchParts(PartFilterDto filter);
-
+        Task<IReadOnlyList<PopularParts>?> GetMostPopularParts(int brandId);
     }
 
 
