@@ -1,5 +1,4 @@
 ﻿using PMApplication.Dtos.PlanModels;
-using PMApplication.Entities;
 
 namespace PMApplication.Dtos
 {
