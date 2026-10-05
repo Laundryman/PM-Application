@@ -3,7 +3,7 @@ using PMApplication.Dtos.StandTypes;
 
 namespace PMApplication.Entities.PartAggregate
 {
-    public partial class PopularParts
+    public partial class PopularPart
     {
 
 
