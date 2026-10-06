@@ -10,6 +10,7 @@
         //public bool? Locked { get; set; }
         //public int? RegionId { get; set; }
         //public int? CountryId { get; set; }
+        public string? BrandsList { get; set; }
         public string? RegionsList { get; set; }
         public string? CountriesList { get; set; }
         public bool IncludeDeleted { get; set; } = false;

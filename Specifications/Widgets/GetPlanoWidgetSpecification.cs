@@ -14,7 +14,7 @@ namespace PMApplication.Specifications.Widgets
             if (filter.BrandId != 0 && filter.BrandId != null)
                 Query.Where(x => x.BrandId == filter.BrandId);
             if (!String.IsNullOrEmpty(filter.UserId))
-                Query.Where(x => x.UserId == filter.UserId);
+                Query.Where(x => x.LastUpdatedBy == filter.UserId);
             if (!filter.Archived)
                 Query.Where(x => x.StatusId != 7);
             if (!filter.IncludeDeleted)

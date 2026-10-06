@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PMApplication.Dtos.Filters
 {
-    public class PlanoWidgetFilterDto
+    public class PlanogramFilterDto
     {
         public long Id { get; set; }
         public int? BrandId { get; set; }
