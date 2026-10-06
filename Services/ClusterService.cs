@@ -337,7 +337,16 @@ namespace PMApplication.Services
 
         public async Task CreateClusterPart(ClusterPart clusterPart)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _clusterPartRepository.AddAsync(clusterPart);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                _logger.LogError("Error creating planogram part: " + ex.Message);
+                throw;
+            }
         }
 
         public async Task DeleteClusterPart(long id)
