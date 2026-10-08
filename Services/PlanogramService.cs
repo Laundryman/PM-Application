@@ -372,7 +372,7 @@ namespace PMApplication.Services
                 }
 
                 //NEED TO HANDLE PLANOGRAMS THAT HAVE NO SHELVES
-                if ((planogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (planogram.Stand.StandType.ParentStandTypeId == (int)StandTypeEnum.NEO))
+                if ((planogram.Stand.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (planogram.Stand.ParentStandTypeId == (int)StandTypeEnum.NEO))
                 {
                     foreach (PlanogramPart part in planogramParts)
                     {
@@ -690,94 +690,93 @@ namespace PMApplication.Services
         /// <returns>the new scratch pad Id</returns>
         public async Task<long> CloneScratchPad(long planogramId, long newPlanogramId)
         {
-            throw new NotImplementedException();
 
-            //var OriginalPlanogram = await GetPlanogram(planogramId);
-            //var newPlanogram = await GetPlanogram(newPlanogramId);
-            //var newScratchPad = new ScratchPad();
-            //var originalScratchPad = OriginalPlanogram.ScratchPad;
+            var OriginalPlanogram = await GetPlanogram(planogramId);
+            var newPlanogram = await GetPlanogram(newPlanogramId);
+            var newScratchPad = new ScratchPad();
+            var originalScratchPad = OriginalPlanogram.ScratchPad;
 
-            //newScratchPad.DateCreated = DateTime.Now;
-            //newScratchPad.DateUpdated = DateTime.Now;
-            //CreateScratchPad(newScratchPad);
-            //newPlanogram.ScratchPadId = newScratchPad.Id;
-            //newPlanogram.ScratchPad = newScratchPad;
-            ////add parts
-            //foreach (PlanogramPart part in originalScratchPad.PlanogramParts)
-            //{
-            //    if ((PartTypeEnum)part.Part.PartType.Id != PartTypeEnum.Accessory)
-            //    {
-            //        PlanogramPart newPart = new PlanogramPart();
-            //        newPart.Part = part.Part;
-            //        newPart.ScratchPadId = newScratchPad.Id;
-            //        newPart.PlanogramId = newPlanogramId;
-            //        //newPart.PlanogramShelf = newShelf;
-            //        //newPart.PlanogramShelfId = newShelf.PlanogramShelfId;
-            //        newPart.PositionX = part.PositionX;
-            //        newPart.PositionY = part.PositionY;
-            //        newPart.Products = part.Products;
-            //        newPart.PartStatusId = part.PartStatusId;
-            //        newPart.Notes = part.Notes;
-            //        newPart.DateUpdated = DateTime.Now;
-            //        newPart.DateCreated = DateTime.Now;
-            //        newPart.Label = part.Label;
+            newScratchPad.DateCreated = DateTime.Now;
+            newScratchPad.DateUpdated = DateTime.Now;
+            await CreateScratchPad(newScratchPad);
+            newPlanogram.ScratchPadId = newScratchPad.Id;
+            newPlanogram.ScratchPad = newScratchPad;
+            //add parts
+            foreach (PlanogramPart part in originalScratchPad.PlanogramParts)
+            {
+                if ((PartTypeEnum)part.Part.PartType.Id != PartTypeEnum.Accessory)
+                {
+                    PlanogramPart newPart = new PlanogramPart();
+                    newPart.Part = part.Part;
+                    newPart.ScratchPadId = newScratchPad.Id;
+                    newPart.PlanogramId = newPlanogramId;
+                    //newPart.PlanogramShelf = newShelf;
+                    //newPart.PlanogramShelfId = newShelf.PlanogramShelfId;
+                    newPart.PositionX = part.PositionX;
+                    newPart.PositionY = part.PositionY;
+                    newPart.Products = part.Products;
+                    newPart.PartStatusId = part.PartStatusId;
+                    newPart.Notes = part.Notes;
+                    newPart.DateUpdated = DateTime.Now;
+                    newPart.DateCreated = DateTime.Now;
+                    newPart.Label = part.Label;
 
-            //        CreatePlanogramPart(newPart);
-            //        foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
-            //        {
-            //            PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
-            //            newPartFacing.PlanogramId = newPlanogramId;
-            //            newPartFacing.PlanogramPart = newPart;
-            //            newPartFacing.Position = partFacing.Position;
-            //            newPartFacing.ProductId = partFacing.ProductId;
-            //            newPartFacing.Shade = partFacing.Shade;
-            //            newPartFacing.StockCount = partFacing.StockCount;
-            //            newPartFacing.FacingStatusId = partFacing.FacingStatusId;
-            //            CreatePlanogramPartFacing(newPartFacing);
-            //            newPart.PlanogramPartFacings.Add(newPartFacing);
-            //        }
-            //        SavePlanogramPart();
-            //    }
-            //    else if ((PartTypeEnum)part.Part.PartType.Id == PartTypeEnum.Accessory)
-            //    {
-            //        PlanogramPart accessoryPart = new PlanogramPart();
-            //        accessoryPart.Part = part.Part;
-            //        accessoryPart.PlanogramId = newPlanogramId;
-            //        accessoryPart.ScratchPadId = newScratchPad.Id;
-            //        accessoryPart.PositionX = part.PositionX;
-            //        accessoryPart.PositionY = part.PositionY;
-            //        accessoryPart.PartStatusId = part.PartStatusId;
-            //        accessoryPart.Notes = part.Notes;
-            //        accessoryPart.DateUpdated = DateTime.Now;
-            //        accessoryPart.DateCreated = DateTime.Now;
-            //        accessoryPart.Label = part.Label;
-            //        CreatePlanogramPart(accessoryPart);
-            //    }
+                    await CreatePlanogramPart(newPart);
+                    foreach (PlanogramPartFacing partFacing in part.PlanogramPartFacings)
+                    {
+                        PlanogramPartFacing newPartFacing = new PlanogramPartFacing();
+                        newPartFacing.PlanogramId = newPlanogramId;
+                        newPartFacing.PlanogramPart = newPart;
+                        newPartFacing.Position = partFacing.Position;
+                        newPartFacing.ProductId = partFacing.ProductId;
+                        newPartFacing.Shade = partFacing.Shade;
+                        newPartFacing.StockCount = partFacing.StockCount;
+                        newPartFacing.FacingStatusId = partFacing.FacingStatusId;
+                        CreatePlanogramPartFacing(newPartFacing);
+                        newPart.PlanogramPartFacings.Add(newPartFacing);
+                    }
+                    await SavePlanogramPart(newPart);
+                }
+                else if ((PartTypeEnum)part.Part.PartType.Id == PartTypeEnum.Accessory)
+                {
+                    PlanogramPart accessoryPart = new PlanogramPart();
+                    accessoryPart.Part = part.Part;
+                    accessoryPart.PlanogramId = newPlanogramId;
+                    accessoryPart.ScratchPadId = newScratchPad.Id;
+                    accessoryPart.PositionX = part.PositionX;
+                    accessoryPart.PositionY = part.PositionY;
+                    accessoryPart.PartStatusId = part.PartStatusId;
+                    accessoryPart.Notes = part.Notes;
+                    accessoryPart.DateUpdated = DateTime.Now;
+                    accessoryPart.DateCreated = DateTime.Now;
+                    accessoryPart.Label = part.Label;
+                    await CreatePlanogramPart(accessoryPart);
+                }
 
 
-            //}
-            //foreach (PlanogramShelf shelf in originalScratchPad.PlanogramShelves)
-            //{
-            //    PlanogramShelf newShelf = new PlanogramShelf()
-            //    {
-            //        ScratchPadId = newScratchPad.Id,
-            //        ShelfTypeId = shelf.ShelfTypeId,
-            //        PlanogramId = newPlanogramId,
-            //        Column = shelf.Column,
-            //        Row = shelf.Row,
-            //        Width = shelf.Width,
-            //        Height = shelf.Height,
-            //        Label = shelf.Label,
-            //        Part = shelf.Part,
-            //        PartStatusId = shelf.PartStatusId,
-            //        PositionX = shelf.PositionX,
-            //        PositionY = shelf.PositionY
-            //    };
-            //    CreatePlanogramShelf(newShelf);
-            //}
-            ////SaveScratchPad();
-            //await _scratchPadRepository.UpdateAsync(newScratchPad);
-            //return newScratchPad.Id;
+            }
+            foreach (PlanogramShelf shelf in originalScratchPad.PlanogramShelves)
+            {
+                PlanogramShelf newShelf = new PlanogramShelf()
+                {
+                    ScratchPadId = newScratchPad.Id,
+                    ShelfTypeId = shelf.ShelfTypeId,
+                    PlanogramId = newPlanogramId,
+                    Column = shelf.Column,
+                    Row = shelf.Row,
+                    Width = shelf.Width,
+                    Height = shelf.Height,
+                    Label = shelf.Label,
+                    Part = shelf.Part,
+                    PartStatusId = shelf.PartStatusId,
+                    PositionX = shelf.PositionX,
+                    PositionY = shelf.PositionY
+                };
+                CreatePlanogramShelf(newShelf);
+            }
+            //SaveScratchPad();
+            await _scratchPadRepository.UpdateAsync(newScratchPad);
+            return newScratchPad.Id;
         }
 
 
