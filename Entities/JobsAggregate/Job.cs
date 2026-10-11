@@ -9,7 +9,7 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
 
     public int BrandId { get; set; }
 
-    public string CustomerCode { get; set; } = null!;
+    public string? CustomerCode { get; set; } = null!;
 
     public string? Name { get; set; }
 
