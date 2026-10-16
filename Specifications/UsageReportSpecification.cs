@@ -18,8 +18,8 @@ namespace PMApplication.Specifications
             if (filter.CountryId != null && filter.CountryId != 0)
                 Query.Where(x => x.CountryId == filter.CountryId);
 
-            //if (filter.StartDate != null && filter.EndDate != null)
-            //    Query.Where(x => x.Date >= filter.StartDate && x.Date <= filter.EndDate);
+            if (filter.StartDate != null && filter.EndDate != null)
+                Query.Where(x => x.Date >= filter.StartDate && x.Date <= filter.EndDate);
 
             if (filter.RoleId != null && filter.RoleId != 0)
                 Query.Where(x => x.RoleId == filter.RoleId);
