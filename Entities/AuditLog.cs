@@ -61,7 +61,7 @@ public partial class AuditLog : BaseEntity<long>, IAggregateRoot
     public long? ObjectId { get; set; }
 
     public string? PlanoName { get; set; }
-    public string ObjectName { get; set; }
+    public string? ObjectName { get; set; }
 
     public long? OrderId { get; set; }
     public string? OrderName { get; set; }
