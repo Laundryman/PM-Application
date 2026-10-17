@@ -14,6 +14,7 @@
         public bool IncludeProducts { get; set; } = false;
 
         public bool ExcludeAccessories { get; set; } = false;
+        public bool IncludeDeleted { get; set; } = false;
         //public int? ParentCategoryId { get; set; }
         //public string? PartNumber { get; set; }
         //public string? AltPartNumber { get; set; }

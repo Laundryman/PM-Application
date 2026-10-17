@@ -9,6 +9,9 @@ namespace PMApplication.Specifications.Filters
         public string? PartNumber { get; set; }
         public int? PartTypeId { get; set; }
         public int? StandTypeId { get; set; }
+        public bool IncludeDeleted { get; set; } = false;
+        public bool Published { get; set; } = true;
+        public bool Discontinued { get; set; } = false;
 
         public bool IncludeProducts { get; set; }
 
@@ -22,8 +25,6 @@ namespace PMApplication.Specifications.Filters
         public int? BrandId { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public bool Published { get; set; }
-        public bool Discontinued { get; set; }
         public string? sortBy { get; set; }
         public string? sortOrder { get; set; }
         public string? SearchString { get; set; }
