@@ -1,4 +1,5 @@
-﻿using PMApplication.Entities.PartAggregate;
+﻿using PMApplication.Entities.CountriesAggregate;
+using PMApplication.Entities.PartAggregate;
 using PMApplication.Interfaces;
 
 namespace PMApplication.Entities.PlanogramAggregate;
@@ -34,6 +35,8 @@ public partial class PlanogramShelf : BaseEntity<long>, IAggregateRoot
     public virtual PlanogramItemStatus? PartStatus { get; set; }
 
     public virtual ICollection<PlanogramPart> PlanogramParts { get; set; } = new List<PlanogramPart>();
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+
 
     public virtual Planogram Planogram { get; set; } = null!;
 

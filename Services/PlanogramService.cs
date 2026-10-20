@@ -160,7 +160,7 @@ namespace PMApplication.Services
             try
             {
                 var spec = new PlanogramPreviewSpecification(new PlanogramFilter { Id = Id });
-                var previewsrc = await _planogramPreviewRepository.FirstAsync(spec);
+                var previewsrc = await _planogramPreviewRepository.FirstOrDefaultAsync(spec);
                 //if (previewsrc.Count > 0)
                 //{
                 //    return previewsrc.FirstOrDefault();

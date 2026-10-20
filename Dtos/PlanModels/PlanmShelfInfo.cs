@@ -1,4 +1,5 @@
 ﻿using PMApplication.Entities;
+using PMApplication.Entities.CountriesAggregate;
 using PMApplication.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,8 @@ namespace PMApplication.Dtos.PlanModels
         public string? SvgLineGraphic { get; set; }
         public PlanmPosition? Position { get; set; }
         public IEnumerable<PlanmPartInfo>? Parts { get; set; }
+        public List<int>? CountryIds { get; set; }
+        public string? CountryList { get; set; }
+
     }
 }
