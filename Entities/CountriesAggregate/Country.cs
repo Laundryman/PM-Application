@@ -37,6 +37,7 @@ public partial class Country : BaseEntity<int>, IAggregateRoot
     public virtual List<Product> Products { get; set; } = new List<Product>();
 
     public virtual List<PlanogramPart> PlanogramParts { get; set; } = new List<PlanogramPart>();
+    public virtual List<PlanogramShelf> PlanogramShelves { get; set; } = new List<PlanogramShelf>();
     public virtual List<Cluster> Clusters { get; set; } = new List<Cluster>();
 
     public virtual List<Shade> Shades { get; set; } = new List<Shade>();
