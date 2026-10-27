@@ -25,6 +25,8 @@ public enum LogActionEnum : int
     RestorePlano = 18,
     CreateLayout = 19,
     EditLayout = 20,
+    CopyPlanogram = 21,
+    CreatePlanogramViewImage = 22,
 
 
 }
