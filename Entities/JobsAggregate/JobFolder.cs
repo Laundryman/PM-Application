@@ -20,6 +20,9 @@ public partial class JobFolder : BaseEntity<int>, IAggregateRoot
 
     public DateTime? DateCreated { get; set; }
 
+    public string? CountriesList { get; set; }
+
+
     public virtual Brand Brand { get; set; } = null!;
 
     public virtual Region? Region { get; set; }

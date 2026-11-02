@@ -21,6 +21,7 @@ public partial class ActionReportDto
     public string? ObjectName { get; set; }
 
     public string? Roles { get; set; }
+    public string? Permissions { get; set; }
 
     public string? RoleName { get; set; }
     public string? RegionName { get; set; }
