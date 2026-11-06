@@ -18,9 +18,9 @@ public partial class ActionReportDto
     public string? ActionName { get; set; }
 
     public string? PlanoName { get; set; }
-    public string? ObjectName { get; set; }
+    //public string? ObjectName { get; set; }
 
-    public string? Roles { get; set; }
+    //public string? Roles { get; set; }
     public string? Permissions { get; set; }
 
     public string? RoleName { get; set; }

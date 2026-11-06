@@ -8,6 +8,8 @@
         public int? CountryId { get; set; }
         public int? CategoryId { get; set; }
         public string? CountriesList { get; set; }
+
+        public bool IsPublished { get; set; } = false;
         //public int? ParentCategoryId { get; set; }
         //public int PartTypeId { get; set; }
 
