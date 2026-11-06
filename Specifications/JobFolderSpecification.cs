@@ -11,6 +11,9 @@ namespace PMApplication.Specifications
     {
         public JobFolderSpecification(JobFolderFilter filter)
         {
+            if (filter.Id != 0)
+                Query.Where(x => x.Id == filter.Id);
+            
             if (filter.BrandId != 0)
                 Query.Where(x => x.BrandId == filter.BrandId);
 
@@ -57,8 +60,7 @@ namespace PMApplication.Specifications
                 .Include(x => x.Countries);
             }
 
-            if (filter.Id != 0)
-                Query.Where(x => x.Id != filter.Id);
+
             if (filter.HasJobs == true)
                 Query.Include(f => f.Jobs)
                 .Where(x => x.Jobs!.Count > 0);
