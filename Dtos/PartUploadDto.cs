@@ -25,7 +25,7 @@ namespace PMApplication.Dtos
         public short? Width { get; set; }
         public short? Depth { get; set; }
         public short? Stock { get; set; }
-        public string? RegionList { get; set; }
+        public string? RegionsList { get; set; }
         public string? CountriesList { get; set; }
 
         public int? CategoryId { get; set; }
