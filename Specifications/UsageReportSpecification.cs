@@ -19,7 +19,12 @@ namespace PMApplication.Specifications
                 Query.Where(x => x.CountryId == filter.CountryId);
 
             if (filter.StartDate != null && filter.EndDate != null)
+            {
+                DateTime newEndDate = (DateTime)filter.EndDate;
+                filter.EndDate = newEndDate.AddDays(1);
                 Query.Where(x => x.Date >= filter.StartDate && x.Date <= filter.EndDate);
+            }
+
 
             if (filter.RoleId != null && filter.RoleId != 0)
                 Query.Where(x => x.RoleId == filter.RoleId);
