@@ -308,10 +308,21 @@ namespace PMApplication.Services
             return newPlanoId;
         }
 
-        public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate)
+        public Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate)
+        {
+            return ClonePlanogram(planogramId, name, userProfile, isUpdate, null);
+        }
+
+        public async Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate, Action<int, string>? progressCallback)
         {
             try
             {
+                void Report(int percent, string message)
+                {
+                    try { progressCallback?.Invoke(percent, message); } catch (Exception cbEx) { _logger.LogWarning(cbEx, "Clone progress callback failed"); }
+                }
+
+                Report(5, "Starting clone");
                 _unitOfWork.BeginTransaction();
 
                 var filter = new PlanogramFilter
@@ -323,6 +334,7 @@ namespace PMApplication.Services
 
                 Planogram planogram = await _planogramRepository.FirstAsync(spec);
                 Planogram newPlanogram = new Planogram();
+                Report(10, "Loaded source planogram");
 
                 if (name == planogram.Name)
                 {
@@ -352,18 +364,23 @@ namespace PMApplication.Services
 
 
                 await CreatePlanogram(newPlanogram);
+                Report(20, "Created new planogram");
                 var psFilter = new PlanogramFilter();
                 psFilter.Id = planogram.Id;
+                Report(25, "Retrieving shelves and parts");
+
                 var planogramShelves = _planogramShelfRepository.ListAsync(new PlanogramShelfSpecification(psFilter)).Result;
                 var ppFilter = new PlanogramPartFilter();
                 ppFilter.PlanogramId = planogram.Id;
                 var planogramParts = _planogramPartRepository.ListAsync(new PlanogramPartFilterSpecification(ppFilter)).Result;
+                Report(30, "Loaded shelves and parts");
 
 
                 if (isUpdate)
                 {
                     await DuplicatePlanogramNotes(planogram.Id, newPlanogram.Id);
                 }
+                Report(35, "Copying notes and scratchpad");
                 var scratchPadId = planogram.ScratchPadId;
                 if (isUpdate & scratchPadId != null)
                 {
@@ -374,8 +391,11 @@ namespace PMApplication.Services
                 //NEED TO HANDLE PLANOGRAMS THAT HAVE NO SHELVES
                 if ((planogram.Stand.ParentStandTypeId == (int)StandTypeEnum.Bergerie) || (planogram.Stand.ParentStandTypeId == (int)StandTypeEnum.NEO))
                 {
-                    foreach (PlanogramPart part in planogramParts)
+                    var bergerieParts = planogramParts.ToList();
+                    var bergerieIndex = 0;
+                    foreach (PlanogramPart part in bergerieParts)
                     {
+                        Report(40 + 45 * bergerieIndex++ / Math.Max(bergerieParts.Count, 1), $"Cloning part {bergerieIndex} of {bergerieParts.Count}");
                         if ((PartTypeEnum)part.Part.PartType.Id != PartTypeEnum.Accessory && part.ScratchPadId == null)
                         {
                             PlanogramPart newPart = new PlanogramPart();
@@ -425,8 +445,11 @@ namespace PMApplication.Services
                 {
 
                     //Add Shelves
-                    foreach (PlanogramShelf shelf in planogramShelves.Where(ps => ps.ScratchPadId == null || ps.ScratchPadId == 0))
+                    var shelvesToClone = planogramShelves.Where(ps => ps.ScratchPadId == null || ps.ScratchPadId == 0).ToList();
+                    var shelfIndex = 0;
+                    foreach (PlanogramShelf shelf in shelvesToClone)
                     {
+                        Report(40 + 45 * shelfIndex++ / Math.Max(shelvesToClone.Count, 1), $"Cloning shelf {shelfIndex} of {shelvesToClone.Count}");
                         PlanogramShelf newShelf = new PlanogramShelf();
                         newShelf.Column = shelf.Column;
                         newShelf.Height = shelf.Height;
@@ -493,6 +516,7 @@ namespace PMApplication.Services
                 }
                 //Add Promos > Now Accessories
 
+                Report(90, "Cloning accessories");
                 foreach (PlanogramPart part in planogramParts)
                 {
                     if ((PartTypeEnum)part.Part.PartTypeId == PartTypeEnum.Accessory && part.ScratchPadId == null ||
@@ -520,8 +544,10 @@ namespace PMApplication.Services
 
                 }
 
+                Report(95, "Saving planogram");
                 await SavePlanogram(newPlanogram);
                 _unitOfWork.Commit();
+                Report(100, "Clone completed");
                 // considered placing the clone snapshots call in here, decided against it as its not strictly a data operation - MB
                 // instead, cloning is called from the UI, e.g. planogramsInProgress.ascx.cs : btnSaveAsTemplate_Click()
 

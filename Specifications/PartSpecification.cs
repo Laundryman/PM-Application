@@ -21,6 +21,14 @@ namespace PMApplication.Specifications
                 Query.Where(p => p.Published);
             }
 
+            if (filter.Discontinued)
+            {
+                Query.Where(p => p.Discontinued == true);
+            }
+            else
+            {
+                Query.Where(p => p.Discontinued == false);
+            }
             if (filter.excludeAccessories)
             {
                 Query.Where(p => p.ParentCategoryId != 8 && p.ParentCategoryId != 30 && p.ParentCategoryId != 28);

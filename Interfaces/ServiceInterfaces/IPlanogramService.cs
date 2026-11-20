@@ -1,4 +1,4 @@
-﻿using PMApplication.Entities.PlanogramAggregate;
+using PMApplication.Entities.PlanogramAggregate;
 using PMApplication.Entities;
 using System;
 using System.Collections.Generic;
@@ -36,6 +36,7 @@ namespace PMApplication.Interfaces.ServiceInterfaces
         Task<long> CreatePlanogramFromCluster(ClusterFilter filter, CreatePlanogramDto newPlanogramDetails, CurrentUser userInfo);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile);
         Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate);
+        Task<long> ClonePlanogram(long planogramId, string name, CurrentUser userProfile, bool isUpdate, Action<int, string>? progressCallback);
 
 
         Task CreatePlanogram(Planogram planogram);
