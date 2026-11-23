@@ -29,6 +29,9 @@ public partial class Job : BaseEntity<int>, IAggregateRoot
 
     public int UploadedBy { get; set; }
 
+    public DateTime? DateUpdated { get; set; }
+    public string? UpdatedById { get; set; }
+    public string? UpdatedByName { get; set; }
     public string? OriginalFileName { get; set; }
 
     public int JobFolderId { get; set;  }

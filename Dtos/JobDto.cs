@@ -25,6 +25,10 @@ namespace PMApplication.Dtos
         public string? UploadedOn { get; set; }
         public string? DateFrom { get; set; }
         public string? DateTo { get; set; }
+        public string? DateUpdated { get; set; }
+        public string? UpdatedById { get; set; }
+        public string? UpdatedByName { get; set; }
+
         public List<PlanmPlanogramDto>? Planograms { get; set; } = new List<PlanmPlanogramDto>();
     }
 }
