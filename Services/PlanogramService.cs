@@ -267,11 +267,11 @@ namespace PMApplication.Services
                     pShelf.PositionY = shelf.PositionY;
                     pShelf.Row = shelf.Row;
                     pShelf.Width = shelf.Width;
-                    pShelf.Planogram = planogram;
+                    //pShelf.Planogram = planogram;
                     pShelf.PlanogramId = planogram.Id;
-                    pShelf.Part = shelf.Part;
+                    pShelf.PartId = shelf.PartId;
+                    pShelf.ShelfTypeId = shelf.ShelfTypeId;
 
-                    pShelf.ShelfTypeId = shelf.Part.PartType.Id;
                     await CreatePlanogramShelf(pShelf);
                 }
 
@@ -280,11 +280,10 @@ namespace PMApplication.Services
                 foreach (ClusterPart part in cluster.ClusterParts)
                 {
                     PlanogramPart pPart = new PlanogramPart();
-                    pPart.Part = part.Part;
+                    pPart.PartId = part.PartId;
                     pPart.PlanogramId = planogram.Id;
                     pPart.PositionX = part.PositionX;
                     pPart.PositionY = part.PositionY;
-                    pPart.Part = part.Part;
                     await CreatePlanogramPart(pPart);
 
 
