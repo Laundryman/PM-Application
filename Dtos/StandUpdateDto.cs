@@ -44,14 +44,14 @@ namespace PMApplication.Dtos
         public int Cols { get; set; }
         public bool EqualCols { get; set; }
         public int DefaultColWidth { get; set; }
-        public int HorizontalPitchCount { get; set; }
-        public int HorizontalPitchSize { get; set; }
+        public int? HorizontalPitchCount { get; set; }
+        public int? HorizontalPitchSize { get; set; }
 
         //--------------------- Section 4 ROWS ------------------------------------
         public int? Rows { get; set; }
         public bool EqualRows { get; set; }
         public int? DefaultRowHeight { get; set; }
-        public int shelfIncrement { get; set; }
+        public int? shelfIncrement { get; set; } //obsolete
 
         //--------------------- Section 5 OTHER -----------------------------------
         public string? HeaderGraphic { get; set; }
